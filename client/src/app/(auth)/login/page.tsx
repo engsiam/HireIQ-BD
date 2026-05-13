@@ -66,10 +66,10 @@ export default function LoginPage() {
         
         <CardHeader className="space-y-2 text-center pt-10 pb-6">
           <div className="flex justify-center mb-4">
-            <Link href="/" className="relative group">
-              <div className="absolute inset-0 bg-[#EB4C4C]/20 blur-xl rounded-2xl group-hover:bg-[#EB4C4C]/30 transition-all"></div>
-              <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-[#EB4C4C] to-[#FF7070] flex items-center justify-center shadow-xl shadow-[#EB4C4C]/20 group-hover:scale-105 transition-transform duration-300">
-                <span className="material-symbols-outlined text-white text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>neurology</span>
+            <Link href="/" className="group">
+              <div className="text-center">
+                <span className="text-2xl font-bold text-gray-900 dark:text-white">Hire<span className="text-[#EB4C4C]">IQ</span> BD</span>
+                <span className="text-[10px] block text-gray-400">AI-Powered Jobs</span>
               </div>
             </Link>
           </div>

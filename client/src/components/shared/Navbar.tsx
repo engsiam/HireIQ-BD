@@ -74,8 +74,10 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-
-            <span className="text-xl font-bold text-gray-900 dark:text-white">Hire<span className="text-[#EB4C4C]">IQ</span> BD</span>
+            <div>
+              <span className="text-xl font-bold text-gray-900 dark:text-white">Hire<span className="text-[#EB4C4C]">IQ</span> BD</span>
+              <span className="text-[10px] block text-gray-400">AI-Powered Jobs</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}

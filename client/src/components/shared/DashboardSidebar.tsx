@@ -76,14 +76,11 @@ export default function DashboardSidebar({ role = 'JOBSEEKER', onLogout }: { rol
   /* ── Logo block ── */
   const LogoBlock = ({ size = 'md' }: { size?: 'sm' | 'md' }) => (
     <Link href="/" className="flex items-center gap-2.5 group">
-      {/* <div className={`${size === 'sm' ? 'w-8 h-8' : 'w-9 h-9'} bg-gradient-to-br from-[#EB4C4C] to-[#FF7070] rounded-xl flex items-center justify-center shadow-lg shadow-[#EB4C4C]/30 group-hover:scale-105 transition-transform`}>
-        <span className="material-symbols-outlined text-white text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>neurology</span>
-      </div> */}
       <div className="flex flex-col leading-none">
-        <span className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-black tracking-tighter text-foreground`}>
-          HIRE<span className="text-[#EB4C4C]">IQ</span>
+        <span className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold tracking-tighter text-foreground`}>
+          Hire<span className="text-[#EB4C4C]">IQ</span> BD
         </span>
-        <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#EB4C4C] opacity-80 mt-0.5">Dashboard</span>
+        <span className="text-[10px] font-medium text-muted-foreground">AI-Powered Jobs</span>
       </div>
     </Link>
   );

@@ -145,7 +145,7 @@ export default function DashboardHeader({ user, onLogout }: DashboardHeaderProps
           {open && (
             <>
               <div className="fixed inset-0 z-[110]" onClick={() => setOpen(false)} />
-              <div className="absolute right-0 top-full mt-2 w-60 z-[120] rounded-2xl border border-border bg-popover shadow-2xl overflow-hidden">
+              <div className="absolute right-0 top-full mt-2 w-60 z-[120] rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
 
                 {/* User info */}
                 <div className="px-4 py-3 border-b border-border flex items-center gap-3">

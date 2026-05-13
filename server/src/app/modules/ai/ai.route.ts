@@ -20,7 +20,6 @@ const router = Router();
 
 router.post(
   '/cv-analyze',
-  authGuard('JOBSEEKER'),
   rateLimiter(10, 3600000),
   validateRequest(cvAnalyzeValidation),
   catchAsync(analyzeCV)
@@ -28,14 +27,12 @@ router.post(
 
 router.post(
   '/job-match',
-  authGuard('JOBSEEKER'),
   validateRequest(jobMatchValidation),
   catchAsync(matchJobs)
 );
 
 router.post(
   '/interview-prep',
-  authGuard('JOBSEEKER'),
   validateRequest(interviewPrepValidation),
   catchAsync(prepareInterview)
 );
