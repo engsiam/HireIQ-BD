@@ -1,0 +1,143 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  EMPLOYER
+  JOBSEEKER
+}
+
+enum JobStatus {
+  OPEN
+  CLOSED
+  DRAFT
+}
+
+enum ApplicationStatus {
+  PENDING
+  SHORTLISTED
+  REJECTED
+  HIRED
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  REMOTE
+  CONTRACT
+  INTERNSHIP
+}
+
+model User {
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  email            String        @unique
+  password         String?
+  role             Role          @default(JOBSEEKER)
+  avatar           String?
+  phone            String?
+  location         String?
+  bio              String?
+  skills           String[]
+  resumeUrl        String?
+  isActive         Boolean       @default(true)
+  googleId         String?
+  jobs             Job[]
+  applications     Application[]
+  reviews          Review[]
+  savedJobs        String[]
+  blogs            Blog[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+model Job {
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  description      String
+  requirements     String[]
+  responsibilities String[]
+  skills           String[]
+  type             JobType
+  category         String
+  location         String
+  district         String
+  salary           String
+  salaryMin        Float?
+  salaryMax        Float?
+  deadline         DateTime
+  status           JobStatus     @default(OPEN)
+  isFeatured       Boolean       @default(false)
+  views            Int           @default(0)
+  companyName      String
+  companyLogo      String?
+  companyWebsite   String?
+  employerId       String        @db.ObjectId
+  employer         User          @relation(fields: [employerId], references: [id])
+  applications     Application[]
+  reviews          Review[]
+  aiTags           String[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+model Application {
+  id           String            @id @default(auto()) @map("_id") @db.ObjectId
+  jobId        String            @db.ObjectId
+  job          Job               @relation(fields: [jobId], references: [id])
+  userId       String            @db.ObjectId
+  user         User              @relation(fields: [userId], references: [id])
+  coverLetter  String
+  resumeUrl    String
+  status       ApplicationStatus @default(PENDING)
+  aiScore      Float?
+  aiFeedback   String?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+}
+
+model Review {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id])
+  jobId      String   @db.ObjectId
+  job        Job      @relation(fields: [jobId], references: [id])
+  rating     Int
+  comment    String
+  createdAt  DateTime @default(now())
+}
+
+model Blog {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  slug        String   @unique
+  content     String
+  coverImage  String
+  category    String
+  tags        String[]
+  authorId    String   @db.ObjectId
+  author      User     @relation(fields: [authorId], references: [id])
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([authorId])
+}
+
+model Contact {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  subject   String
+  message   String
+  reply     String?
+  repliedAt DateTime?
+  isRead    Boolean   @default(false)
+  createdAt DateTime  @default(now())
+}
