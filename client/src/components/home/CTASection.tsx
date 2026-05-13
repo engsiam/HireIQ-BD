@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 
 export default function CTASection() {
   return (
-    <Section as="div" className="bg-primary text-white relative overflow-hidden" padding="none">
+    <Section as="div" className="bg-[#EB4C4C] text-white relative overflow-hidden" padding="none">
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-[100px]" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-[100px]" />
@@ -60,17 +60,23 @@ export default function CTASection() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link href="/register">
-              <Button className="h-14 px-8 rounded-2xl font-black text-sm uppercase tracking-wider inline-flex items-center gap-3 bg-white text-primary hover:bg-white/90 transition-all">
+              <Button className="h-14 px-8 rounded-full font-black text-sm uppercase tracking-wider inline-flex items-center gap-3 bg-white text-[#EB4C4C] hover:bg-[#FFF5F5] transition-all border border-white">
                 <span>Create Free Account</span>
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link href="/jobs">
               <Button 
-                variant="outline" 
-                className="h-14 px-8 rounded-2xl font-black text-sm uppercase tracking-wider border-white/30 text-white hover:bg-white/10"
+                className="h-14 px-8 rounded-full font-black text-sm uppercase tracking-wider bg-white text-[#EB4C4C] hover:bg-[#FFF5F5] border border-white"
               >
                 Browse Jobs
+              </Button>
+            </Link>
+            <Link href="/register?role=EMPLOYER">
+              <Button 
+                className="h-14 px-8 rounded-full font-black text-sm uppercase tracking-wider bg-transparent border-2 border-white text-white hover:bg-white/10"
+              >
+                Post a Job
               </Button>
             </Link>
           </motion.div>

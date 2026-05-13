@@ -50,7 +50,7 @@ export default function HeroSection() {
     { icon: Award, value: '98%', label: 'Success Rate', color: 'text-purple-500' },
   ];
 
-  const companies = ['Pathao', 'bKash', 'Daraz', 'Grameenphone', 'BRAC', 'Shohoz'];
+  const companies = ['Pathao', 'bKash', 'Daraz', 'Grameenphone', 'BRAC', 'Shohoz', 'Chaldal', 'ShajGoj'];
 
   return (
     <>
@@ -224,14 +224,15 @@ export default function HeroSection() {
           <p className="text-center text-xs font-bold uppercase mb-8 tracking-[0.3em] text-gray-500 dark:text-gray-400">
             Trusted by Bangladesh's Top Companies
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+          <div className="flex flex-nowrap justify-evenly items-center gap-4 md:gap-8 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
             {companies.map((company, i) => (
               <motion.span 
                 key={company}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ delay: i * 0.1 }}
-                className="text-2xl md:text-3xl font-bold text-gray-400 dark:text-gray-500 hover:text-[#EB4C4C] transition-colors cursor-pointer"
+                viewport={{ once: true }}
+                className="text-lg md:text-2xl font-bold text-[#94A3B8] hover:text-[#EB4C4C] transition-colors cursor-pointer whitespace-nowrap px-4"
               >
                 {company}
               </motion.span>

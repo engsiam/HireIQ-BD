@@ -5,9 +5,9 @@ import { Section } from '@/components/ui/section';
 import { Briefcase, Building2, Users, TrendingUp } from 'lucide-react';
 
 const stats = [
-  { value: '5000+', label: 'Jobs Posted', icon: Briefcase },
-  { value: '1200+', label: 'Companies', icon: Building2 },
-  { value: '50000+', label: 'Job Seekers', icon: Users },
+  { value: '5K+', label: 'Jobs Posted', icon: Briefcase },
+  { value: '1.2K+', label: 'Companies', icon: Building2 },
+  { value: '50K+', label: 'Job Seekers', icon: Users },
   { value: '98%', label: 'Success Rate', icon: TrendingUp },
 ];
 
@@ -28,7 +28,7 @@ export default function StatsSection() {
               <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-white/20 transition-colors">
                 <stat.icon className="w-7 h-7 text-white" />
               </div>
-              <div className="text-3xl md:text-5xl font-bold tracking-tight mb-2 group-hover:scale-110 transition-transform duration-500">
+              <div className="text-3xl md:text-5xl font-extrabold tracking-tight mb-2 group-hover:scale-110 transition-transform duration-500">
                 {stat.value}
               </div>
               <div className="font-bold uppercase tracking-[0.2em] text-xs text-white/80">

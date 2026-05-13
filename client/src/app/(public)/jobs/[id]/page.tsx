@@ -184,18 +184,36 @@ export default function JobDetailPage({ params }: PageProps) {
                 {job.requirements && (
                   <>
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mt-6 mb-3">Requirements</h3>
-                    <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
-                      <p className="whitespace-pre-line">{job.requirements}</p>
-                    </div>
+                    <ul className="space-y-2">
+                      {Array.isArray(job.requirements) ? (
+                        job.requirements.map((req: string, i: number) => (
+                          <li key={i} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#EB4C4C] mt-2 shrink-0" />
+                            <span>{req}</span>
+                          </li>
+                        ))
+                      ) : (
+                        <p className="whitespace-pre-line text-gray-600 dark:text-gray-300">{job.requirements}</p>
+                      )}
+                    </ul>
                   </>
                 )}
 
                 {job.responsibilities && (
                   <>
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mt-6 mb-3">Responsibilities</h3>
-                    <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
-                      <p className="whitespace-pre-line">{job.responsibilities}</p>
-                    </div>
+                    <ul className="space-y-2">
+                      {Array.isArray(job.responsibilities) ? (
+                        job.responsibilities.map((resp: string, i: number) => (
+                          <li key={i} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#EB4C4C] mt-2 shrink-0" />
+                            <span>{resp}</span>
+                          </li>
+                        ))
+                      ) : (
+                        <p className="whitespace-pre-line text-gray-600 dark:text-gray-300">{job.responsibilities}</p>
+                      )}
+                    </ul>
                   </>
                 )}
 

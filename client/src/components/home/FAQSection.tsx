@@ -38,7 +38,7 @@ export default function FAQSection() {
   return (
     <Section
       id="faq"
-      className="relative overflow-hidden"
+      className="bg-[#FFF5F5] dark:bg-[#111827] relative overflow-hidden"
     >
       {/* HEADER */}
       <div className="text-center mb-14">

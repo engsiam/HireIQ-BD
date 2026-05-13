@@ -99,19 +99,20 @@ export default function AIToolsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-12"
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto mb-12"
           >
             {stats.map((stat, i) => (
-              <div 
+              <motion.div 
                 key={i}
-                className="bg-white/80 dark:bg-[#1E293B]/80 backdrop-blur-sm rounded-2xl p-5 text-center border border-gray-200/50 dark:border-gray-700/50 hover:border-[#EB4C4C]/30 transition-all hover:shadow-lg hover:shadow-[#EB4C4C]/10"
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/80 dark:bg-[#1E293B]/80 backdrop-blur-sm rounded-2xl p-4 sm:p-5 text-center border border-gray-200/50 dark:border-gray-700/50 hover:border-[#EB4C4C]/30 transition-all hover:shadow-lg hover:shadow-[#EB4C4C]/10"
               >
-                <div className="w-10 h-10 mx-auto mb-3 rounded-xl bg-gradient-to-r from-[#EB4C4C] to-[#FF7070] flex items-center justify-center">
+                <div className="w-10 h-10 mx-auto mb-3 rounded-xl bg-gradient-to-r from-[#EB4C4C] to-[#FF7070] flex items-center justify-center shadow-lg shadow-[#EB4C4C]/20">
                   <stat.icon className="w-5 h-5 text-white" />
                 </div>
-                <p className="text-2xl font-black text-gray-900 dark:text-white">{stat.value}</p>
+                <p className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white">{stat.value}</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">{stat.label}</p>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
 
@@ -187,21 +188,33 @@ export default function AIToolsPage() {
         </motion.div>
 
         {/* Tool Tabs */}
-        <div className="flex flex-col md:flex-row gap-4 mb-8 justify-center">
+        <div className="flex flex-col md:flex-row gap-3 mb-8 justify-center">
           {features.map((feature, i) => (
             <button
               key={i}
               onClick={() => setActiveTab(i)}
-              className={`flex items-center gap-3 px-6 py-4 rounded-2xl font-bold transition-all ${
+              className={`relative flex items-center gap-3 px-6 py-4 rounded-2xl font-bold transition-all overflow-hidden ${
                 activeTab === i
-                  ? 'bg-gradient-to-r from-[#EB4C4C] to-[#FF7070] text-white shadow-lg shadow-[#EB4C4C]/25'
+                  ? 'text-white'
                   : 'bg-white dark:bg-[#1E293B] text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-[#EB4C4C]/50'
               }`}
             >
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${activeTab === i ? 'bg-white/20' : feature.bgColor}`}>
-                <feature.icon className={`w-4 h-4 ${activeTab === i ? 'text-white' : `bg-gradient-to-r ${feature.color} bg-clip-text text-transparent`}`} />
+              {activeTab === i && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute inset-0 bg-gradient-to-r from-[#EB4C4C] to-[#FF7070]"
+                  initial={false}
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                />
+              )}
+              <div className={`relative z-10 w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
+                activeTab === i 
+                  ? 'bg-white/20' 
+                  : feature.bgColor
+              }`}>
+                <feature.icon className={`w-5 h-5 ${activeTab === i ? 'text-white' : 'text-gray-600 dark:text-gray-300'}`} />
               </div>
-              {feature.title}
+              <span className="relative z-10">{feature.title}</span>
             </button>
           ))}
         </div>
@@ -244,19 +257,22 @@ export default function AIToolsPage() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               onClick={() => setActiveTab(i)}
-              className="group bg-white dark:bg-[#1E293B] rounded-3xl p-8 border border-gray-200 dark:border-gray-800 cursor-pointer hover:border-[#EB4C4C] hover:shadow-2xl hover:shadow-[#EB4C4C]/10 transition-all duration-300"
+              className="group relative bg-white dark:bg-[#1E293B] rounded-3xl p-8 border-2 border-gray-200 dark:border-gray-800 cursor-pointer hover:border-[#EB4C4C] hover:shadow-2xl hover:shadow-[#EB4C4C]/10 transition-all duration-300 overflow-hidden"
             >
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
-                <feature.icon className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-[#EB4C4C] transition-colors">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                {feature.description}
-              </p>
-              <div className="mt-6 flex items-center text-[#EB4C4C] font-semibold">
-                Try Now <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#EB4C4C]/0 to-[#EB4C4C]/0 group-hover:from-[#EB4C4C]/5 group-hover:to-[#FF7070]/5 transition-all duration-300" />
+              <div className="relative">
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform shadow-lg`}>
+                  <feature.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-[#EB4C4C] transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {feature.description}
+                </p>
+                <div className="mt-6 flex items-center text-[#EB4C4C] font-semibold">
+                  Try Now <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
             </motion.div>
           ))}
