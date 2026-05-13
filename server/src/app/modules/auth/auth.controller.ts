@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import prisma from '../../../prisma/client';
 import ApiError from '../../utils/ApiError';
 import sendResponse from '../../utils/sendResponse';
-import env from '../../../config';
+import env, { getServerUrl } from '../../../config';
 import { AuthRequest } from '../../middlewares/auth.middleware';
 import { getCrossDomainCookieOptions } from '../../utils/cookie';
 
@@ -123,35 +123,54 @@ export const googleAuth = async (req: AuthRequest, res: Response) => {
     throw new ApiError(400, 'Authorization code is required');
   }
 
-  try {
-    const redirectUri = `${process.env.SERVER_URL}/api/v1/auth/google/callback`;
+  const clientBase = env.CLIENT_URL || 'http://localhost:3000';
+  // Must match the redirect_uri sent to Google in /auth/google (and Google Cloud Console)
+  const redirectUri = `${getServerUrl()}/api/v1/auth/google/callback`;
 
+  try {
     const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
-        client_id: process.env.GOOGLE_CLIENT_ID || '',
-        client_secret: process.env.GOOGLE_CLIENT_SECRET || '',
+        client_id: env.GOOGLE_CLIENT_ID || '',
+        client_secret: env.GOOGLE_CLIENT_SECRET || '',
         code: code as string,
         grant_type: 'authorization_code',
         redirect_uri: redirectUri,
       }),
     });
 
-    const tokenData = await tokenRes.json() as { access_token?: string };
+    const tokenData = await tokenRes.json() as {
+      access_token?: string;
+      error?: string;
+      error_description?: string;
+    };
 
     if (!tokenData.access_token) {
-      throw new ApiError(400, 'Failed to get access token from Google');
+      console.error('[Google OAuth] token exchange failed:', tokenData);
+      throw new ApiError(
+        400,
+        tokenData.error_description || tokenData.error || 'Failed to get access token from Google'
+      );
     }
 
     const userRes = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
       headers: { Authorization: `Bearer ${tokenData.access_token}` },
     });
 
-    const userData = await userRes.json() as { email: string; name?: string; picture?: string };
+    const userData = await userRes.json() as {
+      id: string;
+      email: string;
+      name?: string;
+      picture?: string;
+    };
+
+    if (!userData.email || !userData.id) {
+      throw new ApiError(400, 'Google account did not return email or id');
+    }
 
     let user = await prisma.user.findFirst({
-      where: { googleId: userData.email.split('@')[0] },
+      where: { googleId: userData.id },
     });
 
     if (!user) {
@@ -162,17 +181,20 @@ export const googleAuth = async (req: AuthRequest, res: Response) => {
       if (user) {
         user = await prisma.user.update({
           where: { id: user.id },
-          data: { googleId: userData.email.split('@')[0] },
+          data: {
+            googleId: userData.id,
+            ...(userData.picture && { avatar: userData.picture }),
+          },
         });
       } else {
         user = await prisma.user.create({
           data: {
             name: userData.name || userData.email.split('@')[0],
             email: userData.email,
-            password: '', // Google sign-in users don't need password
             avatar: userData.picture,
-            googleId: userData.email.split('@')[0],
+            googleId: userData.id,
             role: 'JOBSEEKER',
+            skills: [],
           },
         });
       }
@@ -185,8 +207,12 @@ export const googleAuth = async (req: AuthRequest, res: Response) => {
     const { accessToken, refreshToken } = generateTokens(user.id, user.role);
     setTokenCookies(res, accessToken, refreshToken);
 
-    res.redirect(`${process.env.CLIENT_URL}/dashboard`);
+    res.redirect(`${clientBase}/dashboard`);
   } catch (error) {
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    console.error('[Google OAuth]', error);
     throw new ApiError(400, 'Google authentication failed');
   }
 };

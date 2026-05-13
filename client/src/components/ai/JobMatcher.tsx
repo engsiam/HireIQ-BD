@@ -13,6 +13,7 @@ import axiosInstance from '@/lib/axiosInstance';
 import { Job } from '@/types';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useUser } from '@/store/useAuthStore';
 
 interface JobMatcherProps {
   isAuthenticated?: boolean;
@@ -64,6 +65,7 @@ function MatchScoreRing({ score, label }: { score: number; label: string }) {
 }
 
 export default function JobMatcher({ isAuthenticated = false }: JobMatcherProps) {
+  const user = useUser();
   const [skills, setSkills] = useState<string[]>([]);
   const [skillInput, setSkillInput] = useState('');
   const [experience, setExperience] = useState('mid');
@@ -83,6 +85,14 @@ export default function JobMatcher({ isAuthenticated = false }: JobMatcherProps)
   };
 
   const handleFindMatches = async () => {
+    if (!isAuthenticated) {
+      toast.error('Please login as a Job Seeker to use AI tools');
+      return;
+    }
+    if (user?.role !== 'JOBSEEKER') {
+      toast.error('This feature is only available for Job Seekers');
+      return;
+    }
     if (skills.length === 0) {
       toast.error('Please add at least one skill');
       return;

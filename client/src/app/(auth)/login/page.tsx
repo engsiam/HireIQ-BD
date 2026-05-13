@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuthStore } from '@/store/useAuthStore';
+import { BASE_URL } from '@/lib/config';
 import { motion } from 'framer-motion';
 import { Mail, Lock, LogIn } from 'lucide-react';
 import { FaGoogle } from "react-icons/fa";
@@ -51,7 +52,7 @@ export default function LoginPage() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL || ''}/auth/google`;
+    window.location.href = `${BASE_URL}/auth/google`;
   };
 
   return (

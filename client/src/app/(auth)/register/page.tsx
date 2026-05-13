@@ -22,6 +22,7 @@ import { motion } from 'framer-motion';
 import { User, Mail, Lock, UserPlus, Loader2 } from 'lucide-react';
 import { FaGoogle } from "react-icons/fa";
 import { toast } from 'sonner';
+import { BASE_URL } from '@/lib/config';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -110,8 +111,10 @@ return (
         
         <CardContent className="space-y-5 px-8 pb-10">
           <Button 
+            type="button"
             variant="outline" 
             className="w-full h-11 border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 text-gray-700 dark:text-gray-200" 
+            onClick={() => { window.location.href = `${BASE_URL}/auth/google`; }}
           >
             <FaGoogle size={18} className="text-red-500" />
             Continue with Google

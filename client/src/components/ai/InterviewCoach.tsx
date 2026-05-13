@@ -10,6 +10,7 @@ import { Loader2, Sparkles, MessageSquare, Briefcase, DollarSign, CheckCircle, C
 import { toast } from 'sonner';
 import axiosInstance from '@/lib/axiosInstance';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useUser } from '@/store/useAuthStore';
 
 interface InterviewCoachProps {
   isAuthenticated?: boolean;
@@ -104,6 +105,7 @@ function QuestionCard({ question, index, color }: { question: Question; index: n
 }
 
 export default function InterviewCoach({ isAuthenticated = false }: InterviewCoachProps) {
+  const user = useUser();
   const [jobTitle, setJobTitle] = useState('');
   const [experience, setExperience] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -111,6 +113,14 @@ export default function InterviewCoach({ isAuthenticated = false }: InterviewCoa
   const [activeTab, setActiveTab] = useState('technical');
 
   const handleGenerate = async () => {
+    if (!isAuthenticated) {
+      toast.error('Please login as a Job Seeker to use AI tools');
+      return;
+    }
+    if (user?.role !== 'JOBSEEKER') {
+      toast.error('This feature is only available for Job Seekers');
+      return;
+    }
     if (!jobTitle.trim()) {
       toast.error('Please enter a job title');
       return;

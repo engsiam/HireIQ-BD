@@ -12,6 +12,9 @@ export interface User {
   role?: string;
   phone?: string;
   avatar?: string;
+  bio?: string;
+  skills?: string[];
+  location?: string;
 }
 
 interface AuthState {

@@ -35,7 +35,7 @@ function JobCard({ job, index }: { job: Job; index: number }) {
   const skills = job.skills?.slice(0, 3) || ['React', 'TypeScript', 'Node.js'];
   const salary = job.salaryMin && job.salaryMax 
     ? `$${job.salaryMin}k - $${job.salaryMax}k` 
-    : job.salary || 'Competitive';
+    : 'Competitive';
   const jobType = job.jobType || 'Full-time';
 
   return (

@@ -11,6 +11,8 @@ import { Loader2, Sparkles, CheckCircle, XCircle, AlertTriangle, Upload, FileTex
 import { toast } from 'sonner';
 import axiosInstance from '@/lib/axiosInstance';
 import { motion } from 'framer-motion';
+import { useUser } from '@/store/useAuthStore';
+import Link from 'next/link';
 
 interface CVAnalyzerProps {
   isAuthenticated?: boolean;
@@ -100,6 +102,7 @@ function ATSBreakdownCard({ title, score, icon: Icon, description }: { title: st
 }
 
 export default function CVAnalyzer({ isAuthenticated = false }: CVAnalyzerProps) {
+  const user = useUser();
   const [cvText, setCvText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -152,6 +155,14 @@ export default function CVAnalyzer({ isAuthenticated = false }: CVAnalyzerProps)
   };
 
   const handleAnalyze = async () => {
+    if (!isAuthenticated) {
+      toast.error('Please login as a Job Seeker to use AI tools');
+      return;
+    }
+    if (user?.role !== 'JOBSEEKER') {
+      toast.error('This feature is only available for Job Seekers');
+      return;
+    }
     if (!cvText.trim()) {
       toast.error('Please paste your CV content or upload a file');
       return;
