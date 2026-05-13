@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import prisma from '../../../prisma/client';
 import ApiError from '../../utils/ApiError';
@@ -134,23 +135,35 @@ export const uploadResume = async (req: AuthRequest, res: Response) => {
     throw new ApiError(400, 'Resume file is required');
   }
 
-  const result = await uploadToCloudinary(file.path, 'resumes', 'raw');
+  try {
+    const result = await uploadToCloudinary(file.path, 'resumes', 'raw');
 
-  const user = await prisma.user.update({
-    where: { id: req.user?.id },
-    data: { resumeUrl: result.secure_url },
-    select: {
-      id: true,
-      resumeUrl: true,
-    },
-  });
+    const user = await prisma.user.update({
+      where: { id: req.user?.id },
+      data: { resumeUrl: result.secure_url },
+      select: {
+        id: true,
+        resumeUrl: true,
+      },
+    });
 
-  sendResponse(res, {
-    statusCode: 200,
-    success: true,
-    message: 'Resume uploaded successfully',
-    data: user,
-  });
+    // Delete local file
+    if (fs.existsSync(file.path)) {
+      fs.unlinkSync(file.path);
+    }
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Resume uploaded successfully',
+      data: user,
+    });
+  } catch (error) {
+    if (file && fs.existsSync(file.path)) {
+      fs.unlinkSync(file.path);
+    }
+    throw error;
+  }
 };
 
 export const uploadAvatar = async (req: AuthRequest, res: Response) => {
@@ -160,30 +173,42 @@ export const uploadAvatar = async (req: AuthRequest, res: Response) => {
     throw new ApiError(400, 'Avatar file is required');
   }
 
-  const result = await uploadToCloudinary(file.path, 'avatars', 'image');
+  try {
+    const result = await uploadToCloudinary(file.path, 'avatars', 'image');
 
-  const user = await prisma.user.update({
-    where: { id: req.user?.id },
-    data: { avatar: result.secure_url },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      avatar: true,
-      phone: true,
-      location: true,
-      bio: true,
-      skills: true,
-    },
-  });
+    const user = await prisma.user.update({
+      where: { id: req.user?.id },
+      data: { avatar: result.secure_url },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        avatar: true,
+        phone: true,
+        location: true,
+        bio: true,
+        skills: true,
+      },
+    });
 
-  sendResponse(res, {
-    statusCode: 200,
-    success: true,
-    message: 'Avatar uploaded successfully',
-    data: user,
-  });
+    // Delete local file
+    if (fs.existsSync(file.path)) {
+      fs.unlinkSync(file.path);
+    }
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Avatar uploaded successfully',
+      data: user,
+    });
+  } catch (error) {
+    if (file && fs.existsSync(file.path)) {
+      fs.unlinkSync(file.path);
+    }
+    throw error;
+  }
 };
 
 export const getAllUsers = async (req: AuthRequest, res: Response) => {

@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { useUser } from '@/store/useAuthStore';
 import axiosInstance from '@/lib/axiosInstance';
 import { toast } from 'sonner';
-import { Loader2, Save, Plus, X, Upload, Camera } from 'lucide-react';
+import { Loader2, Save, Plus, X, Upload, Camera, Sparkles, FileText } from 'lucide-react';
 
 interface UserProfile {
   id: string;
@@ -29,7 +29,10 @@ export default function JobseekerProfilePage() {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploadingResume, setUploadingResume] = useState(false);
+  const [generatingBio, setGeneratingBio] = useState(false);
+  const avatarInputRef = useRef<HTMLInputElement>(null);
+  const resumeInputRef = useRef<HTMLInputElement>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -46,14 +49,15 @@ export default function JobseekerProfilePage() {
       try {
         const response = await axiosInstance.get('/users/me');
         if (response.data.success) {
-          setUser(response.data.data);
+          const data = response.data.data;
+          setUser(data);
           setFormData({
-            name: response.data.data.name || '',
-            email: response.data.data.email || '',
-            phone: response.data.data.phone || '',
-            location: response.data.data.location || '',
-            bio: response.data.data.bio || '',
-            skills: response.data.data.skills || [],
+            name: data.name || '',
+            email: data.email || '',
+            phone: data.phone || '',
+            location: data.location || '',
+            bio: data.bio || '',
+            skills: data.skills || [],
           });
         }
       } catch (error) {
@@ -98,6 +102,60 @@ export default function JobseekerProfilePage() {
       toast.error(error.response?.data?.message || 'Failed to upload avatar');
     } finally {
       setUploadingAvatar(false);
+    }
+  };
+
+  const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.type !== 'application/pdf') {
+      toast.error('Only PDF files are allowed');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('resume', file);
+
+    setUploadingResume(true);
+    try {
+      const response = await axiosInstance.post('/users/upload-resume', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      if (response.data.success) {
+        setUser((prev) => prev ? { ...prev, resumeUrl: response.data.data.resumeUrl } : null);
+        toast.success('Resume uploaded successfully!');
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Failed to upload resume');
+    } finally {
+      setUploadingResume(false);
+    }
+  };
+
+  const handleGenerateBio = async () => {
+    if (!formData.name) {
+      toast.error('Please enter your name first');
+      return;
+    }
+
+    setGeneratingBio(true);
+    try {
+      const response = await axiosInstance.post('/ai/bio', {
+        userName: formData.name,
+        userSkills: formData.skills,
+        currentBio: formData.bio
+      });
+
+      if (response.data.success) {
+        setFormData(prev => ({ ...prev, bio: response.data.data.bio }));
+        toast.success('AI bio generated!');
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Failed to generate bio');
+    } finally {
+      setGeneratingBio(false);
     }
   };
 
@@ -165,7 +223,7 @@ export default function JobseekerProfilePage() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => fileInputRef.current?.click()}
+                  onClick={() => avatarInputRef.current?.click()}
                   disabled={uploadingAvatar}
                   className="absolute bottom-0 right-0 w-8 h-8 bg-[#EB4C4C] rounded-full flex items-center justify-center text-white hover:bg-[#FF7070] transition-colors disabled:opacity-50"
                 >
@@ -176,9 +234,9 @@ export default function JobseekerProfilePage() {
                   )}
                 </button>
                 <input
-                  ref={fileInputRef}
+                  ref={avatarInputRef}
                   type="file"
-                  accept="image/jpeg,image/png,image/webp"
+                  accept="image/*"
                   onChange={handleAvatarUpload}
                   className="hidden"
                 />
@@ -242,7 +300,24 @@ export default function JobseekerProfilePage() {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-white/70">Bio</Label>
+              <div className="flex items-center justify-between">
+                <Label className="text-white/70">Bio</Label>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleGenerateBio}
+                  disabled={generatingBio}
+                  className="text-[#EB4C4C] hover:text-[#FF7070] hover:bg-[#EB4C4C]/10 h-7 px-2 text-xs gap-1.5"
+                >
+                  {generatingBio ? (
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                  ) : (
+                    <Sparkles className="w-3 h-3" />
+                  )}
+                  AI Write
+                </Button>
+              </div>
               <Textarea
                 value={formData.bio}
                 onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
@@ -291,36 +366,51 @@ export default function JobseekerProfilePage() {
           </CardHeader>
           <CardContent className="p-6">
             {user?.resumeUrl ? (
-              <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#EB4C4C]/20 rounded-lg flex items-center justify-center">
-                    <Upload className="w-5 h-5 text-[#EB4C4C]" />
+              <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-[#EB4C4C]/10 rounded-xl flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-[#EB4C4C]" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">Resume uploaded</p>
+                    <p className="text-white font-semibold">Resume uploaded</p>
                     <a href={user.resumeUrl} target="_blank" rel="noopener noreferrer" className="text-[#EB4C4C] text-sm hover:underline">
-                      View resume
+                      View current resume
                     </a>
                   </div>
                 </div>
-                <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10" onClick={() => fileInputRef.current?.click()}>
-                  Replace
+                <Button 
+                  type="button"
+                  variant="outline" 
+                  size="sm" 
+                  disabled={uploadingResume}
+                  className="border-white/20 text-white hover:bg-white/10" 
+                  onClick={() => resumeInputRef.current?.click()}
+                >
+                  {uploadingResume ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Replace'}
                 </Button>
               </div>
             ) : (
-              <div className="text-center py-8 border border-dashed border-white/20 rounded-lg">
-                <Upload className="w-10 h-10 text-white/30 mx-auto mb-3" />
-                <p className="text-white/50 mb-2">Upload your resume</p>
-                <p className="text-white/30 text-sm">PDF files only, max 10MB</p>
+              <div 
+                className="text-center py-10 border-2 border-dashed border-white/10 rounded-xl hover:border-[#EB4C4C]/30 transition-colors cursor-pointer"
+                onClick={() => resumeInputRef.current?.click()}
+              >
+                {uploadingResume ? (
+                  <Loader2 className="w-10 h-10 text-[#EB4C4C] animate-spin mx-auto mb-3" />
+                ) : (
+                  <>
+                    <Upload className="w-10 h-10 text-white/20 mx-auto mb-3" />
+                    <p className="text-white font-medium mb-1">Click to upload your resume</p>
+                    <p className="text-white/30 text-sm">PDF files only, max 10MB</p>
+                  </>
+                )}
               </div>
             )}
             <input
+              ref={resumeInputRef}
               type="file"
-              accept="application/pdf"
+              accept=".pdf"
+              onChange={handleResumeUpload}
               className="hidden"
-              ref={(el) => {
-                if (el) fileInputRef.current = el;
-              }}
             />
           </CardContent>
         </Card>

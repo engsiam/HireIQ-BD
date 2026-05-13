@@ -271,3 +271,29 @@ Return ONLY the cover letter text (no JSON, no markdown):`;
   const text = await groqPlainTextCompletion(prompt, 1500);
   return { coverLetter: text };
 };
+
+export const generateBio = async (
+  userName: string,
+  userSkills: string[],
+  currentBio?: string
+) => {
+  const prompt = `
+You are a professional profile writer. 
+Generate a professional, engaging, and concise bio (around 50-100 words) for a user profile on HireIQ BD, a job board in Bangladesh.
+
+User Details:
+- Name: ${userName}
+- Skills: ${userSkills.join(', ') || 'Not specified'}
+- Current Bio/Context: ${currentBio || 'Not specified'}
+
+Requirements:
+- Professional yet personable tone
+- Focus on key strengths and value proposition
+- Mention top skills naturally
+- Keep it under 100 words
+- Return ONLY the bio text, no preamble or quotes.
+`;
+
+  const text = await groqPlainTextCompletion(prompt, 500);
+  return { bio: text };
+};

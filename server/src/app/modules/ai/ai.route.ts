@@ -9,6 +9,7 @@ import {
   prepareInterview,
   chat,
   generateCoverLetter,
+  generateBio,
 } from './ai.controller';
 import {
   cvAnalyzeValidation,
@@ -54,6 +55,13 @@ router.post(
   authGuard('JOBSEEKER'),
   rateLimiter(5, 60000),
   catchAsync(generateCoverLetter)
+);
+
+router.post(
+  '/bio',
+  authGuard('JOBSEEKER'),
+  rateLimiter(5, 60000),
+  catchAsync(generateBio)
 );
 
 export default router;

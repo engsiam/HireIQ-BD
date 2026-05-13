@@ -128,3 +128,28 @@ export const generateCoverLetter = async (req: AuthRequest, res: Response) => {
     throw new ApiError(500, error instanceof Error ? error.message : 'Failed to generate cover letter');
   }
 };
+
+export const generateBio = async (req: AuthRequest, res: Response) => {
+  const { userName, userSkills, currentBio } = req.body;
+
+  try {
+    const result = await aiService.generateBio(
+      userName,
+      userSkills || [],
+      currentBio
+    );
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Bio generated',
+      data: result,
+    });
+  } catch (error) {
+    console.error('[Generate Bio Error]:', error);
+    if (error instanceof Error && error.message.includes('not configured')) {
+      throw new ApiError(503, 'AI service is not configured');
+    }
+    throw new ApiError(500, error instanceof Error ? error.message : 'Failed to generate bio');
+  }
+};
