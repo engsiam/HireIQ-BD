@@ -5,7 +5,7 @@
 <br/>
 
 <!-- Replace the image below with an actual screenshot of your app -->
-<img src="https://placehold.co/1200x600/0a0a1a/EB4C4C?text=HireIQ+BD+Dashboard+Screenshot&font=montserrat" alt="HireIQ BD Dashboard" width="90%" style="border-radius:12px; margin: 20px 0;" />
+<img src="https://i.ibb.co.com/9HpRKwpX/1.png" alt="HireIQ BD Landing Page" width="90%" style="border-radius:12px; margin: 20px 0;" />
 
 <br/>
 
@@ -55,9 +55,9 @@
 
 | Service | URL |
 |---|---|
-| 🖥️ Frontend | `https://hireiq-bd.vercel.app` *(update with actual URL)* |
-| ⚙️ Backend API | `https://hireiq-bd-api.onrender.com` *(update with actual URL)* |
-| 📚 API Docs | `https://hireiq-bd-api.onrender.com/api-docs` |
+| 🖥️ Frontend | `https://hire-iq-bd.vercel.app` |
+| ⚙️ Backend API | `https://hireiq-bd.onrender.com` |
+| 📚 API Docs | `https://hireiq-bd.onrender.com/api-docs` |
 
 ---
 
@@ -65,20 +65,17 @@
 
 <div align="center">
 
-### 🏠 Landing Page
-<img src="https://placehold.co/1200x650/0f0f1a/EB4C4C?text=Landing+Page+Screenshot&font=montserrat" alt="Landing Page" width="90%" style="border-radius:10px; margin-bottom:16px" />
-
 ### 🛠️ Admin Dashboard
-<img src="https://placehold.co/1200x650/0f0f1a/EB4C4C?text=Admin+Dashboard+Screenshot&font=montserrat" alt="Admin Dashboard" width="90%" style="border-radius:10px; margin-bottom:16px" />
-
-### 💼 Employer Dashboard
-<img src="https://placehold.co/1200x650/0f0f1a/3B82F6?text=Employer+Dashboard+Screenshot&font=montserrat" alt="Employer Dashboard" width="90%" style="border-radius:10px; margin-bottom:16px" />
+<img src="https://i.ibb.co.com/Y7sLZNpX/dashbaord-admin.png" alt="Admin Dashboard" width="90%" style="border-radius:10px; margin-bottom:16px" />
 
 ### 👤 Job Seeker Dashboard
-<img src="https://placehold.co/1200x650/0f0f1a/22C55E?text=Job+Seeker+Dashboard+Screenshot&font=montserrat" alt="Job Seeker Dashboard" width="90%" style="border-radius:10px; margin-bottom:16px" />
+<img src="https://i.ibb.co.com/MDPGFKqk/jppbseker.png" alt="Job Seeker Dashboard" width="90%" style="border-radius:10px; margin-bottom:16px" />
+
+### 👤 Employee Dashboard
+<img src="https://i.ibb.co.com/kgWvDw1y/employee.png" alt="Employee Dashboard" width="90%" style="border-radius:10px; margin-bottom:16px" />
 
 ### ☀️ Light Mode
-<img src="https://placehold.co/1200x650/f5f5f5/EB4C4C?text=Light+Mode+Screenshot&font=montserrat" alt="Light Mode" width="90%" style="border-radius:10px; margin-bottom:16px" />
+<img src="https://i.ibb.co.com/kgdVfJ8L/light-mood.png" alt="Light Mode" width="90%" style="border-radius:10px; margin-bottom:16px" />
 
 </div>
 
