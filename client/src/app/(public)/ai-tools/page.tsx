@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useIsAuthenticated } from '@/store/useAuthStore';
 import CVAnalyzer from '@/components/ai/CVAnalyzer';
 import JobMatcher from '@/components/ai/JobMatcher';
@@ -54,6 +54,25 @@ const benefits = [
 export default function AIToolsPage() {
   const isAuthenticated = useIsAuthenticated();
   const [activeTab, setActiveTab] = useState(0);
+
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash;
+      if (hash === '#cv-analyzer') setActiveTab(0);
+      else if (hash === '#job-matcher') setActiveTab(1);
+      else if (hash === '#interview-coach') setActiveTab(2);
+
+      if (hash && ['#cv-analyzer', '#job-matcher', '#interview-coach'].includes(hash)) {
+        setTimeout(() => {
+          document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    };
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-[#FFF5F5] dark:from-[#0B1120] dark:via-[#0B1120] dark:to-[#111827]">
