@@ -17,12 +17,7 @@
     "resolveJsonModule": true,
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    },
+    "sourceMap": true
   },
   "include": [
     "src/**/*"
