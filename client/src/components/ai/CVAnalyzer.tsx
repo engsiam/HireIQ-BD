@@ -156,13 +156,15 @@ export default function CVAnalyzer({ isAuthenticated = false }: CVAnalyzerProps)
 
   const handleAnalyze = async () => {
     if (!isAuthenticated) {
-      toast.error('Please login as a Job Seeker to use AI tools');
+      toast.error('Please login as a job seeker to use AI tools');
       return;
     }
+
     if (user?.role !== 'JOBSEEKER') {
       toast.error('This feature is only available for Job Seekers');
       return;
     }
+
     if (!cvText.trim()) {
       toast.error('Please paste your CV content or upload a file');
       return;

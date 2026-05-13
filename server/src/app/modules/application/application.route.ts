@@ -11,41 +11,23 @@ import {
 } from './application.controller';
 import { applyJobValidation, updateApplicationStatusValidation } from './application.validation';
 
+import { uploadResume } from '../../middlewares/upload.middleware';
+
 const router = Router();
 
-/**
- * @swagger
- * /applications:
- *   post:
- *     tags: [Applications]
- *     summary: Apply to a job
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - jobId
- *               - coverLetter
- *               - resumeUrl
- *             properties:
- *               jobId:
- *                 type: string
- *               coverLetter:
- *                 type: string
- *               resumeUrl:
- *                 type: string
- *                 format: uri
- *     responses:
- *       201:
- *         description: Application submitted
- *       400:
- *         description: Already applied or job not available
- */
-router.post('/', authGuard('JOBSEEKER'), validateRequest(applyJobValidation), catchAsync(applyToJob));
+router.post(
+  '/',
+  authGuard('JOBSEEKER'),
+  uploadResume.single('resume'),
+  (req, res, next) => {
+    // If file exists, we'll handle it in the controller, 
+    // but we need to satisfy the validation if it's required.
+    // Alternatively, we make it optional in validation.
+    next();
+  },
+  validateRequest(applyJobValidation),
+  catchAsync(applyToJob)
+);
 
 /**
  * @swagger

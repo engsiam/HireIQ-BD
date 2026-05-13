@@ -1,12 +1,35 @@
 import { Response } from 'express';
+import fs from 'fs';
 import prisma from '../../../prisma/client';
 import ApiError from '../../utils/ApiError';
 import sendResponse from '../../utils/sendResponse';
 import { AuthRequest } from '../../middlewares/auth.middleware';
+import { uploadToCloudinary } from '../../utils/cloudinary';
 
 export const applyToJob = async (req: AuthRequest, res: Response) => {
-  const { jobId, coverLetter, resumeUrl } = req.body;
+  const { jobId, coverLetter } = req.body;
+  let { resumeUrl } = req.body;
   const userId = req.user?.id;
+  const file = req.file;
+
+  // Handle file upload if present
+  if (file) {
+    try {
+      const result = await uploadToCloudinary(file.path, 'resumes', 'raw');
+      resumeUrl = result.secure_url;
+      // Delete local file after upload
+      fs.unlinkSync(file.path);
+    } catch (error) {
+      if (file && fs.existsSync(file.path)) {
+        fs.unlinkSync(file.path);
+      }
+      throw new ApiError(500, 'Failed to upload resume to Cloudinary');
+    }
+  }
+
+  if (!resumeUrl) {
+    throw new ApiError(400, 'Resume is required (either as a file or a URL)');
+  }
 
   const existingApplication = await prisma.application.findFirst({
     where: { jobId, userId },

@@ -71,12 +71,23 @@ export default function ApplyModal({ job, open, onOpenChange }: ApplyModalProps)
       return;
     }
 
-setIsLoading(true);
+    setIsLoading(true);
     try {
-      await axiosInstance.post(`/applications`, {
-        jobId: job.id,
-        coverLetter: coverLetter,
-        resumeUrl: '',
+      const formData = new FormData();
+      formData.append('jobId', job.id);
+      formData.append('coverLetter', coverLetter);
+      if (resume) {
+        formData.append('resume', resume);
+      } else {
+        toast.error('Please upload your resume');
+        setIsLoading(false);
+        return;
+      }
+
+      await axiosInstance.post(`/applications`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
       toast.success('Application submitted successfully!');
@@ -87,9 +98,9 @@ setIsLoading(true);
         setCoverLetter('');
         setResume(null);
       }, 2000);
-    } catch (error: unknown) {
-      const err = error as { response?: { data?: { message?: string } } };
-      toast.error(err.response?.data?.message || 'Failed to submit application');
+    } catch (error: any) {
+      console.error('[Apply Error]:', error);
+      toast.error(error.response?.data?.message || 'Failed to submit application');
     } finally {
       setIsLoading(false);
     }
