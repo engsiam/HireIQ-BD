@@ -67,7 +67,7 @@ export default function Navbar() {
 
   return (
     <nav className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      "fixed top-0 left-0 right-0 z-[100] transition-all duration-300 overflow-visible",
       scrolled ? "bg-white/95 dark:bg-[#0B1120]/95 shadow-lg backdrop-blur-xl border-b border-gray-200/20" : "bg-white/90 dark:bg-[#0B1120]/90"
     )}>
       <div className="max-w-7xl mx-auto px-6 md:px-8">
@@ -108,31 +108,69 @@ export default function Navbar() {
 
                 {/* Simple User Menu */}
                 <div className="relative group">
-                  <button className="flex items-center gap-2 p-1.5 rounded-xl">
-                    <Avatar className="w-9 h-9 border-2 border-[#EB4C4C]/30">
+                  {/* PROFILE BUTTON */}
+                  <button className="flex cursor-pointer items-center gap-2 rounded-xl p-1.5 transition-colors hover:bg-gray-100 dark:hover:bg-[#1E293B]">
+                    <Avatar className="h-9 w-9 border-2 border-[#EB4C4C]/30">
                       <AvatarImage src={user.avatar || ''} />
-                      <AvatarFallback className="bg-gradient-to-br from-[#EB4C4C] to-[#c43a3a] text-white text-sm font-bold">
+
+                      <AvatarFallback className="bg-gradient-to-br from-[#EB4C4C] to-[#c43a3a] text-sm font-bold text-white">
                         {getInitials(user.name || 'U')}
                       </AvatarFallback>
                     </Avatar>
-                    <ChevronDown size={14} className="text-gray-500 dark:text-gray-400" />
+
+                    <ChevronDown
+                      size={14}
+                      className="text-gray-500 transition-transform duration-200 group-hover:rotate-180 dark:text-gray-400"
+                    />
                   </button>
 
-                  <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-[#1E293B] rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100] pointer-events-none group-hover:pointer-events-auto">
-                    <div className="p-4 border-b border-gray-100 dark:border-gray-700">
-                      <p className="font-bold text-gray-900 dark:text-white">{user.name}</p>
-                      <p className="text-xs text-gray-500">{user.email}</p>
+                  {/* HOVER BRIDGE */}
+                  <div className="absolute right-0 top-full h-3 w-full" />
+
+                  {/* DROPDOWN */}
+                  <div className="absolute right-0 top-[calc(100%+10px)] z-[9999] w-56 overflow-hidden rounded-2xl border border-gray-200 bg-white opacity-0 shadow-2xl invisible transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-gray-700 dark:bg-[#111827]">
+
+                    {/* USER INFO */}
+                    <div className="border-b border-gray-100 p-4 dark:border-gray-700">
+                      <p className="truncate font-bold text-gray-900 dark:text-white">
+                        {user.name}
+                      </p>
+
+                      <p className="truncate text-xs text-gray-500">
+                        {user.email}
+                      </p>
                     </div>
+
+                    {/* MENU */}
                     <div className="p-2">
-                      <button onClick={() => router.push(getDashboardLink())} className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
-                        <LayoutDashboard size={16} className="text-[#EB4C4C]" />
+
+                      <button
+                        onClick={() => router.push(getDashboardLink())}
+                        className="flex w-full cursor-pointer items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#1E293B]"
+                      >
+                        <LayoutDashboard
+                          size={16}
+                          className="text-[#EB4C4C]"
+                        />
+
                         {getDashboardTitle()}
                       </button>
-                      <button onClick={() => router.push(`${getDashboardLink()}/profile`)} className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
+
+                      <button
+                        onClick={() =>
+                          router.push(`${getDashboardLink()}/profile`)
+                        }
+                        className="flex w-full cursor-pointer items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-[#1E293B]"
+                      >
                         My Profile
                       </button>
-                      <hr className="my-2 border-gray-100 dark:border-gray-700" />
-                      <button onClick={handleLogout} className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-red-500 hover:bg-red-50">
+
+                      <div className="my-2 border-t border-gray-100 dark:border-gray-700" />
+
+                      <button
+                        onClick={handleLogout}
+                        className="flex w-full cursor-pointer items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-red-500 transition-colors hover:bg-red-50 dark:hover:bg-red-500/10"
+                      >
                         <LogOut size={16} />
                         Sign Out
                       </button>

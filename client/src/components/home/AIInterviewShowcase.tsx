@@ -12,51 +12,74 @@ export default function AIInterviewShowcase() {
   ];
 
   return (
-    <Section>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="space-y-6">
-          <span className="text-primary font-bold uppercase tracking-widest text-xs">Next-Gen Screening</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-on-surface">Conduct 10,000 interviews simultaneously.</h2>
-          <p className="text-lg text-on-surface-variant">
+    <Section className="bg-background relative overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          className="space-y-8"
+        >
+          <span className="text-primary font-bold uppercase tracking-[0.3em] text-[10px] bg-primary/10 px-3 py-1 rounded-full">Next-Gen Screening</span>
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight leading-[1.1]">
+            Conduct 10,000 interviews <span className="text-primary italic">simultaneously.</span>
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed">
             Our conversational AI avatars represent your brand with perfect consistency, conducting deep technical deep-dives and behavioral assessments that scale infinitely.
           </p>
-          <ul className="space-y-4">
+          <ul className="space-y-5">
             {features.map((feature, index) => (
-              <li key={index} className="flex items-center gap-3 text-on-surface">
-                <CheckCircle className="text-primary" size={24} />
+              <motion.li 
+                key={index} 
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="flex items-center gap-4 text-foreground font-medium"
+              >
+                <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
+                  <CheckCircle className="text-primary w-4 h-4" />
+                </div>
                 <span>{feature}</span>
-              </li>
+              </motion.li>
             ))}
           </ul>
-        </div>
+        </motion.div>
 
-        <div className="relative">
+        <div className="relative group">
+          <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-violet-600/20 blur-2xl opacity-50 group-hover:opacity-80 transition-opacity duration-500 rounded-[3rem] -z-10" />
+          
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="glass-card rounded-2xl overflow-hidden border border-white/10 shadow-2xl aspect-video relative"
+            className="glass-card rounded-[2.5rem] overflow-hidden border border-border/50 shadow-2xl aspect-video relative"
           >
-            <div className="w-full h-full bg-surface-container flex items-center justify-center">
-              <div className="text-center space-y-4">
-                <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
-                  <Play className="text-primary" size={40} fill="currentColor" />
+            <div className="w-full h-full bg-muted/20 flex items-center justify-center">
+              <div className="text-center space-y-6">
+                <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto border border-primary/20 animate-pulse">
+                  <Play className="text-primary ml-1" size={40} fill="currentColor" />
                 </div>
-                <p className="text-on-surface text-sm font-bold uppercase tracking-widest">AI Interview Demo</p>
+                <p className="text-muted-foreground text-xs font-black uppercase tracking-[0.3em]">AI Interview Protocol</p>
               </div>
             </div>
 
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-20 h-20 bg-primary/90 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
-                <Play className="text-on-primary text-4xl" size={40} fill="currentColor" />
-              </div>
+            <div className="absolute top-6 left-6 px-4 py-2 bg-black/40 backdrop-blur-md rounded-full border border-white/10 flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-ping" />
+              <span className="text-[10px] font-bold text-white uppercase tracking-widest">Active Analysis</span>
             </div>
 
-            <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center glass-card p-4 rounded-xl border border-white/5">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                <span className="text-xs font-bold text-on-surface uppercase tracking-widest">Live AI Analysis</span>
+            <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center glass-panel px-6 py-4 rounded-2xl border border-white/10 shadow-lg">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30">
+                  <span className="material-symbols-outlined text-primary text-xl font-black">neurology</span>
+                </div>
+                <div>
+                  <div className="text-[10px] font-black text-white/50 uppercase tracking-widest">Confidence Score</div>
+                  <div className="text-lg font-black text-white leading-none">92.4%</div>
+                </div>
               </div>
-              <div className="text-primary font-bold">92% Engagement</div>
+              <div className="flex flex-col items-end">
+                <div className="text-[10px] font-black text-white/50 uppercase tracking-widest">Latency</div>
+                <div className="text-lg font-black text-green-400 leading-none">14ms</div>
+              </div>
             </div>
           </motion.div>
         </div>

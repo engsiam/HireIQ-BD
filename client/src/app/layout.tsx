@@ -57,6 +57,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#EB4C4C" />
         <link rel="apple-touch-icon" href="/icon-192.svg" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,GRAD,fill@20..48,100..700,0..1,-50..200" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

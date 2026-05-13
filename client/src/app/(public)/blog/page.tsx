@@ -63,7 +63,7 @@ export default function BlogPage() {
             <span className="text-primary font-black uppercase tracking-[0.3em] text-xs">Insights & News</span>
             <h1 className="text-5xl md:text-7xl font-black text-foreground tracking-tighter">HireIQ <span className="text-[#EB4C4C] italic">Blog</span></h1>
             <p className="text-muted-foreground font-medium max-w-xl text-lg">
-              Expert commentary on premium real estate, market trends, and luxury lifestyle in Bangladesh.
+              Expert insights on career growth, job market trends, and AI-powered recruitment in Bangladesh.
             </p>
           </div>
           

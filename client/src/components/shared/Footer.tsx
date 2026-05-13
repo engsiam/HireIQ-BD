@@ -15,19 +15,18 @@ export default function Footer() {
       { label: 'Browse Jobs', href: '/jobs' },
       { label: 'AI CV Analyzer', href: '/ai-tools' },
       { label: 'Post a Job', href: '/register' },
-      { label: 'Pricing', href: '/pricing' },
+      { label: 'Solutions', href: '/solutions' },
     ],
     company: [
       { label: 'About Us', href: '/about' },
       { label: 'Blog', href: '/blog' },
-      { label: 'Careers', href: '/careers' },
       { label: 'Contact', href: '/contact' },
+      { label: 'Careers', href: '/contact' },
     ],
     legal: [
       { label: 'Privacy Policy', href: '/privacy' },
       { label: 'Terms of Service', href: '/terms' },
       { label: 'Cookie Policy', href: '/cookies' },
-      { label: 'Security', href: '/security' },
     ],
   };
 

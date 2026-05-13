@@ -78,6 +78,12 @@ export default function JobCard({ job }: JobCardProps) {
               </p>
             </div>
 
+            {job.description && (
+              <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                {job.description.length > 120 ? job.description.slice(0, 120) + '...' : job.description}
+              </p>
+            )}
+
             <div className="flex flex-wrap gap-2">
               <Badge className="bg-[#EB4C4C]/10 text-[#EB4C4C] hover:bg-[#EB4C4C]/20 border-0">
                 {jobTypeLabels[job.jobType] || job.jobType}

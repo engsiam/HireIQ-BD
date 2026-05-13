@@ -81,7 +81,7 @@ export default function DashboardHeader({ user, onLogout }: DashboardHeaderProps
   );
 
   return (
-    <header className="sticky top-0 z-40 flex items-center justify-between px-4 lg:px-6 h-14 border-b border-border bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-[100] flex items-center justify-between px-4 lg:px-6 h-14 border-b border-border bg-background/80 backdrop-blur-xl">
 
       {/* Left — spacer for mobile hamburger */}
       <div className="flex items-center gap-2 lg:hidden">
@@ -144,8 +144,8 @@ export default function DashboardHeader({ user, onLogout }: DashboardHeaderProps
           {/* Dropdown */}
           {open && (
             <>
-              <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-              <div className="absolute right-0 top-full mt-2 w-60 z-50 rounded-2xl border border-border bg-popover shadow-2xl overflow-hidden">
+              <div className="fixed inset-0 z-[110]" onClick={() => setOpen(false)} />
+              <div className="absolute right-0 top-full mt-2 w-60 z-[120] rounded-2xl border border-border bg-popover shadow-2xl overflow-hidden">
 
                 {/* User info */}
                 <div className="px-4 py-3 border-b border-border flex items-center gap-3">
@@ -177,20 +177,10 @@ export default function DashboardHeader({ user, onLogout }: DashboardHeaderProps
                     My Profile
                   </button>
 
-                  <Link
-                    href="/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setOpen(false)}
-                    className="w-full flex items-center gap-2.5 px-3 h-9 rounded-xl text-sm text-foreground/70 hover:text-foreground hover:bg-accent transition-all"
-                  >
-                    <ExternalLink size={14} className="text-muted-foreground" />
-                    View Site
-                  </Link>
                 </div>
 
                 {/* Logout */}
-                <div className="p-2 border-t border-border">
+                <div className="p-2 border-t border-border space-y-0.5">
                   <button
                     onClick={() => { setOpen(false); onLogout(); }}
                     className="w-full flex items-center gap-2.5 px-3 h-9 rounded-xl text-sm text-destructive hover:bg-destructive/10 transition-all text-left"
@@ -198,6 +188,17 @@ export default function DashboardHeader({ user, onLogout }: DashboardHeaderProps
                     <LogOut size={14} />
                     Log Out
                   </button>
+
+                  <Link
+                    href="/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setOpen(false)}
+                    className="w-full flex items-center gap-2.5 px-3 h-9 rounded-xl text-xs text-muted-foreground hover:text-foreground hover:bg-accent transition-all flex"
+                  >
+                    <ExternalLink size={12} className="mr-2.5" />
+                    View Public Site
+                  </Link>
                 </div>
               </div>
             </>

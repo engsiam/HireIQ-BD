@@ -7,12 +7,11 @@ import { notFound } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import axiosInstance from '@/lib/axiosInstance';
 import { Job, Job as JobType } from '@/types';
-import { MapPin, Clock, Briefcase, Building2, Globe, DollarSign, Calendar, Users, ArrowLeft, Heart, Share2 } from 'lucide-react';
+import { MapPin, Clock, Briefcase, Building2, DollarSign, Calendar, Users, ArrowLeft, Heart, Share2, Mail, Globe } from 'lucide-react';
 import WishlistButton from '@/components/jobs/WishlistButton';
 import ApplyModal from '@/components/jobs/ApplyModal';
 
@@ -45,7 +44,7 @@ export default function JobDetailPage({ params }: PageProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-24 pb-12 bg-background">
+      <div className="min-h-screen pt-24 pb-12 bg-gray-50 dark:bg-[#0B1120]">
         <div className="max-w-7xl mx-auto px-4">
           <Skeleton className="h-8 w-32 mb-8" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -95,29 +94,31 @@ export default function JobDetailPage({ params }: PageProps) {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 bg-background">
+    <div className="min-h-screen pt-24 pb-12 bg-gray-50 dark:bg-[#0B1120]">
       <div className="max-w-7xl mx-auto px-4">
-        <Link href="/jobs" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-6">
+        <Link href="/jobs" className="inline-flex items-center gap-2 text-gray-500 hover:text-[#EB4C4C] mb-6 font-medium">
           <ArrowLeft size={18} />
-          <span className="font-medium">Back to Jobs</span>
+          <span>Back to Jobs</span>
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            <Card className="border-border/50">
-              <CardContent className="p-6 md:p-8">
-                <div className="flex items-start justify-between gap-4 mb-6">
+            {/* Job Header Card */}
+            <Card className="border-0 shadow-xl shadow-black/5 dark:shadow-black/20 rounded-2xl overflow-hidden">
+              <div className="bg-gradient-to-r from-[#EB4C4C] to-[#FF7070] p-8">
+                <div className="flex items-start justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-primary/10 flex items-center justify-center overflow-hidden">
+                    <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center overflow-hidden">
                       {job.company?.logo ? (
                         <Image src={job.company.logo} alt={job.company.name} width={60} height={60} className="w-full h-full object-cover" />
                       ) : (
-                        <Building2 className="w-8 h-8 md:w-10 md:h-10 text-primary" />
+                        <Building2 className="w-10 h-10 text-white" />
                       )}
                     </div>
                     <div>
-                      <h1 className="text-2xl md:text-3xl font-black text-foreground">{job.title}</h1>
-                      <p className="text-muted-foreground font-medium flex items-center gap-1 mt-1">
+                      <h1 className="text-2xl md:text-3xl font-black text-white">{job.title}</h1>
+                      <p className="text-white/80 font-medium flex items-center gap-1 mt-1">
                         <Building2 size={16} />
                         {job.company?.name}
                       </p>
@@ -125,206 +126,183 @@ export default function JobDetailPage({ params }: PageProps) {
                   </div>
                   <div className="flex gap-2">
                     <WishlistButton jobId={job.id} />
-                    <Button variant="outline" size="icon" className="rounded-full">
+                    <Button variant="outline" size="icon" className="rounded-full bg-white/20 border-0 text-white hover:bg-white/30">
                       <Share2 size={18} />
                     </Button>
                   </div>
                 </div>
-
+              </div>
+              
+              <CardContent className="p-6 md:p-8">
                 <div className="flex flex-wrap gap-2 mb-6">
-                  <Badge variant="secondary" className="bg-primary/10 text-primary">
+                  <Badge className="bg-white/10 text-white border-0">
                     <Briefcase size={12} className="mr-1" />
                     {jobTypeLabels[job.jobType] || job.jobType}
                   </Badge>
-                  <Badge variant="outline">
+                  <Badge variant="outline" className="border-white/30 text-white">
                     <MapPin size={12} className="mr-1" />
                     {job.district}
                   </Badge>
                   {job.category && (
-                    <Badge variant="outline">{job.category.name}</Badge>
+                    <Badge variant="outline" className="border-white/30 text-white">{job.category.name}</Badge>
                   )}
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                  <div className="bg-muted/30 rounded-xl p-4">
-                    <DollarSign className="w-5 h-5 text-primary mb-2" />
-                    <p className="text-xs text-muted-foreground font-bold uppercase">Salary</p>
-                    <p className="font-bold text-foreground">{formatSalary(job.salaryMin, job.salaryMax)}</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="bg-gray-50 dark:bg-[#1E293B] rounded-xl p-4">
+                    <DollarSign className="w-5 h-5 text-[#EB4C4C] mb-2" />
+                    <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">Salary</p>
+                    <p className="font-bold text-gray-900 dark:text-white">{formatSalary(job.salaryMin, job.salaryMax)}</p>
                   </div>
-                  <div className="bg-muted/30 rounded-xl p-4">
-                    <Clock className="w-5 h-5 text-primary mb-2" />
-                    <p className="text-xs text-muted-foreground font-bold uppercase">Posted</p>
-                    <p className="font-bold text-foreground">{formatDate(job.createdAt)}</p>
+                  <div className="bg-gray-50 dark:bg-[#1E293B] rounded-xl p-4">
+                    <Clock className="w-5 h-5 text-[#EB4C4C] mb-2" />
+                    <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">Job Type</p>
+                    <p className="font-bold text-gray-900 dark:text-white">{jobTypeLabels[job.jobType] || job.jobType}</p>
                   </div>
-                  <div className="bg-muted/30 rounded-xl p-4">
-                    <Calendar className="w-5 h-5 text-primary mb-2" />
-                    <p className="text-xs text-muted-foreground font-bold uppercase">Deadline</p>
-                    <p className="font-bold text-foreground">{formatDate(job.deadline)}</p>
+                  <div className="bg-gray-50 dark:bg-[#1E293B] rounded-xl p-4">
+                    <Users className="w-5 h-5 text-[#EB4C4C] mb-2" />
+                    <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">Vacancies</p>
+                    <p className="font-bold text-gray-900 dark:text-white">{((job as unknown) as { vacancies?: number }).vacancies || 'Not specified'}</p>
                   </div>
-                  <div className="bg-muted/30 rounded-xl p-4">
-                    <Users className="w-5 h-5 text-primary mb-2" />
-                    <p className="text-xs text-muted-foreground font-bold uppercase">Applications</p>
-                    <p className="font-bold text-foreground">{job._count?.applications || 0}</p>
+                  <div className="bg-gray-50 dark:bg-[#1E293B] rounded-xl p-4">
+                    <Calendar className="w-5 h-5 text-[#EB4C4C] mb-2" />
+                    <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">Deadline</p>
+                    <p className="font-bold text-gray-900 dark:text-white">{daysUntilDeadline()} days left</p>
                   </div>
                 </div>
-
-                <Button onClick={() => setShowApplyModal(true)} className="w-full h-14 text-lg font-bold bg-primary hover:bg-primary/90 rounded-xl">
-                  Apply Now
-                </Button>
               </CardContent>
             </Card>
 
-            <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="w-full bg-muted/30 p-1 rounded-xl">
-                <TabsTrigger value="overview" className="flex-1 rounded-lg font-bold">Overview</TabsTrigger>
-                <TabsTrigger value="requirements" className="flex-1 rounded-lg font-bold">Requirements</TabsTrigger>
-                <TabsTrigger value="responsibilities" className="flex-1 rounded-lg font-bold">Responsibilities</TabsTrigger>
-                <TabsTrigger value="company" className="flex-1 rounded-lg font-bold">Company</TabsTrigger>
-              </TabsList>
+            {/* Job Description Card */}
+            <Card className="border-0 shadow-xl shadow-black/5 dark:shadow-black/20 rounded-2xl">
+              <CardContent className="p-6 md:p-8">
+                <h2 className="text-xl font-black text-gray-900 dark:text-white mb-4">Job Description</h2>
+                <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+                  <p className="whitespace-pre-line">{job.description || 'No description provided.'}</p>
+                </div>
 
-              <TabsContent value="overview" className="mt-6">
-                <Card className="border-border/50">
-                  <CardContent className="p-6 md:p-8">
-                    <h3 className="text-xl font-bold mb-4">Job Description</h3>
-                    <div className="prose-content text-muted-foreground whitespace-pre-line">
-                      {job.description}
+                {job.requirements && (
+                  <>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mt-6 mb-3">Requirements</h3>
+                    <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+                      <p className="whitespace-pre-line">{job.requirements}</p>
                     </div>
-                    {job.skills && job.skills.length > 0 && (
-                      <>
-                        <h3 className="text-xl font-bold mt-8 mb-4">Required Skills</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {job.skills.map((skill, index) => (
-                            <Badge key={index} variant="secondary" className="bg-primary/10 text-primary">
-                              {skill}
-                            </Badge>
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </CardContent>
-                </Card>
-              </TabsContent>
+                  </>
+                )}
 
-              <TabsContent value="requirements" className="mt-6">
-                <Card className="border-border/50">
-                  <CardContent className="p-6 md:p-8">
-                    <h3 className="text-xl font-bold mb-4">Requirements</h3>
-                    <ul className="space-y-3">
-                      {job.requirements?.map((req, index) => (
-                        <li key={index} className="flex items-start gap-3">
-                          <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                          <span className="text-muted-foreground">{req}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="responsibilities" className="mt-6">
-                <Card className="border-border/50">
-                  <CardContent className="p-6 md:p-8">
-                    <h3 className="text-xl font-bold mb-4">Responsibilities</h3>
-                    <ul className="space-y-3">
-                      {job.responsibilities?.map((resp, index) => (
-                        <li key={index} className="flex items-start gap-3">
-                          <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                          <span className="text-muted-foreground">{resp}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="company" className="mt-6">
-                <Card className="border-border/50">
-                  <CardContent className="p-6 md:p-8">
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center overflow-hidden">
-                        {job.company?.logo ? (
-                          <Image src={job.company.logo} alt={job.company.name} width={50} height={50} className="w-full h-full object-cover" />
-                        ) : (
-                          <Building2 className="w-8 h-8 text-primary" />
-                        )}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold">{job.company?.name}</h3>
-                        {job.company?.industry && <p className="text-muted-foreground">{job.company.industry}</p>}
-                      </div>
+                {job.responsibilities && (
+                  <>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mt-6 mb-3">Responsibilities</h3>
+                    <div className="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+                      <p className="whitespace-pre-line">{job.responsibilities}</p>
                     </div>
-                    {job.company?.description && (
-                      <div>
-                        <h4 className="font-bold mb-2">About Company</h4>
-                        <p className="text-muted-foreground">{job.company.description}</p>
-                      </div>
+                  </>
+                )}
+
+                {job.skills && job.skills.length > 0 && (
+                  <>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mt-6 mb-3">Required Skills</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {job.skills.map((skill: string, index: number) => (
+                        <Badge key={index} className="bg-[#EB4C4C]/10 text-[#EB4C4C] border-0 px-3 py-1">
+                          {skill}
+                        </Badge>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Company Info Card */}
+            <Card className="border-0 shadow-xl shadow-black/5 dark:shadow-black/20 rounded-2xl">
+              <CardContent className="p-6 md:p-8">
+                <h2 className="text-xl font-black text-gray-900 dark:text-white mb-4">About Company</h2>
+                <div className="flex items-start gap-4">
+                  <div className="w-16 h-16 rounded-xl bg-gray-100 dark:bg-[#1E293B] flex items-center justify-center overflow-hidden shrink-0">
+                    {job.company?.logo ? (
+                      <Image src={job.company.logo} alt={job.company.name} width={48} height={48} className="w-full h-full object-cover" />
+                    ) : (
+                      <Building2 className="w-8 h-8 text-gray-400" />
                     )}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg text-gray-900 dark:text-white">{job.company?.name}</h3>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">{job.company?.description || 'No description available'}</p>
                     {job.company?.website && (
-                      <div className="mt-4 flex items-center gap-2">
-                        <Globe size={16} className="text-primary" />
-                        <a href={job.company.website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                          {job.company.website}
-                        </a>
-                      </div>
+                      <a href={job.company.website} target="_blank" rel="noopener noreferrer" className="text-[#EB4C4C] text-sm flex items-center gap-1 mt-2 hover:underline">
+                        <Globe size={14} />
+                        Visit Website
+                      </a>
                     )}
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
+          {/* Sidebar */}
           <div className="space-y-6">
-            <Card className="border-border/50 sticky top-24">
+            {/* Apply Card */}
+            <Card className="border-0 shadow-xl shadow-black/5 dark:shadow-black/20 rounded-2xl sticky top-24">
               <CardContent className="p-6">
-                <h3 className="font-bold text-lg mb-4">Job Summary</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Job Type</span>
-                    <span className="font-bold">{jobTypeLabels[job.jobType] || job.jobType}</span>
+                <div className="text-center mb-6">
+                  <p className="text-3xl font-black text-[#EB4C4C]">{formatSalary(job.salaryMin, job.salaryMax)}</p>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">per month</p>
+                </div>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                    <MapPin size={16} className="text-[#EB4C4C]" />
+                    <span className="text-sm">{job.district}</span>
                   </div>
-                  <Separator />
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Location</span>
-                    <span className="font-bold">{job.district}</span>
+                  <div className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                    <Briefcase size={16} className="text-[#EB4C4C]" />
+                    <span className="text-sm">{jobTypeLabels[job.jobType] || job.jobType}</span>
                   </div>
-                  <Separator />
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Salary Range</span>
-                    <span className="font-bold">{formatSalary(job.salaryMin, job.salaryMax)}</span>
+                  <div className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                    <Clock size={16} className="text-[#EB4C4C]" />
+                    <span className="text-sm">Posted {formatDate(job.createdAt)}</span>
                   </div>
-                  <Separator />
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Deadline</span>
-                    <span className="font-bold">{formatDate(job.deadline)}</span>
-                  </div>
-                  <Separator />
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Applications</span>
-                    <span className="font-bold">{job._count?.applications || 0}</span>
-                  </div>
-                  <Separator />
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Days Left</span>
-                    <span className="font-bold text-primary">{daysUntilDeadline()} days</span>
+                  <div className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                    <Calendar size={16} className="text-[#EB4C4C]" />
+                    <span className="text-sm">Deadline {formatDate(job.deadline)}</span>
                   </div>
                 </div>
-                <Button onClick={() => setShowApplyModal(true)} className="w-full h-12 mt-6 bg-primary hover:bg-primary/90 font-bold rounded-xl">
+
+                <Button onClick={() => setShowApplyModal(true)} className="w-full h-14 bg-[#EB4C4C] hover:bg-[#FF7070] text-white font-bold rounded-xl text-lg">
                   Apply Now
                 </Button>
+                
+                <p className="text-center text-gray-400 text-xs mt-4">
+                  {((job as unknown) as { vacancies?: number }).vacancies || 1} position available
+                </p>
               </CardContent>
             </Card>
 
+            {/* Similar Jobs */}
             {similarJobs.length > 0 && (
-              <Card className="border-border/50">
+              <Card className="border-0 shadow-xl shadow-black/5 dark:shadow-black/20 rounded-2xl">
                 <CardContent className="p-6">
-                  <h3 className="font-bold text-lg mb-4">Similar Jobs</h3>
+                  <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-4">Similar Jobs</h3>
                   <div className="space-y-4">
-                    {similarJobs.map((similarJob) => (
-                      <Link key={similarJob.id} href={`/jobs/${similarJob.id}`}>
-                        <div className="p-3 rounded-xl hover:bg-muted/30 transition-colors">
-                          <h4 className="font-bold text-sm line-clamp-1">{similarJob.title}</h4>
-                          <p className="text-xs text-muted-foreground mt-1">{similarJob.company?.name}</p>
-                          <p className="text-xs text-primary mt-1">{formatSalary(similarJob.salaryMin, similarJob.salaryMax)}</p>
+                    {similarJobs.slice(0, 3).map((similarJob) => (
+                      <Link key={similarJob.id} href={`/jobs/${similarJob.id}`} className="block group">
+                        <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-[#1E293B] transition-colors">
+                          <div className="w-10 h-10 rounded-lg bg-[#EB4C4C]/10 flex items-center justify-center shrink-0">
+                            <Building2 size={16} className="text-[#EB4C4C]" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-bold text-sm text-gray-900 dark:text-white group-hover:text-[#EB4C4C] transition-colors line-clamp-1">
+                              {similarJob.title}
+                            </h4>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                              {similarJob.company?.name}
+                            </p>
+                            <p className="text-xs text-[#EB4C4C] font-medium mt-0.5">
+                              {formatSalary(similarJob.salaryMin, similarJob.salaryMax)}
+                            </p>
+                          </div>
                         </div>
                       </Link>
                     ))}

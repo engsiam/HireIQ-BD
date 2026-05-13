@@ -146,7 +146,7 @@ export default function DashboardSidebar({ role = 'JOBSEEKER', onLogout }: { rol
       {/* Mobile hamburger */}
       <button
         onClick={toggleMobileMenu}
-        className="lg:hidden fixed top-3 left-3 z-[60] w-9 h-9 bg-card border border-border rounded-lg flex items-center justify-center text-foreground hover:bg-primary hover:text-white transition-all"
+        className="lg:hidden fixed top-3 left-3 z-[110] w-9 h-9 bg-card border border-border rounded-lg flex items-center justify-center text-foreground hover:bg-primary hover:text-white transition-all"
         aria-label="Toggle menu"
       >
         <Menu size={18} />
@@ -159,7 +159,7 @@ export default function DashboardSidebar({ role = 'JOBSEEKER', onLogout }: { rol
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="lg:hidden fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
+            className="lg:hidden fixed inset-0 z-[150] bg-black/60 backdrop-blur-sm"
             onClick={() => setMobileMenuOpen(false)}
           >
             <motion.aside
