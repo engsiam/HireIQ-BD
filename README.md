@@ -305,8 +305,9 @@ CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 
-# Google Gemini AI
-GEMINI_API_KEY=your_gemini_api_key
+# Groq AI (CV analyzer, job match, interview coach)
+GROQ_API_KEY=your_groq_api_key
+GROQ_MODEL=
 
 # Google OAuth
 GOOGLE_CLIENT_ID=your_google_client_id

@@ -1,8 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,8 +19,9 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { User, Mail, Lock, UserPlus } from 'lucide-react';
+import { User, Mail, Lock, UserPlus, Loader2 } from 'lucide-react';
 import { FaGoogle } from "react-icons/fa";
+import { toast } from 'sonner';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -33,6 +37,7 @@ const registerSchema = z.object({
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
+  const router = useRouter();
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -44,8 +49,38 @@ export default function RegisterPage() {
     },
   });
 
-  const onSubmit = (data: RegisterFormValues) => {
-    console.log('Register:', data);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit = async (data: RegisterFormValues) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL || window.location.origin}/auth/register`,
+        {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          role: data.role,
+        },
+        { withCredentials: true }
+      );
+
+      if (response.data.success) {
+        toast.success('Registration successful! Please login.');
+        router.push('/login');
+      } else {
+        throw new Error(response.data.error || 'Registration failed');
+      }
+    } catch (error: any) {
+      console.error('[Register] Failed:', error);
+      const message =
+        error.response?.data?.error ||
+        error.message ||
+        'Registration failed';
+      toast.error(message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
 return (
@@ -178,8 +213,11 @@ return (
               </p>
             )}
 
-            <Button type="submit" className="w-full h-11 bg-[#EB4C4C] hover:bg-[#d43f3f] text-white font-bold rounded-xl shadow-lg shadow-[#EB4C4C]/20 transition-all hover:-translate-y-0.5 active:translate-y-0 mt-2">
-              <span className="flex items-center gap-2">Create Account <UserPlus size={16} /></span>
+            <Button type="submit" disabled={isLoading} className="w-full h-11 bg-[#EB4C4C] hover:bg-[#d43f3f] text-white font-bold rounded-xl shadow-lg shadow-[#EB4C4C]/20 transition-all hover:-translate-y-0.5 active:translate-y-0 mt-2">
+              <span className="flex items-center gap-2">
+                {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <UserPlus size={16} />}
+                {isLoading ? 'Creating Account...' : 'Create Account'}
+              </span>
             </Button>
           </form>
 

@@ -30,11 +30,14 @@ axiosInstance.interceptors.response.use(
     retryCount = 0;
 
     if (status === 401 && !originalRequest._retry) {
+      if (String(originalRequest.url ?? '').includes('refresh-token')) {
+        return Promise.reject(error);
+      }
       originalRequest._retry = true;
 
       try {
-        // Use axiosInstance with withCredentials to send cookies to session endpoint
-        const response = await axiosInstance.post('/users/session');
+        // Cookie-based auth: refresh access token (server reads httpOnly refreshToken cookie)
+        const response = await axiosInstance.post('/auth/refresh-token', {});
 
         if (response.data.success) {
           return axiosInstance(originalRequest);

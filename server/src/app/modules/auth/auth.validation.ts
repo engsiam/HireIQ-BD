@@ -12,6 +12,7 @@ export const loginValidation = z.object({
   password: z.string().min(1, 'Password is required'),
 });
 
+/** Body optional: refresh token may be sent only via httpOnly cookie (browser clients). */
 export const refreshTokenValidation = z.object({
-  refreshToken: z.string().min(1, 'Refresh token is required'),
+  refreshToken: z.string().min(1).optional(),
 });

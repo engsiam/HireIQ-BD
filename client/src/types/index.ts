@@ -32,7 +32,7 @@ export interface Company {
 
 export type JobType = 'FULL_TIME' | 'PART_TIME' | 'REMOTE' | 'CONTRACT' | 'INTERNSHIP';
 
-export type JobStatus = 'ACTIVE' | 'CLOSED' | 'DRAFT';
+export type JobStatus = 'ACTIVE' | 'OPEN' | 'CLOSED' | 'DRAFT';
 
 export interface Job {
   id: string;
@@ -222,6 +222,13 @@ export interface AICVAnalysis {
   missingSkills: string[];
   improvementSuggestions: string[];
   summary: string;
+  atsBreakdown?: {
+    formatting: number;
+    keywords: number;
+    impact: number;
+    clarity: number;
+    relevance: number;
+  };
   createdAt: string;
 }
 

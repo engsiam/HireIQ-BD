@@ -74,7 +74,7 @@ export default function AIToolsPage() {
           >
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#EB4C4C]/20 to-[#FF7070]/20 border border-[#EB4C4C]/30 backdrop-blur-sm">
               <Sparkles className="w-4 h-4 text-[#EB4C4C]" />
-              <span className="text-sm font-semibold text-[#EB4C4C]">Powered by Google Gemini AI</span>
+              <span className="text-sm font-semibold text-[#EB4C4C]">Powered by Groq AI</span>
             </div>
           </motion.div>
 

@@ -10,7 +10,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
 import axiosInstance from '@/lib/axiosInstance';
 import { Job } from '@/types';
-import { Upload, FileText, Loader2, CheckCircle } from 'lucide-react';
+import { Upload, FileText, Loader2, CheckCircle, Wand2 } from 'lucide-react';
 import { useAuthStore, useUser, useIsAuthenticated } from '@/store/useAuthStore';
 
 interface ApplyModalProps {
@@ -24,9 +24,39 @@ export default function ApplyModal({ job, open, onOpenChange }: ApplyModalProps)
   const [resume, setResume] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   
   const user = useUser();
   const isAuthenticated = useIsAuthenticated();
+
+  const handleGenerateCoverLetter = async () => {
+    if (!user) {
+      toast.error('Please login to use AI cover letter generator');
+      return;
+    }
+
+    setIsGenerating(true);
+    try {
+      const response = await axiosInstance.post('/ai/cover-letter', {
+        jobTitle: job.title,
+        companyName: job.company?.name || 'the company',
+        userName: user.name || 'Candidate',
+        userSkills: user.skills || [],
+        userExperience: user.bio || undefined,
+        jobRequirements: job.requirements || [],
+      });
+
+      if (response.data.success && response.data.data?.coverLetter) {
+        setCoverLetter(response.data.data.coverLetter);
+        toast.success('Cover letter generated!');
+      }
+    } catch (error: any) {
+      console.error('[Generate Cover Letter]:', error);
+      toast.error(error.response?.data?.message || 'Failed to generate cover letter');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,18 +71,12 @@ export default function ApplyModal({ job, open, onOpenChange }: ApplyModalProps)
       return;
     }
 
-    setIsLoading(true);
+setIsLoading(true);
     try {
-      const formData = new FormData();
-      formData.append('coverLetter', coverLetter);
-      if (resume) {
-        formData.append('resume', resume);
-      }
-
-      await axiosInstance.post(`/jobs/${job.id}/apply`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      await axiosInstance.post(`/applications`, {
+        jobId: job.id,
+        coverLetter: coverLetter,
+        resumeUrl: '',
       });
 
       toast.success('Application submitted successfully!');
@@ -117,7 +141,24 @@ export default function ApplyModal({ job, open, onOpenChange }: ApplyModalProps)
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="coverLetter">Cover Letter *</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="coverLetter">Cover Letter *</Label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleGenerateCoverLetter}
+                  disabled={isGenerating || !isAuthenticated}
+                  className="text-xs h-7 gap-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-0 hover:from-purple-700 hover:to-indigo-700"
+                >
+                  {isGenerating ? (
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                  ) : (
+                    <Wand2 className="w-3 h-3" />
+                  )}
+                  AI Generate
+                </Button>
+              </div>
               <Textarea
                 id="coverLetter"
                 placeholder="Write a compelling cover letter (minimum 100 characters)..."

@@ -12,7 +12,7 @@ A production-ready Express.js + TypeScript backend for a job board platform in B
 - **Auth:** JWT (access token 7d + refresh token 30d)
 - **Validation:** Zod
 - **File Upload:** Multer + Cloudinary
-- **AI:** Google Gemini API
+- **AI:** Groq (OpenAI-compatible chat API)
 
 ## Project Structure
 
@@ -93,7 +93,8 @@ CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
 
-GEMINI_API_KEY=
+GROQ_API_KEY=
+GROQ_MODEL=
 
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=

@@ -66,7 +66,7 @@ function MatchScoreRing({ score, label }: { score: number; label: string }) {
 export default function JobMatcher({ isAuthenticated = false }: JobMatcherProps) {
   const [skills, setSkills] = useState<string[]>([]);
   const [skillInput, setSkillInput] = useState('');
-  const [experience, setExperience] = useState('');
+  const [experience, setExperience] = useState('mid');
   const [location, setLocation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [matches, setMatches] = useState<{ job: Job; matchPercentage: number; matchDetails: MatchDetails }[]>([]);
@@ -93,7 +93,7 @@ export default function JobMatcher({ isAuthenticated = false }: JobMatcherProps)
       const response = await axiosInstance.post('/ai/job-match', {
         skills,
         experience,
-        location,
+        preferredLocation: location || undefined,
       });
       const data = response.data.data || [];
       setMatches(data.map((item: { job: Job; matchPercentage: number }) => ({
@@ -324,7 +324,7 @@ export default function JobMatcher({ isAuthenticated = false }: JobMatcherProps)
                         </h5>
                         <p className="text-gray-600 dark:text-gray-400 flex items-center gap-2 mt-1">
                           <Building2 size={14} className="text-blue-500" />
-                          {match.job.company?.name}
+                          {(match.job as { companyName?: string }).companyName ?? match.job.company?.name}
                         </p>
                       </div>
                       <div className="text-right">
@@ -343,10 +343,10 @@ export default function JobMatcher({ isAuthenticated = false }: JobMatcherProps)
                         <DollarSign size={14} className="text-green-500" />
                         {formatSalary(match.job.salaryMin, match.job.salaryMax)}
                       </div>
-                      {match.job.jobType && (
+                      {(match.job.jobType || (match.job as { type?: string }).type) && (
                         <div className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-400">
                           <Clock size={14} className="text-purple-500" />
-                          {match.job.jobType}
+                          {match.job.jobType ?? (match.job as { type?: string }).type}
                         </div>
                       )}
                     </div>

@@ -6,10 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Progress } from '@/components/ui/progress';
-import { Loader2, Sparkles, MessageSquare, Briefcase, DollarSign, Play, CheckCircle, Clock, Target, Lightbulb, TrendingUp, Users } from 'lucide-react';
+import { Loader2, Sparkles, MessageSquare, Briefcase, DollarSign, CheckCircle, Clock, Target, Lightbulb, TrendingUp, Users } from 'lucide-react';
 import { toast } from 'sonner';
 import axiosInstance from '@/lib/axiosInstance';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -21,6 +18,7 @@ interface InterviewCoachProps {
 interface Question {
   question: string;
   answer: string;
+  modelAnswer?: string;
   category?: string;
   difficulty?: string;
 }
@@ -29,6 +27,7 @@ interface InterviewPrep {
   technicalQuestions: Question[];
   behavioralQuestions: Question[];
   salaryTips: string[];
+  companyResearchTips: string[];
 }
 
 const experienceLevels = [
@@ -86,17 +85,17 @@ function QuestionCard({ question, index, color }: { question: Question; index: n
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <div className="px-4 pb-4 pt-0 border-t border-gray-100 dark:border-gray-700">
-              <div className="pt-4">
-                <p className="text-sm font-medium text-purple-500 mb-2 flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4" />
-                  Sample Answer
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-                  {question.answer}
-                </p>
-              </div>
-            </div>
+<div className="px-4 pb-4 pt-0 border-t border-gray-100 dark:border-gray-700">
+               <div className="pt-4">
+                 <p className="text-sm font-medium text-purple-500 mb-2 flex items-center gap-2">
+                   <CheckCircle className="w-4 h-4" />
+                   Sample Answer
+                 </p>
+                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
+                   {question.modelAnswer || question.answer}
+                 </p>
+               </div>
+             </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -121,13 +120,21 @@ export default function InterviewCoach({ isAuthenticated = false }: InterviewCoa
     try {
       const response = await axiosInstance.post('/ai/interview-prep', {
         jobTitle,
-        experience,
+        experienceLevel: experience || 'mid',
       });
       const data = response.data.data;
+      const capDifficulty = (d?: string) =>
+        d ? d.charAt(0).toUpperCase() + d.slice(1).toLowerCase() : undefined;
       setPrep({
-        technicalQuestions: data.technicalQuestions || [],
+        technicalQuestions: (data.technicalQuestions || []).map(
+          (q: Question & { modelAnswer?: string }) => ({
+            ...q,
+            difficulty: capDifficulty(q.difficulty),
+          })
+        ),
         behavioralQuestions: data.behavioralQuestions || [],
-        salaryTips: data.salaryTips || [],
+        salaryTips: data.salaryNegotiationTips || data.salaryTips || [],
+        companyResearchTips: data.companyResearchTips || [],
       });
       toast.success('Interview prep generated!');
     } catch {
@@ -257,8 +264,10 @@ export default function InterviewCoach({ isAuthenticated = false }: InterviewCoa
                   <p className="text-xs text-gray-500 dark:text-gray-400">Behavioral</p>
                 </div>
                 <div className="text-center p-3 bg-white dark:bg-[#1E293B] rounded-xl">
-                  <p className="text-2xl font-black text-amber-500">{prep.salaryTips.length}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Salary Tips</p>
+                  <p className="text-2xl font-black text-amber-500">
+                    {prep.salaryTips.length + prep.companyResearchTips.length}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Tips and research</p>
                 </div>
               </div>
             </div>
@@ -295,7 +304,7 @@ export default function InterviewCoach({ isAuthenticated = false }: InterviewCoa
                 }`}
               >
                 <DollarSign className="w-4 h-4" />
-                Salary Tips ({prep.salaryTips.length})
+                Tips ({prep.salaryTips.length + prep.companyResearchTips.length})
               </button>
             </div>
 
@@ -333,23 +342,49 @@ export default function InterviewCoach({ isAuthenticated = false }: InterviewCoa
                 )}
 
                 {activeTab === 'salary' && (
-                  <div className="space-y-4">
-                    {prep.salaryTips.map((tip, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="flex items-start gap-4 p-5 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 rounded-xl border border-amber-200 dark:border-amber-800/50"
-                      >
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-center shrink-0">
-                          <span className="text-white font-bold">{index + 1}</span>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{tip}</p>
-                        </div>
-                      </motion.div>
-                    ))}
+                  <div className="space-y-6">
+                    {prep.salaryTips.length > 0 && (
+                      <div className="space-y-4">
+                        <h5 className="text-sm font-bold text-gray-700 dark:text-gray-300">Salary negotiation</h5>
+                        {prep.salaryTips.map((tip, index) => (
+                          <motion.div
+                            key={`s-${index}`}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            className="flex items-start gap-4 p-5 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 rounded-xl border border-amber-200 dark:border-amber-800/50"
+                          >
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-center shrink-0">
+                              <span className="text-white font-bold">{index + 1}</span>
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{tip}</p>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
+                    {prep.companyResearchTips.length > 0 && (
+                      <div className="space-y-4">
+                        <h5 className="text-sm font-bold text-gray-700 dark:text-gray-300">Company research</h5>
+                        {prep.companyResearchTips.map((tip, index) => (
+                          <motion.div
+                            key={`c-${index}`}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            className="flex items-start gap-4 p-5 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 rounded-xl border border-blue-200 dark:border-blue-800/50"
+                          >
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center shrink-0">
+                              <span className="text-white font-bold">{index + 1}</span>
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{tip}</p>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </motion.div>

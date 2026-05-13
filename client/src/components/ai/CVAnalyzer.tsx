@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
-import { Loader2, Sparkles, CheckCircle, XCircle, AlertTriangle, Upload, FileText, TrendingUp, Target, Format, Zap, AlertCircle } from 'lucide-react';
+import { Loader2, Sparkles, CheckCircle, XCircle, AlertTriangle, Upload, FileText, TrendingUp, Target, LayoutTemplate, Zap, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import axiosInstance from '@/lib/axiosInstance';
 import { motion } from 'framer-motion';
@@ -352,7 +352,7 @@ export default function CVAnalyzer({ isAuthenticated = false }: CVAnalyzerProps)
                 <ATSBreakdownCard 
                   title="Formatting" 
                   score={result.atsBreakdown.formatting}
-                  icon={Format}
+                  icon={LayoutTemplate}
                   description="CV structure & readability"
                 />
                 <ATSBreakdownCard 

@@ -8,6 +8,7 @@ import {
   matchJobs,
   prepareInterview,
   chat,
+  generateCoverLetter,
 } from './ai.controller';
 import {
   cvAnalyzeValidation,
@@ -20,6 +21,7 @@ const router = Router();
 
 router.post(
   '/cv-analyze',
+  authGuard('JOBSEEKER'),
   rateLimiter(10, 3600000),
   validateRequest(cvAnalyzeValidation),
   catchAsync(analyzeCV)
@@ -27,12 +29,14 @@ router.post(
 
 router.post(
   '/job-match',
+  authGuard('JOBSEEKER'),
   validateRequest(jobMatchValidation),
   catchAsync(matchJobs)
 );
 
 router.post(
   '/interview-prep',
+  authGuard('JOBSEEKER'),
   validateRequest(interviewPrepValidation),
   catchAsync(prepareInterview)
 );
@@ -43,6 +47,13 @@ router.post(
   rateLimiter(10, 60000),
   validateRequest(chatValidation),
   catchAsync(chat)
+);
+
+router.post(
+  '/cover-letter',
+  authGuard('JOBSEEKER'),
+  rateLimiter(5, 60000),
+  catchAsync(generateCoverLetter)
 );
 
 export default router;
