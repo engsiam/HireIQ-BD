@@ -84,16 +84,16 @@ export default function RegisterPage() {
     }
   };
 
-return (
-    <motion.div 
+  return (
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="w-full max-w-[480px]"
     >
-      <Card className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 shadow-2xl rounded-3xl overflow-hidden">
-        <div className="h-1.5 w-full bg-gradient-to-r from-[#EB4C4C] via-[#FF7070] to-[#EB4C4C]" />
-        
+      <Card className="relative bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 shadow-2xl rounded-3xl overflow-hidden">
+        <div className="absolute top-0 left-0 h-1.5 w-full bg-gradient-to-r from-[#EB4C4C] via-[#FF7070] to-[#EB4C4C] rounded-3xl" />
+
         <CardHeader className="space-y-2 text-center pt-8 pb-4">
           <div className="flex justify-center mb-4">
             <Link href="/" className="group">
@@ -108,12 +108,12 @@ return (
             Join HireIQ BD to find your dream job or hire talent
           </CardDescription>
         </CardHeader>
-        
+
         <CardContent className="space-y-5 px-8 pb-10">
-          <Button 
+          <Button
             type="button"
-            variant="outline" 
-            className="w-full h-11 border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 text-gray-700 dark:text-gray-200" 
+            variant="outline"
+            className="w-full h-11 border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 text-gray-700 dark:text-gray-200"
             onClick={() => { window.location.href = `${BASE_URL}/auth/google`; }}
           >
             <FaGoogle size={18} className="text-red-500" />
@@ -133,8 +133,8 @@ return (
                   <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 group-focus-within:text-[#EB4C4C] transition-colors">
                     <User size={16} />
                   </div>
-                  <Input 
-                    id="name" 
+                  <Input
+                    id="name"
                     placeholder="John Doe"
                     {...form.register('name')}
                     className="h-11 pl-10 bg-gray-50 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-600 rounded-xl text-sm focus:ring-2 focus:ring-[#EB4C4C]/20 transition-all text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
@@ -145,7 +145,7 @@ return (
 
               <div className="space-y-1.5">
                 <Label htmlFor="role" className="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1">Account Type</Label>
-                <Select 
+                <Select
                   onValueChange={(val) => form.setValue('role', val as 'JOBSEEKER' | 'EMPLOYER')}
                   defaultValue={form.getValues('role')}
                 >
@@ -166,8 +166,8 @@ return (
                 <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 group-focus-within:text-[#EB4C4C] transition-colors">
                   <Mail size={16} />
                 </div>
-                <Input 
-                  id="email" 
+                <Input
+                  id="email"
                   type="email"
                   placeholder="name@example.com"
                   {...form.register('email')}
@@ -184,8 +184,8 @@ return (
                   <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 group-focus-within:text-[#EB4C4C] transition-colors">
                     <Lock size={16} />
                   </div>
-                  <Input 
-                    id="password" 
+                  <Input
+                    id="password"
                     type="password"
                     placeholder="••••••••"
                     {...form.register('password')}
@@ -200,8 +200,8 @@ return (
                   <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 group-focus-within:text-[#EB4C4C] transition-colors">
                     <Lock size={16} />
                   </div>
-                  <Input 
-                    id="confirmPassword" 
+                  <Input
+                    id="confirmPassword"
                     type="password"
                     placeholder="••••••••"
                     {...form.register('confirmPassword')}

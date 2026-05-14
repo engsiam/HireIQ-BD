@@ -62,8 +62,8 @@ export default function LoginPage() {
       transition={{ duration: 0.5 }}
       className="w-full max-w-[440px]"
     >
-      <Card className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 shadow-2xl rounded-3xl overflow-hidden">
-        <div className="h-1.5 w-full bg-gradient-to-r from-[#EB4C4C] via-[#FF7070] to-[#EB4C4C]" />
+      <Card className="relative bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 shadow-2xl rounded-3xl overflow-hidden">
+        <div className="absolute top-0 left-0 h-1.5 w-full bg-gradient-to-r from-[#EB4C4C] via-[#FF7070] to-[#EB4C4C] rounded-3xl" />
         
         <CardHeader className="space-y-2 text-center pt-10 pb-6">
           <div className="flex justify-center mb-4">
