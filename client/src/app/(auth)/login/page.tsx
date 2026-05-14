@@ -24,6 +24,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [localError, setLocalError] = useState('');
 
+  // Check if already logged in
   useEffect(() => {
     setMounted(true);
     initialize();
@@ -65,8 +66,13 @@ export default function LoginPage() {
     }
   };
 
+  // Direct Google auth - bypass proxy
   const handleGoogleLogin = () => {
-    window.location.href = `${BASE_URL}/auth/google`;
+    const isProduction = process.env.NODE_ENV === 'production';
+    const googleUrl = isProduction 
+      ? 'https://hireiq-bd.onrender.com/api/v1/auth/google'
+      : 'http://localhost:5000/api/v1/auth/google';
+    window.location.href = googleUrl;
   };
 
   return (
@@ -76,8 +82,8 @@ export default function LoginPage() {
       transition={{ duration: 0.5 }}
       className="w-full max-w-[440px]"
     >
-      <Card className="relative bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 shadow-2xl rounded-3xl overflow-hidden">
-        <div className="absolute left-0 top-0 h-1.5 w-full bg-gradient-to-r from-[#EB4C4C] via-[#FF7070] to-[#EB4C4C] rounded-3xl" />
+      <Card className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 shadow-2xl rounded-3xl overflow-hidden">
+        <div className="h-1.5 w-full bg-gradient-to-r from-[#EB4C4C] via-[#FF7070] to-[#EB4C4C]" />
         
         <CardHeader className="space-y-2 text-center pt-10 pb-6">
           <div className="flex justify-center mb-4">

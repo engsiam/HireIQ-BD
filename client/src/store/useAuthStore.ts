@@ -147,23 +147,37 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   logout: async () => {
     try {
-      const response = await fetch(`${BASE_URL}/auth/logout`, {
+      await fetch(`${BASE_URL}/auth/logout`, {
         method: 'POST',
         credentials: 'include',
       });
-      console.log('[Auth] Logout response:', response.status);
     } catch (error) {
       console.error('[Auth] Logout error:', error);
     }
 
-    // Clear all cookies client-side to ensure logout persists
+    // Clear ALL cookies completely
     if (typeof document !== 'undefined') {
+      const domains = ['', '; domain=.vercel.app', '; domain=.hire-iq-bd.vercel.app'];
+      const paths = ['; path=/', '; path=/; path'];
+      
       document.cookie.split(';').forEach((c) => {
-        document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/');
+        const name = c.trim().split('=')[0];
+        if (name) {
+          domains.forEach(domain => {
+            paths.forEach(path => {
+              document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC' + domain + path;
+            });
+          });
+        }
       });
     }
 
     set({ user: null, isAuthenticated: false, isInitialized: false, isLoading: false, error: null });
+    
+    // Force navigate to login
+    if (typeof window !== 'undefined') {
+      window.location.href = '/login';
+    }
   },
 
   clearError: () => set({ error: null }),

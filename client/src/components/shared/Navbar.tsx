@@ -55,23 +55,6 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     await logout();
-    
-    // Force clear all cookies
-    if (typeof document !== 'undefined') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        const eqPos = cookie.indexOf('=');
-        const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
-        if (name) {
-          document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-          document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.vercel.app;';
-        }
-      }
-    }
-    
-    // Full page reload to clear state
-    window.location.href = '/login';
   };
 
   return (
