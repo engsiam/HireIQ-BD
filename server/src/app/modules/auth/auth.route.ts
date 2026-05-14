@@ -2,7 +2,7 @@ import { Router } from 'express';
 import catchAsync from '../../utils/catchAsync';
 import { validateRequest } from '../../middlewares/validate.middleware';
 import { registerValidation, loginValidation, refreshTokenValidation } from './auth.validation';
-import { register, login, googleAuth, refreshToken, logout } from './auth.controller';
+import { register, login, googleAuth, refreshToken, logout, getMe } from './auth.controller';
 import { authGuard } from '../../middlewares/auth.middleware';
 import env, { getServerUrl } from '../../../config';
 
@@ -153,5 +153,21 @@ router.post('/refresh-token', validateRequest(refreshTokenValidation), catchAsyn
  *         description: Logout successful
  */
 router.post('/logout', authGuard(), catchAsync(logout));
+
+/**
+ * @swagger
+ * /auth/me:
+ *   get:
+ *     tags: [Auth]
+ *     summary: Get current authenticated user
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User data retrieved successfully
+ *       401:
+ *         description: Not authenticated
+ */
+router.get('/me', authGuard(), catchAsync(getMe));
 
 export default router;

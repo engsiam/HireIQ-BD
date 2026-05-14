@@ -5,10 +5,9 @@ import { useAuthStore } from '@/store/useAuthStore';
 import FullScreenLoading from '@/components/shared/FullScreenLoading';
 
 export function UserStoreProvider({ children }: { children: ReactNode }) {
-  const user = useAuthStore((state) => state.user);
-  const isHydrated = useAuthStore((state) => state.isHydrated);
-  const isHydrating = useAuthStore((state) => state.isHydrating);
-  const hydrate = useAuthStore((state) => state.hydrate);
+  const initialize = useAuthStore((state) => state.initialize);
+  const isInitialized = useAuthStore((state) => state.isInitialized);
+  const isLoading = useAuthStore((state) => state.isLoading);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -16,12 +15,12 @@ export function UserStoreProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (mounted && !user) {
-      hydrate();
+    if (mounted && !isInitialized) {
+      initialize();
     }
-  }, [mounted, user, hydrate]);
+  }, [mounted, isInitialized, initialize]);
 
-  if (!mounted) {
+  if (!mounted || (mounted && !isInitialized)) {
     return <FullScreenLoading message="Loading" subMessage="Initializing..." />;
   }
 

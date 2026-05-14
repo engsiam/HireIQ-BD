@@ -17,15 +17,18 @@ export default function Navbar() {
   const pathname = usePathname();
   const user = useUser();
   const isAuthenticated = useIsAuthenticated();
-  const { logout, hydrate } = useAuthStore();
+  const { logout, initialize } = useAuthStore();
+  const isInitialized = useAuthStore((state) => state.isInitialized);
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    hydrate();
-  }, []);
+    if (!isInitialized) {
+      initialize();
+    }
+  }, [isInitialized, initialize]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);

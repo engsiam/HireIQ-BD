@@ -1,18 +1,17 @@
 'use client';
 
-import { useUser, useIsAuthenticated, useAuthStore } from '@/store/useAuthStore';
+import { useIsAuthenticated, useAuthStore } from '@/store/useAuthStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Loader2 } from 'lucide-react';
 
-interface ProtectedRouteProps {
+interface GuestRouteProps {
   children: React.ReactNode;
   fallback?: React.ReactNode;
 }
 
-export function ProtectedRoute({ children, fallback }: ProtectedRouteProps) {
+export function GuestRoute({ children, fallback }: GuestRouteProps) {
   const isInitialized = useAuthStore((state) => state.isInitialized);
-  const user = useUser();
   const isAuthenticated = useIsAuthenticated();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
@@ -24,8 +23,8 @@ export function ProtectedRoute({ children, fallback }: ProtectedRouteProps) {
   useEffect(() => {
     if (!mounted || !isInitialized) return;
     
-    if (!isAuthenticated) {
-      router.replace('/login');
+    if (isAuthenticated) {
+      router.replace('/dashboard');
     }
   }, [mounted, isInitialized, isAuthenticated, router]);
 
@@ -39,7 +38,7 @@ export function ProtectedRoute({ children, fallback }: ProtectedRouteProps) {
     );
   }
 
-  if (!isAuthenticated) {
+  if (isAuthenticated) {
     return null;
   }
 

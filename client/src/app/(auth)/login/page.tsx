@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,13 +13,27 @@ import { motion } from 'framer-motion';
 import { Mail, Lock, LogIn } from 'lucide-react';
 import { FaGoogle } from "react-icons/fa";
 
+export const dynamic = 'force-dynamic';
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login, isLoading, error, clearError } = useAuthStore();
+  const { login, isLoading, error, clearError, initialize } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
+  const [mounted, setMounted] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [localError, setLocalError] = useState('');
+
+  useEffect(() => {
+    setMounted(true);
+    initialize();
+  }, []);
+
+  useEffect(() => {
+    if (mounted && user) {
+      router.replace('/dashboard');
+    }
+  }, [mounted, user, router]);
 
   const handleDemoLogin = (role: 'jobseeker' | 'employer' | 'admin') => {
     const demoCredentials = {
@@ -45,7 +59,7 @@ export default function LoginPage() {
 
     const success = await login(email, password);
     if (success) {
-      router.push('/dashboard');
+      window.location.href = '/dashboard';
     } else {
       setLocalError(error || 'Login failed');
     }
@@ -63,7 +77,7 @@ export default function LoginPage() {
       className="w-full max-w-[440px]"
     >
       <Card className="relative bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 shadow-2xl rounded-3xl overflow-hidden">
-        <div className="absolute top-0 left-0 h-1.5 w-full bg-gradient-to-r from-[#EB4C4C] via-[#FF7070] to-[#EB4C4C] rounded-3xl" />
+        <div className="absolute left-0 top-0 h-1.5 w-full bg-gradient-to-r from-[#EB4C4C] via-[#FF7070] to-[#EB4C4C] rounded-3xl" />
         
         <CardHeader className="space-y-2 text-center pt-10 pb-6">
           <div className="flex justify-center mb-4">

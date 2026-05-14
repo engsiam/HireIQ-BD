@@ -7,12 +7,22 @@ import { Loader2 } from 'lucide-react';
 
 export default function DashboardPage() {
   const router = useRouter();
+  const isInitialized = useAuthStore((state) => state.isInitialized);
   const isAuthenticated = useIsAuthenticated();
   const user = useUser();
+  const { initialize } = useAuthStore();
 
   useEffect(() => {
+    if (!isInitialized) {
+      initialize();
+    }
+  }, [isInitialized, initialize]);
+
+  useEffect(() => {
+    if (!isInitialized) return;
+
     if (!isAuthenticated) {
-      router.push('/login');
+      router.replace('/login');
       return;
     }
 
@@ -29,8 +39,16 @@ export default function DashboardPage() {
       }
     };
 
-    router.push(getDashboardPath());
-  }, [isAuthenticated, user, router]);
+    router.replace(getDashboardPath());
+  }, [isInitialized, isAuthenticated, user, router]);
+
+  if (!isInitialized || !isAuthenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-[#EB4C4C]" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center">

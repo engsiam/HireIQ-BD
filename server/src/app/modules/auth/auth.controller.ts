@@ -259,3 +259,38 @@ export const logout = async (req: AuthRequest, res: Response) => {
     message: 'Logout successful',
   });
 };
+
+export const getMe = async (req: AuthRequest, res: Response) => {
+  if (!req.user) {
+    throw new ApiError(401, 'Not authenticated');
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: req.user.id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      avatar: true,
+      phone: true,
+      location: true,
+      bio: true,
+      skills: true,
+      isActive: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (!user || !user.isActive) {
+    throw new ApiError(401, 'User not found or inactive');
+  }
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'User retrieved successfully',
+    data: { user },
+  });
+};

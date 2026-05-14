@@ -5,7 +5,6 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useAuthStore, useUser, useIsAuthenticated } from '@/store/useAuthStore';
 import DashboardSidebar from '@/components/shared/DashboardSidebar';
 import DashboardHeader from '@/components/shared/DashboardHeader';
-import FullScreenLoading from '@/components/shared/FullScreenLoading';
 import { Loader2 } from 'lucide-react';
 
 export default function DashboardLayout({
@@ -15,21 +14,26 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
+  const isInitialized = useAuthStore((state) => state.isInitialized);
   const isAuthenticated = useIsAuthenticated();
   const user = useUser();
-  const { hydrate, logout } = useAuthStore();
+  const { initialize, logout } = useAuthStore();
 
   useEffect(() => {
-    hydrate();
-  }, []);
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/login');
+    if (!isInitialized) {
+      initialize();
     }
-  }, [isAuthenticated, router]);
+  }, [isInitialized, initialize]);
 
-  if (!isAuthenticated) {
+  useEffect(() => {
+    if (!isInitialized) return;
+    
+    if (!isAuthenticated) {
+      router.replace('/login');
+    }
+  }, [isInitialized, isAuthenticated, router]);
+
+  if (!isInitialized || !isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="w-8 h-8 animate-spin text-[#EB4C4C]" />
@@ -63,7 +67,7 @@ export default function DashboardLayout({
 
   const handleLogout = async () => {
     await logout();
-    router.push('/login');
+    window.location.href = '/login';
   };
 
   return (
