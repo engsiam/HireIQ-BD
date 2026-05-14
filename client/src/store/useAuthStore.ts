@@ -147,15 +147,23 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   logout: async () => {
     try {
-      await fetch(`${BASE_URL}/auth/logout`, {
+      const response = await fetch(`${BASE_URL}/auth/logout`, {
         method: 'POST',
         credentials: 'include',
       });
+      console.log('[Auth] Logout response:', response.status);
     } catch (error) {
       console.error('[Auth] Logout error:', error);
     }
 
-    set({ user: null, isAuthenticated: false, isInitialized: true, isLoading: false, error: null });
+    // Clear all cookies client-side to ensure logout persists
+    if (typeof document !== 'undefined') {
+      document.cookie.split(';').forEach((c) => {
+        document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/');
+      });
+    }
+
+    set({ user: null, isAuthenticated: false, isInitialized: false, isLoading: false, error: null });
   },
 
   clearError: () => set({ error: null }),
