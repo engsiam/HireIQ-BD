@@ -1,44 +1,55 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { useAuthStore, useUser, useIsAuthenticated } from '@/store/useAuthStore';
+import { useAuthStore, useUser } from '@/store/useAuthStore';
 import DashboardSidebar from '@/components/shared/DashboardSidebar';
 import DashboardHeader from '@/components/shared/DashboardHeader';
 import { Loader2 } from 'lucide-react';
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const isInitialized = useAuthStore((state) => state.isInitialized);
-  const isAuthenticated = useIsAuthenticated();
   const user = useUser();
-  const { initialize, logout } = useAuthStore();
+  const [ready, setReady] = useState(false);
+  const initialize = useAuthStore((state) => state.initialize);
+  const logout = useAuthStore((state) => state.logout);
+  const isInitialized = useAuthStore((state) => state.isInitialized);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   useEffect(() => {
     if (!isInitialized) {
-      initialize();
+      initialize().finally(() => setReady(true));
+    } else {
+      setReady(true);
     }
-  }, [isInitialized, initialize]);
+  }, []);
 
   useEffect(() => {
-    if (!isInitialized) return;
+    if (!ready) return;
     
-    // Small delay to ensure cookies are processed after Google auth redirect
     const timer = setTimeout(() => {
-      if (!isAuthenticated) {
+      const stillAuth = useAuthStore.getState().isAuthenticated;
+      const stillUser = useAuthStore.getState().user;
+      
+      if (!stillAuth || !stillUser) {
         router.replace('/login');
       }
-    }, 500);
+    }, 1000);
     
     return () => clearTimeout(timer);
-  }, [isInitialized, isAuthenticated, router]);
+  }, [ready, router]);
 
-  if (!isInitialized) {
+  if (!ready || !isInitialized) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="w-8 h-8 animate-spin text-[#EB4C4C]" />
+      </div>
+    );
+  }
+
+  // Show loading if not authenticated (while checking)
+  if (!isAuthenticated || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="w-8 h-8 animate-spin text-[#EB4C4C]" />
@@ -47,22 +58,20 @@ export default function DashboardLayout({
   }
 
   const getDashboardPath = () => {
-    if (!user) return '/dashboard/jobseeker';
-    switch (user.role) {
-      case 'ADMIN':
-        return '/dashboard/admin';
-      case 'EMPLOYER':
-        return '/dashboard/employer';
-      case 'JOBSEEKER':
-      default:
-        return '/dashboard/jobseeker';
+    switch (user?.role) {
+      case 'ADMIN': return '/dashboard/admin';
+      case 'EMPLOYER': return '/dashboard/employer';
+      default: return '/dashboard/jobseeker';
     }
   };
 
   const currentPath = pathname.split('/')[2];
   const expectedPath = getDashboardPath().split('/')[2];
 
-  if (currentPath && currentPath !== expectedPath && !pathname.includes('/dashboard/admin') && !pathname.includes('/dashboard/employer') && !pathname.includes('/dashboard/jobseeker')) {
+  if (currentPath && currentPath !== expectedPath && 
+      !pathname.includes('/dashboard/admin') && 
+      !pathname.includes('/dashboard/employer') && 
+      !pathname.includes('/dashboard/jobseeker')) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="w-8 h-8 animate-spin text-[#EB4C4C]" />
@@ -79,11 +88,9 @@ export default function DashboardLayout({
     <div className="flex h-screen overflow-hidden bg-background">
       <DashboardSidebar role={user?.role || 'JOBSEEKER'} onLogout={handleLogout} />
       <main className="flex-1 flex flex-col overflow-hidden">
-        <DashboardHeader user={user!} onLogout={handleLogout} />
+        <DashboardHeader user={user} onLogout={handleLogout} />
         <div className="flex-1 overflow-y-auto">
-          <div className="p-4 lg:p-5">
-            {children}
-          </div>
+          <div className="p-4 lg:p-5">{children}</div>
         </div>
       </main>
     </div>
