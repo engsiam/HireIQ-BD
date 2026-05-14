@@ -106,8 +106,7 @@ export default function RegisterPage() {
       className="w-full max-w-[480px]"
     >
       <Card className="relative bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 shadow-2xl rounded-3xl overflow-hidden">
-        <div className="h-1.5 w-full bg-gradient-to-r from-[#EB4C4C] via-[#FF7070] to-[#EB4C4C]" />
-        
+        <div className="absolute left-0 top-0 h-1.5 w-full bg-gradient-to-r from-[#EB4C4C] via-[#FF7070] to-[#EB4C4C]" />
         <CardHeader className="space-y-2 text-center pt-10 pb-6">
           <div className="flex justify-center mb-4">
             <Link href="/" className="group">

@@ -28,12 +28,17 @@ export default function DashboardLayout({
   useEffect(() => {
     if (!isInitialized) return;
     
-    if (!isAuthenticated) {
-      router.replace('/login');
-    }
+    // Small delay to ensure cookies are processed after Google auth redirect
+    const timer = setTimeout(() => {
+      if (!isAuthenticated) {
+        router.replace('/login');
+      }
+    }, 500);
+    
+    return () => clearTimeout(timer);
   }, [isInitialized, isAuthenticated, router]);
 
-  if (!isInitialized || !isAuthenticated) {
+  if (!isInitialized) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="w-8 h-8 animate-spin text-[#EB4C4C]" />
