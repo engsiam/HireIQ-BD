@@ -125,7 +125,7 @@ export default function DashboardSidebar({ role = 'JOBSEEKER', onLogout }: { rol
       <div className="p-3 border-t border-border mt-auto bg-muted/30">
         <button
           onClick={() => { onLogout?.(); setMobileMenuOpen(false); }}
-          className="w-full flex items-center gap-3 h-10 px-3 rounded-xl text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-all"
+          className="w-full flex items-center gap-3 h-10 px-3 rounded-xl text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-all cursor-pointer"
         >
           <LogOut size={16} />
           <span className="text-sm font-medium">Log Out</span>

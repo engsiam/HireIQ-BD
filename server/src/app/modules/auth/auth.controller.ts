@@ -6,7 +6,7 @@ import ApiError from '../../utils/ApiError';
 import sendResponse from '../../utils/sendResponse';
 import env, { getServerUrl } from '../../../config';
 import { AuthRequest } from '../../middlewares/auth.middleware';
-import { getCrossDomainCookieOptions } from '../../utils/cookie';
+import { getCrossDomainCookieOptions, clearCookieOptions } from '../../utils/cookie';
 
 const generateTokens = (userId: string, role: string) => {
   const accessTokenOptions: SignOptions = { expiresIn: '7d' };
@@ -250,8 +250,9 @@ export const refreshToken = async (req: AuthRequest, res: Response) => {
 };
 
 export const logout = async (req: AuthRequest, res: Response) => {
-  res.clearCookie('accessToken');
-  res.clearCookie('refreshToken');
+  const cookieOptions = clearCookieOptions();
+  res.clearCookie('accessToken', cookieOptions);
+  res.clearCookie('refreshToken', cookieOptions);
 
   sendResponse(res, {
     statusCode: 200,

@@ -10,15 +10,16 @@ export interface CookieOptions {
 }
 
 const isProduction = process.env.NODE_ENV === 'production';
-const isDev = !isProduction;
 
-const getBackendUrl = () => env.SERVER_URL || env.CLIENT_URL || 'http://localhost:5000';
-const getFrontendUrl = () => env.CLIENT_URL || 'http://localhost:3000';
-
-const isCrossDomain = () => {
+const isCrossDomain = (): boolean => {
+  const backendUrl = env.SERVER_URL || env.CLIENT_URL || '';
+  const frontendUrl = env.CLIENT_URL || 'http://localhost:3000';
+  
+  if (!backendUrl || !frontendUrl) return false;
+  
   try {
-    const backend = new URL(getBackendUrl());
-    const frontend = new URL(getFrontendUrl());
+    const backend = new URL(backendUrl);
+    const frontend = new URL(frontendUrl);
     return backend.hostname !== frontend.hostname;
   } catch {
     return isProduction;
@@ -26,12 +27,14 @@ const isCrossDomain = () => {
 };
 
 export const getCookieOptions = (maxAge?: number): CookieOptions => {
-  const isCross = isCrossDomain();
+  const crossDomain = isCrossDomain();
   
+  // For cross-domain (Vercel <-> Render): sameSite: 'none', secure: true
+  // For same-domain: sameSite: 'strict' or 'lax'
   const options: CookieOptions = {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isDev ? 'lax' : (isCross ? 'none' : 'strict'),
+    secure: true, // Always true in production
+    sameSite: crossDomain ? 'none' : 'lax',
     path: '/',
   };
 
@@ -39,12 +42,13 @@ export const getCookieOptions = (maxAge?: number): CookieOptions => {
     options.maxAge = maxAge * 1000;
   }
 
-  if (isProduction && env.CLIENT_URL && !isCross) {
+  // Only set domain for same-domain deployments
+  if (!crossDomain && isProduction && env.CLIENT_URL) {
     try {
       const url = new URL(env.CLIENT_URL);
       options.domain = url.hostname;
     } catch {
-      // fallback
+      // skip
     }
   }
 
@@ -64,11 +68,11 @@ export const getRefreshTokenCookieOptions = (): CookieOptions => {
 };
 
 export const clearCookieOptions = (): CookieOptions => {
-  const isCross = isCrossDomain();
+  const crossDomain = isCrossDomain();
   return {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isDev ? 'lax' : (isCross ? 'none' : 'strict'),
+    secure: true,
+    sameSite: crossDomain ? 'none' : 'lax',
     path: '/',
     maxAge: 0,
   };

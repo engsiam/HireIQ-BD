@@ -43,17 +43,33 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const response = await fetch(`${BASE_URL}/auth/me`, {
+      // Try /auth/me first (new endpoint)
+      let response = await fetch(`${BASE_URL}/auth/me`, {
         credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
+
+      // Fallback to /users/session if /auth/me not found (for older servers)
+      if (response.status === 404) {
+        response = await fetch(`${BASE_URL}/users/session`, {
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
 
       if (response.ok) {
         const data = await response.json();
-        if (data.success && data.data?.user) {
-          set({ user: data.data.user, isAuthenticated: true, isInitialized: true, isLoading: false });
+        
+        // Handle both response formats:
+        // 1. /auth/me: { success: true, data: { user: {...} } }
+        // 2. /users/session: { success: true, data: { isAuthenticated: true, user: {...} } }
+        let user = null;
+        if (data.success && data.data) {
+          user = data.data.user || (data.data.isAuthenticated ? data.data.user : null);
+        }
+        
+        if (user) {
+          set({ user, isAuthenticated: true, isInitialized: true, isLoading: false });
           return;
         }
       }
