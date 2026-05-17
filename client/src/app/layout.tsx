@@ -65,7 +65,10 @@ export default function RootLayout({
                 try {
                   if(typeof window !== 'undefined'){
                     var theme = localStorage.getItem('hireiq-theme');
-                    if (!theme) {
+                    if (theme) {
+                      var parsed = JSON.parse(theme);
+                      theme = parsed.state?.theme || 'light';
+                    } else {
                       theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                     }
                     document.documentElement.classList.add(theme);

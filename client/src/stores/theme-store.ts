@@ -28,7 +28,7 @@ function applyThemeToDOM(resolved: 'light' | 'dark') {
 export const useThemeStore = create<ThemeState>()(
   persist(
     (set) => ({
-      theme: 'dark',
+      theme: 'light',
 
       setTheme: (theme: Theme) => {
         set({ theme });
@@ -51,7 +51,7 @@ export const useThemeStore = create<ThemeState>()(
       },
     }),
     {
-      name: 'luxespace-theme',
+      name: 'hireiq-theme',
       onRehydrateStorage: () => (state) => {
         if (state) {
           applyThemeToDOM(resolveTheme(state.theme));
