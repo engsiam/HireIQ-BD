@@ -100,12 +100,12 @@ export default function AdminUsers() {
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="text-center space-y-4 p-8 bg-white/5 backdrop-blur-xl border border-red-500/20 rounded-2xl">
-          <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto">
-            <ShieldCheck className="w-8 h-8 text-red-500" />
+        <div className="text-center space-y-4 p-8 bg-card backdrop-blur-xl border border-border rounded-2xl">
+          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
+            <ShieldCheck className="w-8 h-8 text-primary" />
           </div>
-          <p className="text-red-400 font-medium text-sm">{error}</p>
-          <Button onClick={() => fetchUsers(currentPage)} variant="outline" className="border-white/10 text-white hover:bg-white/10">
+          <p className="text-destructive font-medium text-sm">{error}</p>
+          <Button onClick={() => fetchUsers(currentPage)} variant="outline" className="border-border hover:bg-accent">
             Try Again
           </Button>
         </div>
@@ -117,16 +117,16 @@ export default function AdminUsers() {
     <div className="space-y-6 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">All Users</h1>
-          <p className="text-white/50 text-sm mt-1">Manage user accounts and permissions</p>
+          <h1 className="text-2xl font-bold text-foreground">All Users</h1>
+          <p className="text-muted-foreground text-sm mt-1">Manage user accounts and permissions</p>
         </div>
 
         <div className="flex gap-3 w-full md:w-auto">
           <div className="relative flex-1 md:flex-[0_0_280px] group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 group-focus-within:text-[#EB4C4C] transition-colors" size={16} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={16} />
             <Input 
               placeholder="Search users..." 
-              className="h-11 pl-12 bg-white/5 border-white/10 rounded-xl text-white placeholder:text-white/40 focus:border-[#EB4C4C] transition-all text-sm"
+              className="h-11 pl-12 bg-card border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:border-primary transition-all text-sm"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -135,7 +135,7 @@ export default function AdminUsers() {
       </div>
 
       <div className="w-full">
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden p-4">
+        <div className="bg-card border-border rounded-xl overflow-hidden p-4">
           
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 lg:mb-10">
             <div className="flex items-center gap-4 lg:gap-6">
@@ -143,7 +143,7 @@ export default function AdminUsers() {
                 <Users size={24} className="lg:w-8 lg:h-8" />
               </div>
               <div>
-                <h2 className="text-lg lg:text-2xl font-black text-white tracking-tight">Active Accounts</h2>
+                <h2 className="text-lg lg:text-2xl font-black text-foreground tracking-tight">Active Accounts</h2>
                 <p className="text-[10px] lg:text-xs text-muted-foreground uppercase tracking-[0.3em] font-bold">
                   {loading ? 'Analyzing...' : `${totalItems} identities (Page ${currentPage} of ${totalPages})`}
                 </p>
@@ -151,9 +151,9 @@ export default function AdminUsers() {
             </div>
             
             {loading && (
-              <div className="flex items-center gap-3 bg-white/5 px-4 lg:px-6 py-2 lg:py-3 rounded-full border border-white/10">
+              <div className="flex items-center gap-3 bg-muted px-4 lg:px-6 py-2 lg:py-3 rounded-full border border-border">
                 <Loader2 className="w-3 h-3 lg:w-4 lg:h-4 text-primary animate-spin" />
-                <span className="text-[10px] lg:text-xs font-black uppercase tracking-widest text-white/60">Syncing</span>
+                <span className="text-[10px] lg:text-xs font-black uppercase tracking-widest text-muted-foreground">Syncing</span>
               </div>
             )}
           </div>

@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import { Building2, Plus, Search } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Pagination } from '@/components/ui/pagination';
+import { Input } from '@/components/ui/input';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -83,7 +84,7 @@ export default function AgentProperties() {
             <div className="w-10 h-0.5 bg-primary rounded-full" />
             <span className="text-primary font-black uppercase tracking-[0.4em] text-xs">Portfolio Control</span>
           </div>
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tighter text-white">My <span className="text-primary italic">Properties</span></h1>
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tighter text-foreground">My <span className="text-primary italic">Properties</span></h1>
         </div>
         <Link href="/dashboard/agent/add-property">
           <Button className="h-12 lg:h-14 px-6 lg:px-8 bg-primary text-secondary-foreground hover:bg-white rounded-xl font-black shadow-lg transition-all flex items-center gap-2">
@@ -100,7 +101,7 @@ export default function AgentProperties() {
               <Building2 size={24} />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">Inventory</h2>
+              <h2 className="text-xl font-bold text-foreground">Inventory</h2>
               <p className="text-sm text-muted-foreground">{loading ? 'Loading...' : `${totalItems} properties (Page ${currentPage} of ${totalPages})`}</p>
             </div>
           </div>
@@ -113,7 +114,7 @@ export default function AgentProperties() {
                 placeholder="Search properties..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="h-10 pl-10 pr-4 bg-background border border-border rounded-xl text-white text-sm w-64"
+                className="h-10 pl-10 pr-4 bg-background border border-border rounded-xl text-foreground text-sm w-64 placeholder:text-muted-foreground"
               />
             </div>
             <Button type="submit" variant="outline" className="h-10 rounded-xl">
@@ -129,7 +130,7 @@ export default function AgentProperties() {
             ))}
           </div>
         ) : properties.length === 0 ? (
-          <div className="text-center py-20 bg-white/5 rounded-2xl border border-dashed border-white/10">
+          <div className="text-center py-20 bg-muted rounded-2xl border border-dashed border-border">
             <Building2 className="mx-auto text-muted-foreground mb-4 opacity-20" size={48} />
             <p className="text-muted-foreground font-black uppercase tracking-widest text-sm mb-4">
               No properties found

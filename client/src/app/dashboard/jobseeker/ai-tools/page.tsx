@@ -13,7 +13,7 @@ const aiTools = [
     icon: FileText,
     href: '/ai-tools/#cv-analyzer',
     color: 'from-blue-500 to-cyan-400',
-    bgColor: 'bg-blue-500/10',
+    bgColor: 'bg-blue-500/10 dark:bg-blue-500/10',
   },
   {
     id: 'interview-coach',
@@ -22,7 +22,7 @@ const aiTools = [
     icon: MessageSquare,
     href: '/ai-tools/#interview-coach',
     color: 'from-purple-500 to-pink-400',
-    bgColor: 'bg-purple-500/10',
+    bgColor: 'bg-purple-500/10 dark:bg-purple-500/10',
   },
   {
     id: 'job-matcher',
@@ -40,8 +40,8 @@ export default function AIToolsPage() {
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white">AI Tools</h1>
-        <p className="text-white/50 text-sm">Supercharge your job search with AI-powered tools</p>
+        <h1 className="text-2xl font-bold text-foreground">AI Tools</h1>
+        <p className="text-muted-foreground text-sm">Supercharge your job search with AI-powered tools</p>
       </div>
 
       {/* AI Tools Grid */}
@@ -49,14 +49,14 @@ export default function AIToolsPage() {
         {aiTools.map((tool) => (
           <Card 
             key={tool.id} 
-            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl hover:border-white/20 transition-all hover:shadow-xl hover:shadow-[#EB4C4C]/5 group"
+            className="bg-card border-border rounded-xl hover:border-[#EB4C4C]/30 transition-all hover:shadow-xl hover:shadow-[#EB4C4C]/5 group"
           >
             <CardHeader className="p-6">
               <div className={`w-14 h-14 rounded-xl ${tool.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                <tool.icon className="w-7 h-7 text-white/80" />
+                <tool.icon className="w-7 h-7 text-foreground/80" />
               </div>
-              <CardTitle className="text-xl font-bold text-white">{tool.title}</CardTitle>
-              <CardDescription className="text-white/50">
+              <CardTitle className="text-xl font-bold text-foreground">{tool.title}</CardTitle>
+              <CardDescription className="text-muted-foreground">
                 {tool.description}
               </CardDescription>
             </CardHeader>
@@ -73,32 +73,32 @@ export default function AIToolsPage() {
       </div>
 
       {/* How it works */}
-      <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-        <CardHeader className="border-b border-white/5 pb-3 px-6 pt-6">
-          <CardTitle className="text-lg font-semibold text-white">How It Works</CardTitle>
+      <Card className="bg-card border-border rounded-xl">
+        <CardHeader className="border-b border-border pb-3 px-6 pt-6">
+          <CardTitle className="text-lg font-semibold text-foreground">How It Works</CardTitle>
         </CardHeader>
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-[#EB4C4C]/20 flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 rounded-full bg-[#EB4C4C]/10 dark:bg-[#EB4C4C]/20 flex items-center justify-center mx-auto mb-3">
                 <span className="text-[#EB4C4C] font-bold">1</span>
               </div>
-              <h3 className="font-semibold text-white mb-2">Upload Your CV</h3>
-              <p className="text-white/50 text-sm">Simply upload your resume or paste your work experience.</p>
+              <h3 className="font-semibold text-foreground mb-2">Upload Your CV</h3>
+              <p className="text-muted-foreground text-sm">Simply upload your resume or paste your work experience.</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-[#EB4C4C]/20 flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 rounded-full bg-[#EB4C4C]/10 dark:bg-[#EB4C4C]/20 flex items-center justify-center mx-auto mb-3">
                 <span className="text-[#EB4C4C] font-bold">2</span>
               </div>
-              <h3 className="font-semibold text-white mb-2">AI Analysis</h3>
-              <p className="text-white/50 text-sm">Our AI analyzes your profile and provides personalized recommendations.</p>
+              <h3 className="font-semibold text-foreground mb-2">AI Analysis</h3>
+              <p className="text-muted-foreground text-sm">Our AI analyzes your profile and provides personalized recommendations.</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-[#EB4C4C]/20 flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 rounded-full bg-[#EB4C4C]/10 dark:bg-[#EB4C4C]/20 flex items-center justify-center mx-auto mb-3">
                 <span className="text-[#EB4C4C] font-bold">3</span>
               </div>
-              <h3 className="font-semibold text-white mb-2">Get Hired</h3>
-              <p className="text-white/50 text-sm">Use insights to improve your applications and land your dream job.</p>
+              <h3 className="font-semibold text-foreground mb-2">Get Hired</h3>
+              <p className="text-muted-foreground text-sm">Use insights to improve your applications and land your dream job.</p>
             </div>
           </div>
         </CardContent>

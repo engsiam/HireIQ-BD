@@ -125,21 +125,21 @@ export default function EmployerProfilePage() {
     <div className="space-y-6 max-w-3xl mx-auto">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white">Profile</h1>
-        <p className="text-white/50 text-sm">Manage your company profile</p>
+        <h1 className="text-2xl font-bold text-foreground">Profile</h1>
+        <p className="text-muted-foreground text-sm">Manage your company profile</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Avatar Section */}
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
+        <Card className="bg-card border-border rounded-xl">
           <CardContent className="p-6">
             <div className="flex items-center gap-6">
               <div className="relative">
-                <div className="w-24 h-24 rounded-full overflow-hidden bg-white/10 border-2 border-white/20">
+                <div className="w-24 h-24 rounded-full overflow-hidden bg-muted border-2 border-border">
                   {user?.avatar ? (
                     <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-white/40 text-2xl font-bold">
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground text-2xl font-bold">
                       {formData.name?.[0]?.toUpperCase() || 'C'}
                     </div>
                   )}
@@ -165,36 +165,36 @@ export default function EmployerProfilePage() {
                 />
               </div>
               <div>
-                <h3 className="text-white font-semibold">Company Logo</h3>
-                <p className="text-white/50 text-sm">Upload your company logo</p>
+                <h3 className="text-foreground font-semibold">Company Logo</h3>
+                <p className="text-muted-foreground text-sm">Upload your company logo</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Basic Info */}
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-          <CardHeader className="border-b border-white/5 pb-3 px-6 pt-6">
-            <CardTitle className="text-lg font-semibold text-white">Company Information</CardTitle>
+        <Card className="bg-card border-border rounded-xl">
+          <CardHeader className="border-b border-border pb-3 px-6 pt-6">
+            <CardTitle className="text-lg font-semibold text-foreground">Company Information</CardTitle>
           </CardHeader>
           <CardContent className="p-6 space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label className="text-white/70">Company Name</Label>
+                <Label className="text-foreground">Company Name</Label>
                 <Input
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                  className="bg-background text-foreground border-border placeholder:text-muted-foreground"
                   placeholder="Your company name"
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-white/70">Email</Label>
+                <Label className="text-foreground">Email</Label>
                 <Input
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                  className="bg-background text-foreground border-border placeholder:text-muted-foreground"
                   placeholder="company@example.com"
                   disabled
                 />
@@ -203,31 +203,31 @@ export default function EmployerProfilePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label className="text-white/70">Phone Number</Label>
+                <Label className="text-foreground">Phone Number</Label>
                 <Input
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                  className="bg-background text-foreground border-border placeholder:text-muted-foreground"
                   placeholder="+880 123 456 7890"
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-white/70">Location</Label>
+                <Label className="text-foreground">Location</Label>
                 <Input
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                  className="bg-background text-foreground border-border placeholder:text-muted-foreground"
                   placeholder="Dhaka, Bangladesh"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label className="text-white/70">Company Description</Label>
+              <Label className="text-foreground">Company Description</Label>
               <Textarea
                 value={formData.bio}
                 onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40 min-h-[120px]"
+                className="bg-background text-foreground border-border placeholder:text-muted-foreground min-h-[120px]"
                 placeholder="Tell us about your company..."
               />
             </div>

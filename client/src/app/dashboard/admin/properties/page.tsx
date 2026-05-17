@@ -67,10 +67,10 @@ export default function AdminProperties() {
             <div className="w-8 lg:w-10 h-0.5 bg-primary rounded-full" />
             <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px]">Property Management</span>
           </div>
-          <h1 className="text-2xl md:text-3xl lg:text-5xl font-black tracking-tighter text-white">Manage <span className="text-primary italic">Properties</span></h1>
+          <h1 className="text-2xl md:text-3xl lg:text-5xl font-black tracking-tighter text-foreground">Manage <span className="text-primary italic">Properties</span></h1>
         </div>
         <div className="flex gap-3 w-full lg:w-auto">
-          <Button onClick={() => fetchProperties(currentPage)} variant="outline" className="h-10 lg:h-12 rounded-xl border-white/10 text-white hover:bg-white/10">
+          <Button onClick={() => fetchProperties(currentPage)} variant="outline" className="h-10 lg:h-12 rounded-xl border-border text-foreground hover:bg-muted">
             <RefreshCw size={16} className="mr-2" />
             <span className="hidden sm:inline">Refresh</span>
           </Button>
@@ -88,7 +88,7 @@ export default function AdminProperties() {
               <Building2 size={20} className="lg:w-6 lg:h-6" />
             </div>
             <div>
-              <h2 className="text-lg lg:text-xl font-bold text-white">All Properties</h2>
+              <h2 className="text-lg lg:text-xl font-bold text-foreground">All Properties</h2>
               <p className="text-xs lg:text-sm text-muted-foreground">{loading ? 'Loading...' : `${totalItems} properties (Page ${currentPage} of ${totalPages})`}</p>
             </div>
           </div>
@@ -99,7 +99,7 @@ export default function AdminProperties() {
               placeholder="Search properties..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="h-10 pl-10 pr-4 bg-background border-white/10 rounded-xl text-white text-sm w-full sm:w-56"
+              className="h-10 pl-10 pr-4 bg-background border-border rounded-xl text-foreground text-sm w-full sm:w-56"
             />
           </div>
         </div>
@@ -112,7 +112,7 @@ export default function AdminProperties() {
               ))}
             </div>
           ) : properties.length === 0 ? (
-            <div className="text-center py-12 lg:py-20 bg-white/5 rounded-xl lg:rounded-2xl border border-dashed border-white/10">
+            <div className="text-center py-12 lg:py-20 bg-muted rounded-xl lg:rounded-2xl border border-dashed border-border">
               <Building2 className="mx-auto text-muted-foreground mb-4 opacity-20" size={36} />
               <p className="text-muted-foreground font-black uppercase tracking-widest text-xs lg:text-sm">No properties found</p>
             </div>

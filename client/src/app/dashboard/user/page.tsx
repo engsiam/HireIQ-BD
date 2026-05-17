@@ -102,7 +102,7 @@ export default function UserDashboard() {
             <div className="w-8 lg:w-10 h-0.5 bg-primary rounded-full" />
             <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px] lg:text-xs">User Portal</span>
           </div>
-          <h1 className="text-2xl md:text-3xl lg:text-5xl font-black tracking-tighter text-white">My <span className="text-primary italic">Dashboard</span></h1>
+          <h1 className="text-2xl md:text-3xl lg:text-5xl font-black tracking-tighter text-foreground">My <span className="text-primary italic">Dashboard</span></h1>
         </div>
 
         <Link href="/dashboard/user/profile">
@@ -127,7 +127,7 @@ export default function UserDashboard() {
       >
         <div className="p-4 md:p-6 lg:p-10 border-b border-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-background/20">
           <div>
-            <h2 className="text-lg md:text-xl lg:text-2xl font-black text-white tracking-tight">Personal Growth</h2>
+            <h2 className="text-lg md:text-xl lg:text-2xl font-black text-foreground tracking-tight">Personal Growth</h2>
             <p className="text-xs md:text-sm text-muted-foreground font-medium hidden sm:block">Monthly spending and booking frequency</p>
           </div>
           <div className="flex gap-3 md:gap-4">
@@ -163,7 +163,7 @@ export default function UserDashboard() {
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between p-6 border-b border-border">
               <div>
-                <h2 className="text-2xl lg:text-3xl font-black text-white">Personal Growth</h2>
+                <h2 className="text-2xl lg:text-3xl font-black text-foreground">Personal Growth</h2>
                 <p className="text-sm text-muted-foreground">Monthly spending and booking frequency</p>
               </div>
               <Button variant="ghost" size="icon" onClick={() => setShowGrowthFullscreen(false)} className="rounded-xl">

@@ -60,72 +60,72 @@ export default function PostJobPage() {
     <div className="space-y-6 max-w-3xl mx-auto">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white">Post New Job</h1>
-        <p className="text-white/50 text-sm">Fill in the details to create a new job listing</p>
+        <h1 className="text-2xl font-bold text-foreground">Post New Job</h1>
+        <p className="text-muted-foreground text-sm">Fill in the details to create a new job listing</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Basic Info */}
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-          <CardHeader className="border-b border-white/5 pb-3 px-4 pt-4">
-            <CardTitle className="text-base font-semibold text-white">Basic Information</CardTitle>
+        <Card className="bg-card border-border rounded-xl">
+          <CardHeader className="border-b border-border pb-3 px-4 pt-4">
+            <CardTitle className="text-base font-semibold text-foreground">Basic Information</CardTitle>
           </CardHeader>
           <CardContent className="p-4 space-y-4">
             <div className="space-y-2">
-              <Label className="text-white/70">Job Title *</Label>
+              <Label className="text-muted-foreground">Job Title *</Label>
               <Input
                 placeholder="e.g. Senior React Developer"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                className="bg-background border-border text-foreground placeholder:text-muted-foreground"
                 required
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label className="text-white/70">Job Type *</Label>
+                <Label className="text-muted-foreground">Job Type *</Label>
                 <Select value={formData.type} onValueChange={(value) => value && setFormData({ ...formData, type: value })}>
-                  <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                  <SelectTrigger className="bg-background border-border text-foreground">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a2e] border-white/10">
-                    <SelectItem value="FULL_TIME" className="text-white">Full Time</SelectItem>
-                    <SelectItem value="PART_TIME" className="text-white">Part Time</SelectItem>
-                    <SelectItem value="REMOTE" className="text-white">Remote</SelectItem>
-                    <SelectItem value="INTERNSHIP" className="text-white">Internship</SelectItem>
-                    <SelectItem value="CONTRACT" className="text-white">Contract</SelectItem>
+                  <SelectContent className="bg-popover border-border">
+                    <SelectItem value="FULL_TIME" className="text-foreground">Full Time</SelectItem>
+                    <SelectItem value="PART_TIME" className="text-foreground">Part Time</SelectItem>
+                    <SelectItem value="REMOTE" className="text-foreground">Remote</SelectItem>
+                    <SelectItem value="INTERNSHIP" className="text-foreground">Internship</SelectItem>
+                    <SelectItem value="CONTRACT" className="text-foreground">Contract</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label className="text-white/70">Category *</Label>
+                <Label className="text-muted-foreground">Category *</Label>
                 <Select value={formData.category} onValueChange={(value) => value && setFormData({ ...formData, category: value })}>
-                  <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                  <SelectTrigger className="bg-background border-border text-foreground">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1a1a2e] border-white/10">
-                    <SelectItem value="Technology" className="text-white">Technology</SelectItem>
-                    <SelectItem value="Finance" className="text-white">Finance</SelectItem>
-                    <SelectItem value="Marketing" className="text-white">Marketing</SelectItem>
-                    <SelectItem value="Healthcare" className="text-white">Healthcare</SelectItem>
-                    <SelectItem value="Education" className="text-white">Education</SelectItem>
-                    <SelectItem value="Engineering" className="text-white">Engineering</SelectItem>
-                    <SelectItem value="Design" className="text-white">Design</SelectItem>
-                    <SelectItem value="Sales" className="text-white">Sales</SelectItem>
+                  <SelectContent className="bg-popover border-border">
+                    <SelectItem value="Technology" className="text-foreground">Technology</SelectItem>
+                    <SelectItem value="Finance" className="text-foreground">Finance</SelectItem>
+                    <SelectItem value="Marketing" className="text-foreground">Marketing</SelectItem>
+                    <SelectItem value="Healthcare" className="text-foreground">Healthcare</SelectItem>
+                    <SelectItem value="Education" className="text-foreground">Education</SelectItem>
+                    <SelectItem value="Engineering" className="text-foreground">Engineering</SelectItem>
+                    <SelectItem value="Design" className="text-foreground">Design</SelectItem>
+                    <SelectItem value="Sales" className="text-foreground">Sales</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label className="text-white/70">Location *</Label>
+              <Label className="text-muted-foreground">Location *</Label>
               <Input
                 placeholder="e.g. Dhaka, Bangladesh"
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                className="bg-background border-border text-foreground placeholder:text-muted-foreground"
                 required
               />
             </div>
@@ -133,92 +133,92 @@ export default function PostJobPage() {
         </Card>
 
         {/* Description */}
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-          <CardHeader className="border-b border-white/5 pb-3 px-4 pt-4">
-            <CardTitle className="text-base font-semibold text-white">Job Details</CardTitle>
+        <Card className="bg-card border-border rounded-xl">
+          <CardHeader className="border-b border-border pb-3 px-4 pt-4">
+            <CardTitle className="text-base font-semibold text-foreground">Job Details</CardTitle>
           </CardHeader>
           <CardContent className="p-4 space-y-4">
             <div className="space-y-2">
-              <Label className="text-white/70">Job Description *</Label>
+              <Label className="text-muted-foreground">Job Description *</Label>
               <Textarea
                 placeholder="Describe the job role and responsibilities..."
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40 min-h-[120px]"
+                className="bg-background border-border text-foreground placeholder:text-muted-foreground min-h-[120px]"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-white/70">Requirements</Label>
+              <Label className="text-muted-foreground">Requirements</Label>
               <Textarea
                 placeholder="List the required skills and qualifications..."
                 value={formData.requirements}
                 onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40 min-h-[100px]"
+                className="bg-background border-border text-foreground placeholder:text-muted-foreground min-h-[100px]"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-white/70">Responsibilities</Label>
+              <Label className="text-muted-foreground">Responsibilities</Label>
               <Textarea
                 placeholder="List the key responsibilities..."
                 value={formData.responsibilities}
                 onChange={(e) => setFormData({ ...formData, responsibilities: e.target.value })}
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40 min-h-[100px]"
+                className="bg-background border-border text-foreground placeholder:text-muted-foreground min-h-[100px]"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-white/70">Required Skills (comma separated)</Label>
+              <Label className="text-muted-foreground">Required Skills (comma separated)</Label>
               <Input
                 placeholder="e.g. React, Node.js, TypeScript"
                 value={formData.skills}
                 onChange={(e) => setFormData({ ...formData, skills: e.target.value })}
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                className="bg-background border-border text-foreground placeholder:text-muted-foreground"
               />
             </div>
           </CardContent>
         </Card>
 
         {/* Salary & Deadline */}
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-          <CardHeader className="border-b border-white/5 pb-3 px-4 pt-4">
-            <CardTitle className="text-base font-semibold text-white">Salary & Deadline</CardTitle>
+        <Card className="bg-card border-border rounded-xl">
+          <CardHeader className="border-b border-border pb-3 px-4 pt-4">
+            <CardTitle className="text-base font-semibold text-foreground">Salary & Deadline</CardTitle>
           </CardHeader>
           <CardContent className="p-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label className="text-white/70">Min Salary (BDT)</Label>
+                <Label className="text-muted-foreground">Min Salary (BDT)</Label>
                 <Input
                   type="number"
                   placeholder="e.g. 50000"
                   value={formData.salaryMin}
                   onChange={(e) => setFormData({ ...formData, salaryMin: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                  className="bg-background border-border text-foreground placeholder:text-muted-foreground"
                   required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label className="text-white/70">Max Salary (BDT)</Label>
+                <Label className="text-muted-foreground">Max Salary (BDT)</Label>
                 <Input
                   type="number"
                   placeholder="e.g. 100000"
                   value={formData.salaryMax}
                   onChange={(e) => setFormData({ ...formData, salaryMax: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                  className="bg-background border-border text-foreground placeholder:text-muted-foreground"
                   required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label className="text-white/70">Application Deadline *</Label>
+                <Label className="text-muted-foreground">Application Deadline *</Label>
                 <Input
                   type="date"
                   value={formData.deadline}
                   onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white"
+                  className="bg-background border-border text-foreground"
                   required
                 />
               </div>
@@ -232,14 +232,14 @@ export default function PostJobPage() {
             type="button"
             variant="outline"
             onClick={() => router.back()}
-            className="border-white/10 text-white hover:bg-white/10"
+            className="border-border"
           >
             Cancel
           </Button>
           <Button
             type="submit"
             disabled={loading}
-            className="bg-[#EB4C4C] hover:bg-[#FF7070]"
+            className="bg-primary hover:bg-primary/90"
           >
             {loading ? 'Posting...' : 'Post Job'}
           </Button>

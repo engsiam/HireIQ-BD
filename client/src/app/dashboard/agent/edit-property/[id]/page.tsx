@@ -207,9 +207,9 @@ export default function EditProperty() {
             <div className="w-10 h-0.5 bg-primary rounded-full" />
             <span className="text-primary font-black uppercase tracking-[0.4em] text-xs">Management Suite</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-white">Refine <span className="text-primary italic">Property</span></h1>
+          <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-foreground">Refine <span className="text-primary italic">Property</span></h1>
         </div>
-        <Button variant="outline" onClick={() => router.back()} className="rounded-2xl border-white/10 text-white gap-2">
+        <Button variant="outline" onClick={() => router.back()} className="rounded-2xl border-border text-foreground hover:bg-muted gap-2">
           <ArrowLeft size={18} />
           Back
         </Button>
@@ -228,7 +228,7 @@ export default function EditProperty() {
                     <FormItem>
                       <FormLabel className="text-muted-foreground uppercase tracking-widest text-[10px] font-black">Property Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Modern Penthouse" {...field} className="bg-background/50 border-white/10 px-6 text-white h-14 rounded-2xl focus:border-primary" />
+                        <Input placeholder="Modern Penthouse" {...field} className="bg-background/50 border-border px-6 text-foreground h-14 rounded-2xl focus:border-primary placeholder:text-muted-foreground" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -243,7 +243,7 @@ export default function EditProperty() {
                     <FormLabel className="text-muted-foreground uppercase tracking-widest text-[10px] font-black">Availability</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
-                        <SelectTrigger className="h-14 bg-background/50 border-white/10 rounded-2xl px-6 text-white">
+                        <SelectTrigger className="h-14 bg-background/50 border-border rounded-2xl px-6 text-foreground">
                           <SelectValue placeholder="Select status" />
                         </SelectTrigger>
                       </FormControl>
@@ -269,7 +269,7 @@ export default function EditProperty() {
                   <FormControl>
                     <Textarea
                       placeholder="Narrate the property's unique charm..."
-                      className="min-h-[160px] bg-background/50 border-white/10 px-8 py-6 text-white rounded-[2rem] focus:border-primary text-lg leading-relaxed"
+                      className="min-h-[160px] bg-background/50 border-border px-8 py-6 text-foreground rounded-[2rem] focus:border-primary text-lg leading-relaxed placeholder:text-muted-foreground"
                       {...field}
                     />
                   </FormControl>
@@ -291,7 +291,7 @@ export default function EditProperty() {
                         type="number"
                         value={field.value as number | string}
                         onChange={(e) => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
-                        className="bg-background/50 border-white/10 px-6 text-white h-14 rounded-2xl"
+                        className="bg-background/50 border-border px-6 text-foreground h-14 rounded-2xl placeholder:text-muted-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -306,7 +306,7 @@ export default function EditProperty() {
                     <FormLabel className="text-muted-foreground uppercase tracking-widest text-[10px] font-black">Asset Type</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
-                        <SelectTrigger className="h-14 bg-background/50 border-white/10 rounded-2xl px-6 text-white">
+                        <SelectTrigger className="h-14 bg-background/50 border-border rounded-2xl px-6 text-foreground">
                           <SelectValue placeholder="Select type" />
                         </SelectTrigger>
                       </FormControl>
@@ -332,7 +332,7 @@ export default function EditProperty() {
                         type="number"
                         value={field.value as number | string}
                         onChange={(e) => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
-                        className="bg-background/50 border-white/10 px-6 text-white h-14 rounded-2xl"
+                        className="bg-background/50 border-border px-6 text-foreground h-14 rounded-2xl placeholder:text-muted-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -350,7 +350,7 @@ export default function EditProperty() {
                     <FormItem>
                       <FormLabel className="text-muted-foreground uppercase tracking-widest text-[10px] font-black">Metropolis</FormLabel>
                       <FormControl>
-                        <Input placeholder="Dhaka" {...field} className="bg-background/50 border-white/10 px-6 text-white h-14 rounded-2xl" />
+                        <Input placeholder="Dhaka" {...field} className="bg-background/50 border-border px-6 text-foreground h-14 rounded-2xl placeholder:text-muted-foreground" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -364,7 +364,7 @@ export default function EditProperty() {
                   <FormItem>
                     <FormLabel className="text-muted-foreground uppercase tracking-widest text-[10px] font-black">Neighborhood</FormLabel>
                     <FormControl>
-                      <Input placeholder="Gulshan" {...field} className="bg-background/50 border-white/10 px-6 text-white h-14 rounded-2xl" />
+                      <Input placeholder="Gulshan" {...field} className="bg-background/50 border-border px-6 text-foreground h-14 rounded-2xl placeholder:text-muted-foreground" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -381,7 +381,7 @@ export default function EditProperty() {
                         type="number"
                         value={field.value as number | string}
                         onChange={(e) => field.onChange(e.target.value === '' ? undefined : Number(e.target.value))}
-                        className="bg-background/50 border-white/10 px-6 text-white h-14 rounded-2xl"
+                        className="bg-background/50 border-border px-6 text-foreground h-14 rounded-2xl placeholder:text-muted-foreground"
                       />
                     </FormControl>
                     <FormMessage />
@@ -397,7 +397,7 @@ export default function EditProperty() {
                   <Sparkles size={20} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-black text-white leading-none mb-1">Signature Amenities</h3>
+                  <h3 className="text-lg font-black text-foreground leading-none mb-1">Signature Amenities</h3>
                   <p className="text-[10px] text-muted-foreground uppercase tracking-[0.2em]">Select multiple features</p>
                 </div>
               </div>
@@ -413,10 +413,10 @@ export default function EditProperty() {
                       onClick={() => toggleAmenity(amenity)}
                       className={`flex items-center gap-3 p-5 rounded-2xl border transition-all text-left ${isSelected
                           ? 'bg-primary/10 border-primary text-primary shadow-[0_0_20px_-5px_rgba(201,167,77,0.3)]'
-                          : 'bg-background/50 border-white/5 text-muted-foreground hover:border-white/20'
+                          : 'bg-background/50 border-border text-muted-foreground hover:border-primary/30'
                         }`}
                     >
-                      <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${isSelected ? 'bg-primary border-primary' : 'border-white/20'
+                      <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${isSelected ? 'bg-primary border-primary' : 'border-muted-foreground'
                         }`}>
                         {isSelected && <CheckCircle2 size={14} className="text-secondary" />}
                       </div>
@@ -434,14 +434,14 @@ export default function EditProperty() {
                   <ImagePlus size={20} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-black text-white leading-none mb-1">Portfolio Visuals</h3>
+                  <h3 className="text-lg font-black text-foreground leading-none mb-1">Portfolio Visuals</h3>
                   <p className="text-[10px] text-muted-foreground uppercase tracking-[0.2em]">Manage your gallery</p>
                 </div>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {/* Existing Images */}
                 {existingImages.map((url, index) => (
-                  <div key={`existing-${index}`} className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 group">
+                  <div key={`existing-${index}`} className="relative aspect-video rounded-2xl overflow-hidden border border-border group">
                     <Image src={url} alt="Property" fill className="object-cover transition-transform group-hover:scale-110 duration-500" />
                     <button
                       type="button"
@@ -469,7 +469,7 @@ export default function EditProperty() {
                   </div>
                 ))}
 
-                <label className="flex flex-col items-center justify-center aspect-video border-2 border-dashed border-white/10 rounded-2xl cursor-pointer hover:bg-white/5 transition-all group">
+                <label className="flex flex-col items-center justify-center aspect-video border-2 border-dashed border-border rounded-2xl cursor-pointer hover:bg-muted transition-all group">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-3 group-hover:scale-110 transition-transform">
                     <ImagePlus className="w-6 h-6" />
                   </div>

@@ -187,7 +187,7 @@ export default function AgentProfile() {
           <div className="w-10 h-0.5 bg-primary rounded-full" />
           <span className="text-primary font-black uppercase tracking-[0.4em] text-xs">Agent Portal</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-white">Identity <span className="text-primary italic">Settings</span></h1>
+        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-foreground">Identity <span className="text-primary italic">Settings</span></h1>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-10 max-w-6xl">
@@ -226,11 +226,11 @@ export default function AgentProfile() {
                 <Sparkles size={48} className="text-primary" />
               )}
             </div>
-            <h2 className="text-2xl font-black text-white">{form.getValues().name}</h2>
+            <h2 className="text-2xl font-black text-foreground">{form.getValues().name}</h2>
             <p className="text-sm text-muted-foreground font-medium mb-6 italic">Certified Elite Agent</p>
 
             <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-500 bg-emerald-500/10 py-2 rounded-full border border-emerald-500/20">
+              <div className="flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 py-2 rounded-full border border-emerald-500/20">
                 <CheckCircle2 size={12} />
                 <span>Verified Professional</span>
               </div>
@@ -248,12 +248,12 @@ export default function AgentProfile() {
 
         <div className="lg:col-span-2 space-y-4 md:space-y-6 lg:space-y-8">
           <div className="bg-card border border-border shadow-2xl rounded-xl lg:rounded-[2.5rem] overflow-hidden">
-            <div className="p-4 md:p-6 lg:p-8 border-b border-border bg-background/20 flex items-center gap-3 md:gap-4">
+            <div className="p-4 md:p-6 lg:p-8 border-b border-border bg-muted/30 flex items-center gap-3 md:gap-4">
               <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
                 <UserIcon size={20} />
               </div>
               <div>
-                <h3 className="text-xl font-black text-white tracking-tight">Edit Identity</h3>
+                <h3 className="text-xl font-black text-foreground tracking-tight">Edit Identity</h3>
                 <p className="text-xs text-muted-foreground font-medium">Update your professional details</p>
               </div>
             </div>
@@ -271,7 +271,7 @@ export default function AgentProfile() {
                           <FormControl>
                             <div className="relative group">
                               <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 w-4 h-4" />
-                              <Input {...field} className="h-14 bg-background/50 border-white/10 rounded-2xl pl-12 text-white focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
+                              <Input {...field} className="h-14 bg-background/50 border-border rounded-2xl pl-12 text-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
                             </div>
                           </FormControl>
                           <FormMessage className="text-xs font-bold" />
@@ -288,7 +288,7 @@ export default function AgentProfile() {
                           <FormControl>
                             <div className="relative group">
                               <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 w-4 h-4" />
-                              <Input placeholder="+880 1XXX XXXXXX" {...field} className="h-14 bg-background/50 border-white/10 rounded-2xl pl-12 text-white focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
+                              <Input placeholder="+880 1XXX XXXXXX" {...field} className="h-14 bg-background/50 border-border rounded-2xl pl-12 text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
                             </div>
                           </FormControl>
                           <FormMessage className="text-xs font-bold" />
@@ -312,13 +312,13 @@ export default function AgentProfile() {
           </div>
 
           {isDemoAccount ? (
-            <div className="bg-amber-500/10 border border-amber-500/20 p-4 md:p-6 lg:p-8 rounded-xl lg:rounded-[2.5rem]">
+            <div className="bg-amber-500/10 dark:bg-amber-500/10 border border-amber-500/20 p-4 md:p-6 lg:p-8 rounded-xl lg:rounded-[2.5rem]">
               <div className="flex items-start gap-3 md:gap-4">
-                <div className="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center text-amber-500 shrink-0">
+                <div className="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
                   <ShieldAlert size={24} />
                 </div>
                 <div>
-                  <h4 className="text-lg font-black text-amber-500 mb-2">Demo Account</h4>
+                  <h4 className="text-lg font-black text-amber-600 dark:text-amber-400 mb-2">Demo Account</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Password change is disabled for demo accounts. This account is for demonstration purposes only.
                   </p>
@@ -327,12 +327,12 @@ export default function AgentProfile() {
             </div>
           ) : (
             <div className="bg-card border border-border shadow-2xl rounded-xl lg:rounded-[2.5rem] overflow-hidden">
-              <div className="p-4 md:p-6 lg:p-8 border-b border-border bg-background/20 flex items-center gap-3 md:gap-4">
+              <div className="p-4 md:p-6 lg:p-8 border-b border-border bg-muted/30 flex items-center gap-3 md:gap-4">
                 <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
                   <Lock size={20} />
                 </div>
                 <div>
-                  <h3 className="text-lg md:text-xl font-black text-white tracking-tight">Security</h3>
+                  <h3 className="text-lg md:text-xl font-black text-foreground tracking-tight">Security</h3>
                   <p className="text-xs text-muted-foreground font-medium">Change your password</p>
                 </div>
               </div>
@@ -349,8 +349,8 @@ export default function AgentProfile() {
                           <FormControl>
                             <div className="relative group">
                               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 w-4 h-4" />
-                              <Input type={showPasswords.current ? 'text' : 'password'} {...field} className="h-14 bg-background/50 border-white/10 rounded-2xl pl-12 pr-12 text-white focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
-                              <button type="button" onClick={() => setShowPasswords(p => ({ ...p, current: !p.current }))} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white">
+                              <Input type={showPasswords.current ? 'text' : 'password'} {...field} className="h-14 bg-background/50 border-border rounded-2xl pl-12 pr-12 text-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
+                              <button type="button" onClick={() => setShowPasswords(p => ({ ...p, current: !p.current }))} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                                 {showPasswords.current ? <EyeOff size={18} /> : <Eye size={18} />}
                               </button>
                             </div>
@@ -369,8 +369,8 @@ export default function AgentProfile() {
                           <FormControl>
                             <div className="relative group">
                               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 w-4 h-4" />
-                              <Input type={showPasswords.new ? 'text' : 'password'} {...field} className="h-14 bg-background/50 border-white/10 rounded-2xl pl-12 pr-12 text-white focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
-                              <button type="button" onClick={() => setShowPasswords(p => ({ ...p, new: !p.new }))} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white">
+                              <Input type={showPasswords.new ? 'text' : 'password'} {...field} className="h-14 bg-background/50 border-border rounded-2xl pl-12 pr-12 text-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
+                              <button type="button" onClick={() => setShowPasswords(p => ({ ...p, new: !p.new }))} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                                 {showPasswords.new ? <EyeOff size={18} /> : <Eye size={18} />}
                               </button>
                             </div>
@@ -389,8 +389,8 @@ export default function AgentProfile() {
                           <FormControl>
                             <div className="relative group">
                               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/40 w-4 h-4" />
-                              <Input type={showPasswords.confirm ? 'text' : 'password'} {...field} className="h-14 bg-background/50 border-white/10 rounded-2xl pl-12 pr-12 text-white focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
-                              <button type="button" onClick={() => setShowPasswords(p => ({ ...p, confirm: !p.confirm }))} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white">
+                              <Input type={showPasswords.confirm ? 'text' : 'password'} {...field} className="h-14 bg-background/50 border-border rounded-2xl pl-12 pr-12 text-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
+                              <button type="button" onClick={() => setShowPasswords(p => ({ ...p, confirm: !p.confirm }))} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                                 {showPasswords.confirm ? <EyeOff size={18} /> : <Eye size={18} />}
                               </button>
                             </div>

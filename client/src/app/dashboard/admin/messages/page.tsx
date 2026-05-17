@@ -110,53 +110,53 @@ export default function AdminMessages() {
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white">Messages</h1>
-        <p className="text-white/50 text-sm">Manage contact form submissions</p>
+        <h1 className="text-2xl font-bold text-foreground">Messages</h1>
+        <p className="text-muted-foreground text-sm">Manage contact form submissions</p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
+        <Card className="bg-card border-border rounded-xl">
           <CardContent className="p-4 flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#EB4C4C]/10 rounded-xl flex items-center justify-center text-[#EB4C4C] shrink-0">
+            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary shrink-0">
               <Inbox size={20} />
             </div>
             <div className="min-w-0">
-              <p className="text-2xl font-bold text-white">{messages.length}</p>
-              <p className="text-xs text-white/50">Total Messages</p>
+              <p className="text-2xl font-bold text-foreground">{messages.length}</p>
+              <p className="text-xs text-muted-foreground">Total Messages</p>
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
+        <Card className="bg-card border-border rounded-xl">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="w-10 h-10 bg-rose-500/10 rounded-xl flex items-center justify-center text-rose-500 shrink-0">
               <Mail size={20} />
             </div>
             <div className="min-w-0">
-              <p className="text-2xl font-bold text-white">{unreadCount}</p>
-              <p className="text-xs text-white/50">Unread</p>
+              <p className="text-2xl font-bold text-foreground">{unreadCount}</p>
+              <p className="text-xs text-muted-foreground">Unread</p>
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
+        <Card className="bg-card border-border rounded-xl">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="w-10 h-10 bg-green-500/10 rounded-xl flex items-center justify-center text-green-500 shrink-0">
               <CheckCircle size={20} />
             </div>
             <div className="min-w-0">
-              <p className="text-2xl font-bold text-white">{repliedCount}</p>
-              <p className="text-xs text-white/50">Replied</p>
+              <p className="text-2xl font-bold text-foreground">{repliedCount}</p>
+              <p className="text-xs text-muted-foreground">Replied</p>
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
+        <Card className="bg-card border-border rounded-xl">
           <CardContent className="p-4 flex items-center gap-3">
             <div className="w-10 h-10 bg-amber-500/10 rounded-xl flex items-center justify-center text-amber-500 shrink-0">
               <Clock size={20} />
             </div>
             <div className="min-w-0">
-              <p className="text-2xl font-bold text-white">{messages.length - repliedCount}</p>
-              <p className="text-xs text-white/50">Pending</p>
+              <p className="text-2xl font-bold text-foreground">{messages.length - repliedCount}</p>
+              <p className="text-xs text-muted-foreground">Pending</p>
             </div>
           </CardContent>
         </Card>

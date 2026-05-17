@@ -158,7 +158,7 @@ export default function AddProperty() {
           <div className="w-10 h-0.5 bg-primary rounded-full" />
           <span className="text-primary font-black uppercase tracking-[0.4em] text-xs">Property Management</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-white">Add <span className="text-primary italic">Property</span></h1>
+        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-foreground">Add <span className="text-primary italic">Property</span></h1>
       </div>
 
       <div className="bg-card border border-border shadow-2xl rounded-xl lg:rounded-[2.5rem] overflow-hidden p-4 md:p-6 lg:p-10 max-w-5xl mx-auto">
@@ -167,7 +167,7 @@ export default function AddProperty() {
             <Home size={24} />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">Property Details</h2>
+            <h2 className="text-xl font-bold text-foreground">Property Details</h2>
             <p className="text-sm text-muted-foreground">Fill in the information below</p>
           </div>
         </div>
@@ -182,7 +182,7 @@ export default function AddProperty() {
                   <FormItem>
                     <FormLabel className="text-muted-foreground">Property Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Modern Penthouse in Gulshan" {...field} className="bg-background/50 border-white/10 px-6 text-white placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
+                      <Input placeholder="e.g. Modern Penthouse in Gulshan" {...field} className="bg-background/50 border-border px-6 text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -198,7 +198,7 @@ export default function AddProperty() {
                     <FormControl>
                       <Textarea
                         placeholder="Describe the property, amenities, etc."
-                        className="min-h-[120px] bg-background/50 border-white/10 px-6 py-4 text-white placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20"
+                        className="min-h-[120px] bg-background/50 border-border px-6 py-4 text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20"
                         {...field}
                       />
                     </FormControl>
@@ -215,7 +215,7 @@ export default function AddProperty() {
                     <FormItem>
                       <FormLabel className="text-muted-foreground">Price (BDT)</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} value={field.value as any} className="bg-background/50 border-white/10 px-4 md:px-6 text-white h-12 md:h-14 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
+                        <Input type="number" {...field} value={field.value as any} className="bg-background/50 border-border px-4 md:px-6 text-foreground h-12 md:h-14 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -228,7 +228,7 @@ export default function AddProperty() {
                     <FormItem>
                       <FormLabel className="text-muted-foreground">City</FormLabel>
                       <FormControl>
-                        <Input placeholder="Dhaka" {...field} className="bg-background/50 border-white/10 px-4 md:px-6 text-white placeholder:text-muted-foreground h-12 md:h-14 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
+                        <Input placeholder="Dhaka" {...field} className="bg-background/50 border-border px-4 md:px-6 text-foreground placeholder:text-muted-foreground h-12 md:h-14 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -241,7 +241,7 @@ export default function AddProperty() {
                     <FormItem>
                       <FormLabel className="text-muted-foreground">Location</FormLabel>
                       <FormControl>
-                        <Input placeholder="Gulshan 2" {...field} className="bg-background/50 border-white/10 px-4 md:px-6 text-white placeholder:text-muted-foreground h-12 md:h-14 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
+                        <Input placeholder="Gulshan 2" {...field} className="bg-background/50 border-border px-4 md:px-6 text-foreground placeholder:text-muted-foreground h-12 md:h-14 focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -257,7 +257,7 @@ export default function AddProperty() {
                     <FormItem>
                       <FormLabel className="text-muted-foreground">Area (Thana/Block)</FormLabel>
                       <FormControl>
-                        <Input placeholder="Road 12" {...field} className="bg-background/50 border-white/10 px-6 text-white placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
+                        <Input placeholder="Road 12" {...field} className="bg-background/50 border-border px-6 text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -270,7 +270,7 @@ export default function AddProperty() {
                     <FormItem>
                       <FormLabel className="text-muted-foreground">BHK</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} value={field.value as any} className="bg-background/50 border-white/10 px-6 text-white focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
+                        <Input type="number" {...field} value={field.value as any} className="bg-background/50 border-border px-6 text-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -283,7 +283,7 @@ export default function AddProperty() {
                     <FormItem>
                       <FormLabel className="text-muted-foreground">Size (sqft)</FormLabel>
                       <FormControl>
-                        <Input type="number" {...field} value={field.value as any} className="bg-background/50 border-white/10 px-6 text-white focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
+                        <Input type="number" {...field} value={field.value as any} className="bg-background/50 border-border px-6 text-foreground focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -299,15 +299,15 @@ export default function AddProperty() {
                     <FormLabel className="text-muted-foreground">Property Type</FormLabel>
                     <Select onValueChange={(val) => field.onChange(val || '')} defaultValue={field.value as string}>
                       <FormControl>
-                        <SelectTrigger className="h-12 md:h-14 bg-background/50 border-white/10 rounded-xl lg:rounded-2xl px-4 md:px-6 text-white focus:ring-primary/20 transition-all">
+                        <SelectTrigger className="h-12 md:h-14 bg-background/50 border-border rounded-xl lg:rounded-2xl px-4 md:px-6 text-foreground focus:ring-primary/20 transition-all">
                           <SelectValue placeholder="Select type" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="bg-card border-border">
-                        <SelectItem value="Luxury Apartment" className="text-white focus:bg-primary/10">Luxury Apartment</SelectItem>
-                        <SelectItem value="Penthouse" className="text-white focus:bg-primary/10">Penthouse</SelectItem>
-                        <SelectItem value="Commercial Space" className="text-white focus:bg-primary/10">Commercial Space</SelectItem>
-                        <SelectItem value="Villa" className="text-white focus:bg-primary/10">Villa</SelectItem>
+                        <SelectItem value="Luxury Apartment" className="text-foreground focus:bg-primary/10">Luxury Apartment</SelectItem>
+                        <SelectItem value="Penthouse" className="text-foreground focus:bg-primary/10">Penthouse</SelectItem>
+                        <SelectItem value="Commercial Space" className="text-foreground focus:bg-primary/10">Commercial Space</SelectItem>
+                        <SelectItem value="Villa" className="text-foreground focus:bg-primary/10">Villa</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -320,7 +320,7 @@ export default function AddProperty() {
             <div className="space-y-6">
               <div className="flex items-center gap-3">
                 <Sparkles className="text-primary w-5 h-5" />
-                <FormLabel className="text-lg font-black text-white m-0">Signature Amenities</FormLabel>
+                <FormLabel className="text-lg font-black text-foreground m-0">Signature Amenities</FormLabel>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {AMENITIES_LIST.map((amenity) => {
@@ -335,10 +335,10 @@ export default function AddProperty() {
                       onClick={() => toggleAmenity(amenity)}
                       className={`flex items-center gap-3 p-4 rounded-2xl border transition-all text-left ${isSelected
                         ? 'bg-primary/10 border-primary text-primary shadow-[0_0_20px_-5px_rgba(201,167,77,0.3)]'
-                        : 'bg-background/50 border-white/5 text-muted-foreground hover:border-white/20'
+                        : 'bg-background/50 border-border text-muted-foreground hover:border-primary/30'
                         }`}
                     >
-                      <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${isSelected ? 'bg-primary border-primary' : 'border-white/20'
+                      <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${isSelected ? 'bg-primary border-primary' : 'border-muted-foreground'
                         }`}>
                         {isSelected && <CheckCircle2 size={14} className="text-secondary" />}
                       </div>
@@ -353,11 +353,11 @@ export default function AddProperty() {
             <div className="space-y-4 md:space-y-6">
               <div className="flex items-center gap-3">
                 <ImagePlus className="text-primary w-4 h-4 md:w-5 md:h-5" />
-                <FormLabel className="text-base md:text-lg font-black text-white m-0">Property Visuals</FormLabel>
+                <FormLabel className="text-base md:text-lg font-black text-foreground m-0">Property Visuals</FormLabel>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
                 {previews.map((preview, index) => (
-                  <div key={index} className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 group">
+                  <div key={index} className="relative aspect-video rounded-2xl overflow-hidden border border-border group">
                     <Image
                       src={preview}
                       alt={`Preview ${index}`}
@@ -373,7 +373,7 @@ export default function AddProperty() {
                     </button>
                   </div>
                 ))}
-                <label className="flex flex-col items-center justify-center aspect-video border-2 border-dashed border-white/10 rounded-2xl cursor-pointer hover:bg-white/5 transition-all group">
+                <label className="flex flex-col items-center justify-center aspect-video border-2 border-dashed border-border rounded-2xl cursor-pointer hover:bg-muted transition-all group">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-2 group-hover:scale-110 transition-transform">
                     <ImagePlus className="w-6 h-6" />
                   </div>

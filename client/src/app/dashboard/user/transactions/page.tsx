@@ -16,7 +16,7 @@ export default function UserTransactions() {
             <div className="w-10 h-0.5 bg-primary rounded-full" />
             <span className="text-primary font-black uppercase tracking-[0.4em] text-[10px]">Financial Portfolio</span>
           </div>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-white leading-none">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-foreground leading-none">
             Transaction <span className="text-primary italic">Ledger</span>
           </h1>
         </motion.div>

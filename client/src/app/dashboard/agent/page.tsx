@@ -85,7 +85,7 @@ export default function AgentDashboard() {
             <div className="w-10 h-0.5 bg-primary rounded-full" />
             <span className="text-primary font-black uppercase tracking-[0.4em] text-xs">Agent Portal</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-white">My <span className="text-primary italic">Dashboard</span></h1>
+          <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-foreground">My <span className="text-primary italic">Dashboard</span></h1>
         </motion.div>
 
         <Link href="/dashboard/agent/add-property">
@@ -109,9 +109,9 @@ export default function AgentDashboard() {
         transition={{ delay: 0.4 }}
         className="bg-card border border-border shadow-2xl rounded-[2.5rem] overflow-hidden"
       >
-        <div className="p-4 md:p-6 lg:p-10 border-b border-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-background/20">
+        <div className="p-4 md:p-6 lg:p-10 border-b border-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-muted/30">
           <div>
-            <h2 className="text-lg md:text-xl lg:text-2xl font-black text-white tracking-tight">Property Engagement</h2>
+            <h2 className="text-lg md:text-xl lg:text-2xl font-black text-foreground tracking-tight">Property Engagement</h2>
             <p className="text-xs md:text-sm text-muted-foreground font-medium">Monthly views and inquiries performance</p>
           </div>
           <div className="flex items-center gap-4">
@@ -145,7 +145,7 @@ export default function AgentDashboard() {
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between p-6 border-b border-border">
               <div>
-                <h2 className="text-2xl lg:text-3xl font-black text-white">Property Engagement</h2>
+                <h2 className="text-2xl lg:text-3xl font-black text-foreground">Property Engagement</h2>
                 <p className="text-sm text-muted-foreground">Monthly views and inquiries performance</p>
               </div>
               <Button variant="ghost" size="icon" onClick={() => setShowEngagementFullscreen(false)} className="rounded-xl">

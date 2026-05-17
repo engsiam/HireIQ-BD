@@ -44,7 +44,7 @@ export default function UserBookings() {
           <div className="w-10 h-0.5 bg-primary rounded-full" />
           <span className="text-primary font-black uppercase tracking-[0.4em] text-xs">Bookings</span>
         </div>
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-white">My <span className="text-primary italic">Bookings</span></h1>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-foreground">My <span className="text-primary italic">Bookings</span></h1>
       </div>
 
       <div className="bg-card border border-border shadow-xl rounded-xl lg:rounded-[2.5rem] overflow-hidden p-4 md:p-6 lg:p-8 max-w-5xl mx-auto">
@@ -53,7 +53,7 @@ export default function UserBookings() {
             <Calendar className="md:w-6" size={20} />
           </div>
           <div>
-            <h2 className="text-lg md:text-xl font-bold text-white">Booking History</h2>
+            <h2 className="text-lg md:text-xl font-bold text-foreground">Booking History</h2>
             <p className="text-sm text-muted-foreground">{total} bookings found</p>
           </div>
         </div>
@@ -75,16 +75,16 @@ export default function UserBookings() {
             <div key={booking.id} className="bg-background border border-border rounded-xl lg:rounded-2xl p-4 md:p-6 lg:p-8 hover:border-primary/30 transition-all">
               <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mb-3 md:mb-4">
                 <div>
-                  <h3 className="font-semibold text-white text-base md:text-lg">{booking.property?.title}</h3>
+                  <h3 className="font-semibold text-foreground text-base md:text-lg">{booking.property?.title}</h3>
                   <p className="text-muted-foreground mt-1 text-sm">{booking.property?.location}</p>
                 </div>
                 <Badge
                   className={
                     booking.status === 'PAID'
-                      ? 'bg-emerald-500'
+                      ? 'bg-emerald-500 text-white dark:bg-emerald-500 dark:text-white'
                       : booking.status === 'PENDING'
-                      ? 'bg-yellow-500'
-                      : 'bg-red-500'
+                      ? 'bg-yellow-500 text-white dark:bg-yellow-500 dark:text-white'
+                      : 'bg-red-500 text-white dark:bg-red-500 dark:text-white'
                   }
                 >
                   {booking.status}

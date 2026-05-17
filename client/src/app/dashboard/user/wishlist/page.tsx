@@ -75,7 +75,7 @@ export default function WishlistPage() {
           <div className="w-10 h-0.5 bg-primary rounded-full" />
           <span className="text-primary font-black uppercase tracking-[0.4em] text-xs">Favorites</span>
         </div>
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-white">My <span className="text-primary italic">Wishlist</span></h1>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-foreground">My <span className="text-primary italic">Wishlist</span></h1>
       </div>
 
       {loading ? (
@@ -88,7 +88,7 @@ export default function WishlistPage() {
             <div className="w-16 md:w-20 h-16 md:h-20 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4 md:mb-6 text-primary">
               <Heart size={28} />
             </div>
-            <p className="text-muted-foreground mb-2 text-base md:text-lg font-medium">Your wishlist is empty</p>
+            <p className="text-foreground mb-2 text-base md:text-lg font-medium">Your wishlist is empty</p>
             <p className="text-muted-foreground mb-4 md:mb-6 text-sm">Start exploring and save properties you love</p>
             <Link href="/explore">
               <Button className="bg-primary text-secondary-foreground hover:bg-white rounded-xl font-bold">
@@ -105,7 +105,7 @@ export default function WishlistPage() {
               <Heart size={20} />
             </div>
             <div>
-              <h2 className="text-lg md:text-xl font-bold text-white">Saved Properties</h2>
+              <h2 className="text-lg md:text-xl font-bold text-foreground">Saved Properties</h2>
               <p className="text-sm text-muted-foreground">{properties.length} properties saved</p>
             </div>
           </div>

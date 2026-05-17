@@ -202,21 +202,21 @@ export default function JobseekerProfilePage() {
     <div className="space-y-6 max-w-3xl mx-auto">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white">My Profile</h1>
-        <p className="text-white/50 text-sm">Manage your profile information</p>
+        <h1 className="text-2xl font-bold text-foreground">My Profile</h1>
+        <p className="text-muted-foreground text-sm">Manage your profile information</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Avatar Section */}
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
+        <Card className="bg-card border-border rounded-xl">
           <CardContent className="p-6">
             <div className="flex items-center gap-6">
               <div className="relative">
-                <div className="w-24 h-24 rounded-full overflow-hidden bg-white/10 border-2 border-white/20">
+                <div className="w-24 h-24 rounded-full overflow-hidden bg-muted border-2 border-border">
                   {user?.avatar ? (
                     <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-white/40 text-2xl font-bold">
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground text-2xl font-bold">
                       {formData.name?.[0]?.toUpperCase() || 'U'}
                     </div>
                   )}
@@ -242,36 +242,36 @@ export default function JobseekerProfilePage() {
                 />
               </div>
               <div>
-                <h3 className="text-white font-semibold">Profile Photo</h3>
-                <p className="text-white/50 text-sm">Upload a photo to personalize your profile</p>
+                <h3 className="text-foreground font-semibold">Profile Photo</h3>
+                <p className="text-muted-foreground text-sm">Upload a photo to personalize your profile</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Basic Info */}
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-          <CardHeader className="border-b border-white/5 pb-3 px-6 pt-6">
-            <CardTitle className="text-lg font-semibold text-white">Personal Information</CardTitle>
+        <Card className="bg-card border-border rounded-xl">
+          <CardHeader className="border-b border-border pb-3 px-6 pt-6">
+            <CardTitle className="text-lg font-semibold text-foreground">Personal Information</CardTitle>
           </CardHeader>
           <CardContent className="p-6 space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label className="text-white/70">Full Name</Label>
+                <Label className="text-foreground">Full Name</Label>
                 <Input
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                  className="bg-background text-foreground border-border placeholder:text-muted-foreground"
                   placeholder="Your full name"
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-white/70">Email</Label>
+                <Label className="text-foreground">Email</Label>
                 <Input
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                  className="bg-background text-foreground border-border placeholder:text-muted-foreground"
                   placeholder="your@email.com"
                   disabled
                 />
@@ -280,20 +280,20 @@ export default function JobseekerProfilePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label className="text-white/70">Phone Number</Label>
+                <Label className="text-foreground">Phone Number</Label>
                 <Input
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                  className="bg-background text-foreground border-border placeholder:text-muted-foreground"
                   placeholder="+880 123 456 7890"
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-white/70">Location</Label>
+                <Label className="text-foreground">Location</Label>
                 <Input
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                  className="bg-background text-foreground border-border placeholder:text-muted-foreground"
                   placeholder="Dhaka, Bangladesh"
                 />
               </div>
@@ -301,7 +301,7 @@ export default function JobseekerProfilePage() {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label className="text-white/70">Bio</Label>
+                <Label className="text-foreground">Bio</Label>
                 <Button
                   type="button"
                   variant="ghost"
@@ -321,7 +321,7 @@ export default function JobseekerProfilePage() {
               <Textarea
                 value={formData.bio}
                 onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40 min-h-[120px]"
+                className="bg-background text-foreground border-border placeholder:text-muted-foreground min-h-[120px]"
                 placeholder="Tell us about yourself..."
               />
             </div>
@@ -329,9 +329,9 @@ export default function JobseekerProfilePage() {
         </Card>
 
         {/* Skills */}
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-          <CardHeader className="border-b border-white/5 pb-3 px-6 pt-6">
-            <CardTitle className="text-lg font-semibold text-white">Skills</CardTitle>
+        <Card className="bg-card border-border rounded-xl">
+          <CardHeader className="border-b border-border pb-3 px-6 pt-6">
+            <CardTitle className="text-lg font-semibold text-foreground">Skills</CardTitle>
           </CardHeader>
           <CardContent className="p-6 space-y-4">
             <div className="flex gap-2">
@@ -339,18 +339,18 @@ export default function JobseekerProfilePage() {
                 value={newSkill}
                 onChange={(e) => setNewSkill(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddSkill())}
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                className="bg-background text-foreground border-border placeholder:text-muted-foreground"
                 placeholder="Add a skill"
               />
-              <Button type="button" onClick={handleAddSkill} variant="outline" className="border-white/20 text-white hover:bg-white/10">
+              <Button type="button" onClick={handleAddSkill} variant="outline" className="border-border text-foreground hover:bg-muted">
                 <Plus size={18} />
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
               {formData.skills.map((skill, index) => (
-                <Badge key={index} className="bg-[#EB4C4C]/20 text-[#EB4C4C] border-[#EB4C4C]/30 px-3 py-1">
+                <Badge key={index} className="bg-[#EB4C4C]/20 text-[#EB4C4C] dark:bg-[#EB4C4C]/20 dark:text-[#FF7070] border-[#EB4C4C]/30 px-3 py-1">
                   {skill}
-                  <button type="button" onClick={() => handleRemoveSkill(skill)} className="ml-2 hover:text-white">
+                  <button type="button" onClick={() => handleRemoveSkill(skill)} className="ml-2 hover:text-destructive">
                     <X size={14} />
                   </button>
                 </Badge>
@@ -360,19 +360,19 @@ export default function JobseekerProfilePage() {
         </Card>
 
         {/* Resume Section */}
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
-          <CardHeader className="border-b border-white/5 pb-3 px-6 pt-6">
-            <CardTitle className="text-lg font-semibold text-white">Resume</CardTitle>
+        <Card className="bg-card border-border rounded-xl">
+          <CardHeader className="border-b border-border pb-3 px-6 pt-6">
+            <CardTitle className="text-lg font-semibold text-foreground">Resume</CardTitle>
           </CardHeader>
           <CardContent className="p-6">
             {user?.resumeUrl ? (
-              <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10">
+              <div className="flex items-center justify-between p-4 bg-muted rounded-xl border border-border">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-[#EB4C4C]/10 rounded-xl flex items-center justify-center">
                     <FileText className="w-6 h-6 text-[#EB4C4C]" />
                   </div>
                   <div>
-                    <p className="text-white font-semibold">Resume uploaded</p>
+                    <p className="text-foreground font-semibold">Resume uploaded</p>
                     <a href={user.resumeUrl} target="_blank" rel="noopener noreferrer" className="text-[#EB4C4C] text-sm hover:underline">
                       View current resume
                     </a>
@@ -383,7 +383,7 @@ export default function JobseekerProfilePage() {
                   variant="outline" 
                   size="sm" 
                   disabled={uploadingResume}
-                  className="border-white/20 text-white hover:bg-white/10" 
+                  className="border-border text-foreground hover:bg-muted" 
                   onClick={() => resumeInputRef.current?.click()}
                 >
                   {uploadingResume ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Replace'}
@@ -391,16 +391,16 @@ export default function JobseekerProfilePage() {
               </div>
             ) : (
               <div 
-                className="text-center py-10 border-2 border-dashed border-white/10 rounded-xl hover:border-[#EB4C4C]/30 transition-colors cursor-pointer"
+                className="text-center py-10 border-2 border-dashed border-border rounded-xl hover:border-[#EB4C4C]/30 transition-colors cursor-pointer"
                 onClick={() => resumeInputRef.current?.click()}
               >
                 {uploadingResume ? (
                   <Loader2 className="w-10 h-10 text-[#EB4C4C] animate-spin mx-auto mb-3" />
                 ) : (
                   <>
-                    <Upload className="w-10 h-10 text-white/20 mx-auto mb-3" />
-                    <p className="text-white font-medium mb-1">Click to upload your resume</p>
-                    <p className="text-white/30 text-sm">PDF files only, max 10MB</p>
+                    <Upload className="w-10 h-10 text-muted-foreground mx-auto mb-3" />
+                    <p className="text-foreground font-medium mb-1">Click to upload your resume</p>
+                    <p className="text-muted-foreground text-sm">PDF files only, max 10MB</p>
                   </>
                 )}
               </div>

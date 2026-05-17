@@ -52,16 +52,16 @@ export default function AdminBookingsPage() {
   const displayBookings = bookings.length > 0 ? bookings : mockBookings;
 
   const stats = [
-    { title: 'Total Bookings', value: displayBookings.length, icon: Calendar, color: 'text-blue-400', bg: 'bg-blue-500/10' },
-    { title: 'Confirmed', value: displayBookings.filter(b => b.status === 'CONFIRMED').length, icon: CheckCircle, color: 'text-green-400', bg: 'bg-green-500/10' },
-    { title: 'Pending', value: displayBookings.filter(b => b.status === 'PENDING').length, icon: Clock, color: 'text-yellow-400', bg: 'bg-yellow-500/10' },
+    { title: 'Total Bookings', value: displayBookings.length, icon: Calendar, color: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-500/10 dark:bg-blue-500/10' },
+    { title: 'Confirmed', value: displayBookings.filter(b => b.status === 'CONFIRMED').length, icon: CheckCircle, color: 'text-green-600 dark:text-green-400', bg: 'bg-green-500/10 dark:bg-green-500/10' },
+    { title: 'Pending', value: displayBookings.filter(b => b.status === 'PENDING').length, icon: Clock, color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-500/10 dark:bg-yellow-500/10' },
   ];
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      CONFIRMED: 'bg-green-500/20 text-green-400 border-green-500/30',
-      PENDING: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-      CANCELLED: 'bg-red-500/20 text-red-400 border-red-500/30',
+      CONFIRMED: 'bg-green-500/20 text-green-600 dark:text-green-400 border-green-500/30 dark:border-green-500/30',
+      PENDING: 'bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 border-yellow-500/30 dark:border-yellow-500/30',
+      CANCELLED: 'bg-red-500/20 text-red-600 dark:text-red-400 border-red-500/30 dark:border-red-500/30',
     };
     return <Badge className={styles[status] || ''}>{status}</Badge>;
   };
@@ -71,10 +71,10 @@ export default function AdminBookingsPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Bookings</h1>
-          <p className="text-white/50 text-sm">Manage job bookings and appointments</p>
+          <h1 className="text-2xl font-bold text-foreground">Bookings</h1>
+          <p className="text-muted-foreground text-sm">Manage job bookings and appointments</p>
         </div>
-        <Button variant="outline" onClick={fetchBookings} className="border-white/10 text-white hover:bg-white/10">
+        <Button variant="outline" onClick={fetchBookings} className="border-border text-foreground hover:bg-muted">
           <RefreshCw className="w-4 h-4 mr-2" />
           Refresh
         </Button>
@@ -83,14 +83,14 @@ export default function AdminBookingsPage() {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {stats.map((stat, i) => (
-          <Card key={i} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
+          <Card key={i} className="bg-card border-border rounded-xl">
             <CardContent className="p-4 flex items-center gap-4">
               <div className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center`}>
                 <stat.icon className={`w-6 h-6 ${stat.color}`} />
               </div>
               <div>
-                <p className="text-white/50 text-xs">{stat.title}</p>
-                <p className="text-2xl font-bold text-white">{stat.value}</p>
+                <p className="text-muted-foreground text-xs">{stat.title}</p>
+                <p className="text-2xl font-bold text-foreground">{stat.value}</p>
               </div>
             </CardContent>
           </Card>
@@ -99,45 +99,45 @@ export default function AdminBookingsPage() {
 
       {/* Bookings Table */}
       {error ? (
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
+        <Card className="bg-card border-border rounded-xl">
           <CardContent className="p-8 text-center">
-            <p className="text-red-400 mb-4">{error}</p>
-            <Button onClick={fetchBookings} variant="outline" className="border-white/10 text-white hover:bg-white/10">
+            <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
+            <Button onClick={fetchBookings} variant="outline" className="border-border text-foreground hover:bg-muted">
               Retry
             </Button>
           </CardContent>
         </Card>
       ) : (
-        <Card className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl">
+        <Card className="bg-card border-border rounded-xl">
           <CardContent className="p-0">
             <Table>
               <TableHeader>
-                <TableRow className="border-white/5 hover:bg-white/5">
-                  <TableHead className="text-white/60">User</TableHead>
-                  <TableHead className="text-white/60">Job</TableHead>
-                  <TableHead className="text-white/60">Status</TableHead>
-                  <TableHead className="text-white/60">Date</TableHead>
+                <TableRow className="border-border hover:bg-muted">
+                  <TableHead className="text-muted-foreground">User</TableHead>
+                  <TableHead className="text-muted-foreground">Job</TableHead>
+                  <TableHead className="text-muted-foreground">Status</TableHead>
+                  <TableHead className="text-muted-foreground">Date</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {loading ? (
                   <TableRow>
-                    <TableCell colSpan={4} className="text-center text-white/40 py-8">
+                    <TableCell colSpan={4} className="text-center text-muted-foreground py-8">
                       Loading...
                     </TableCell>
                   </TableRow>
                 ) : (
                   displayBookings.map((booking) => (
-                    <TableRow key={booking.id} className="border-white/5 hover:bg-white/5">
+                    <TableRow key={booking.id} className="border-border hover:bg-muted">
                       <TableCell>
                         <div>
-                          <p className="font-medium text-white">{booking.user?.name || 'Unknown'}</p>
-                          <p className="text-xs text-white/50">{booking.user?.email}</p>
+                          <p className="font-medium text-foreground">{booking.user?.name || 'Unknown'}</p>
+                          <p className="text-xs text-muted-foreground">{booking.user?.email}</p>
                         </div>
                       </TableCell>
-                      <TableCell className="text-white/70">{booking.job?.title || '-'}</TableCell>
+                      <TableCell className="text-muted-foreground">{booking.job?.title || '-'}</TableCell>
                       <TableCell>{getStatusBadge(booking.status)}</TableCell>
-                      <TableCell className="text-white/70">{booking.date || '-'}</TableCell>
+                      <TableCell className="text-muted-foreground">{booking.date || '-'}</TableCell>
                     </TableRow>
                   ))
                 )}
