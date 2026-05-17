@@ -12,29 +12,31 @@ import { ArrowRight, MapPin, Briefcase, DollarSign } from 'lucide-react';
 
 function JobCardSkeleton() {
   return (
-    <div className="h-[300px] rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
-      <div className="flex justify-between items-start mb-4">
+    <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 flex flex-col h-full">
+      <div className="flex justify-between items-start mb-4 flex-shrink-0">
         <Skeleton className="w-14 h-14 rounded-lg" />
         <Skeleton className="w-16 h-6 rounded-full" />
       </div>
-      <Skeleton className="h-6 w-3/4 mb-2" />
-      <Skeleton className="h-4 w-1/2 mb-4" />
-      <Skeleton className="h-4 w-full mb-2" />
-      <Skeleton className="h-4 w-2/3 mb-4" />
-      <div className="flex gap-2 mb-4">
+      <Skeleton className="h-6 w-3/4 mb-2 flex-shrink-0" />
+      <Skeleton className="h-4 w-1/2 mb-2 flex-shrink-0" />
+      <Skeleton className="h-4 w-full mb-3 flex-shrink-0" />
+      <Skeleton className="h-4 w-2/3 mb-4 flex-shrink-0" />
+      <div className="flex flex-wrap gap-2 mb-6 flex-shrink-0 min-h-[30px]">
         <Skeleton className="h-6 w-16 rounded-full" />
         <Skeleton className="h-6 w-16 rounded-full" />
         <Skeleton className="h-6 w-16 rounded-full" />
       </div>
-      <Skeleton className="h-10 w-full rounded-lg mt-auto" />
+      <div className="mt-auto flex-shrink-0">
+        <Skeleton className="h-10 w-full rounded-lg" />
+      </div>
     </div>
   );
 }
 
 function JobCard({ job, index }: { job: Job; index: number }) {
   const skills = job.skills?.slice(0, 3) || ['React', 'TypeScript', 'Node.js'];
-  const salary = job.salaryMin && job.salaryMax 
-    ? `$${job.salaryMin}k - $${job.salaryMax}k` 
+  const salary = job.salaryMin && job.salaryMax
+    ? `$${job.salaryMin}k - $${job.salaryMax}k`
     : 'Competitive';
   const jobType = job.jobType || 'Full-time';
 
@@ -44,9 +46,9 @@ function JobCard({ job, index }: { job: Job; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
       viewport={{ once: true }}
-      className="h-[300px] rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 flex flex-col hover:shadow-lg hover:border-[#EB4C4C]/30 transition-all duration-300 group"
+      className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 flex flex-col h-full"
     >
-      <div className="flex justify-between items-start mb-4">
+      <div className="flex justify-between items-start mb-4 flex-shrink-0">
         <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-[#EB4C4C]/10 to-[#FF7070]/10 flex items-center justify-center border border-gray-200 dark:border-gray-700">
           {job.company?.logo ? (
             <img src={job.company.logo} alt={job.company.name} className="w-10 h-10 rounded-lg object-cover" />
@@ -59,20 +61,20 @@ function JobCard({ job, index }: { job: Job; index: number }) {
         </span>
       </div>
 
-      <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-1">{job.title}</h4>
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 font-medium">{job.company?.name || 'Company Name'}</p>
-      
-      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-3">
+      <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-1 flex-shrink-0">{job.title}</h4>
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 font-medium flex-shrink-0">{job.company?.name || 'Company Name'}</p>
+
+      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-3 flex-shrink-0">
         <MapPin size={14} />
         <span>{job.district || job.location || 'Location'}</span>
       </div>
-      
-      <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300 font-semibold mb-4">
+
+      <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300 font-semibold mb-4 flex-shrink-0">
         <DollarSign size={14} className="text-green-500" />
         <span>{salary}</span>
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-4">
+      <div className="flex flex-wrap gap-2 mb-6 flex-shrink-0 min-h-[30px]">
         {skills.map((skill, i) => (
           <span key={i} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded-full">
             {skill}
@@ -80,7 +82,7 @@ function JobCard({ job, index }: { job: Job; index: number }) {
         ))}
       </div>
 
-      <Link href={`/jobs/${job.id}`} className="mt-auto">
+      <Link href={`/jobs/${job.id}`} className="mt-auto flex-shrink-0">
         <Button className="w-full h-10 bg-[#EB4C4C] hover:bg-[#d43f3f] text-white font-bold rounded-lg text-sm transition-all hover:shadow-lg hover:shadow-[#EB4C4C]/20">
           Apply Now
         </Button>
@@ -145,7 +147,9 @@ export default function FeaturedJobs() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {jobs.slice(0, 8).map((job, index) => (
-            <JobCard key={job.id} job={job} index={index} />
+            <div key={job.id} className="flex h-full">
+              <JobCard job={job} index={index} />
+            </div>
           ))}
         </div>
       </div>
