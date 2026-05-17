@@ -21,7 +21,7 @@ import { motion } from 'framer-motion';
 import { User, Mail, Lock, UserPlus } from 'lucide-react';
 import { FaGoogle } from "react-icons/fa";
 import { toast } from 'sonner';
-import { BASE_URL } from '@/lib/config';
+import { GOOGLE_AUTH_URL } from '@/lib/config';
 import { useAuthStore } from '@/store/useAuthStore';
 
 export const dynamic = 'force-dynamic';
@@ -95,7 +95,7 @@ export default function RegisterPage() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `${BASE_URL}/auth/google`;
+    window.location.href = GOOGLE_AUTH_URL;
   };
 
   return (

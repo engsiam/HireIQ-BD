@@ -83,7 +83,9 @@ router.post('/login', validateRequest(loginValidation), catchAsync(login));
  *         description: Redirect to Google
  */
 router.get('/google', (req, res) => {
-  const clientUrl = env.CLIENT_URL || 'http://localhost:3000';
+  const clientUrl = isProduction
+    ? 'https://hire-iq-bd.vercel.app'
+    : (env.CLIENT_URL || 'http://localhost:3000');
   const googleClientId = env.GOOGLE_CLIENT_ID;
 
   if (!googleClientId) {
@@ -91,7 +93,12 @@ router.get('/google', (req, res) => {
   }
 
   // Must match exactly one "Authorized redirect URI" in Google Cloud Console
-  const redirectUri = `${getServerUrl()}/api/v1/auth/google/callback`;
+  const isProduction = process.env.NODE_ENV === 'production';
+  const serverBase = isProduction
+    ? 'https://hireiq-bd.onrender.com'
+    : getServerUrl();
+
+  const redirectUri = `${serverBase}/api/v1/auth/google/callback`;
   const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${googleClientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid%20email%20profile&access_type=offline&prompt=consent`;
 
   res.redirect(googleAuthUrl);

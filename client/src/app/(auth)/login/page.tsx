@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuthStore } from '@/store/useAuthStore';
-import { BASE_URL } from '@/lib/config';
+import { BASE_URL, GOOGLE_AUTH_URL } from '@/lib/config';
 import { motion } from 'framer-motion';
 import { Mail, Lock, LogIn } from 'lucide-react';
 import { FaGoogle } from "react-icons/fa";
@@ -68,11 +68,7 @@ export default function LoginPage() {
 
   // Direct Google auth - bypass proxy
   const handleGoogleLogin = () => {
-    const isProduction = process.env.NODE_ENV === 'production';
-    const googleUrl = isProduction 
-      ? 'https://hireiq-bd.onrender.com/api/v1/auth/google'
-      : 'http://localhost:5000/api/v1/auth/google';
-    window.location.href = googleUrl;
+    window.location.href = GOOGLE_AUTH_URL;
   };
 
   return (

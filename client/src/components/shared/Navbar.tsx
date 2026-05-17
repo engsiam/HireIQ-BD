@@ -97,6 +97,12 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
+             <Link
+              href="/"
+              className="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-[#EB4C4C] transition-colors"
+            >
+              Home
+            </Link>
             <Link
               href="/jobs"
               className="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-[#EB4C4C] transition-colors"

@@ -96,8 +96,9 @@ export default function FeaturedJobs() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axiosInstance.get('/jobs?isFeatured=true&limit=8&status=ACTIVE');
-        setJobs(response.data.data?.jobs || response.data.data || []);
+        const response = await axiosInstance.get('/jobs?isFeatured=true&limit=8&status=OPEN');
+        const jobsData = response.data.data?.jobs || response.data.data || [];
+        setJobs(jobsData);
       } catch (error) {
         console.error('Error fetching featured jobs:', error);
       } finally {

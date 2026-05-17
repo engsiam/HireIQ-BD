@@ -123,7 +123,9 @@ export const googleAuth = async (req: AuthRequest, res: Response) => {
     throw new ApiError(400, 'Authorization code is required');
   }
 
-  const clientBase = env.CLIENT_URL || 'http://localhost:3000';
+  const clientBase = env.NODE_ENV === 'production'
+    ? (env.CLIENT_URL?.includes('localhost') ? 'https://hire-iq-bd.vercel.app' : env.CLIENT_URL)
+    : (env.CLIENT_URL || 'http://localhost:3000');
   // Must match the redirect_uri sent to Google in /auth/google (and Google Cloud Console)
   const redirectUri = `${getServerUrl()}/api/v1/auth/google/callback`;
 
