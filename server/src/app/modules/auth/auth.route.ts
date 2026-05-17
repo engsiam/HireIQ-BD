@@ -83,6 +83,7 @@ router.post('/login', validateRequest(loginValidation), catchAsync(login));
  *         description: Redirect to Google
  */
 router.get('/google', (req, res) => {
+  const isProduction = process.env.NODE_ENV === 'production';
   const clientUrl = isProduction
     ? 'https://hire-iq-bd.vercel.app'
     : (env.CLIENT_URL || 'http://localhost:3000');
@@ -93,7 +94,6 @@ router.get('/google', (req, res) => {
   }
 
   // Must match exactly one "Authorized redirect URI" in Google Cloud Console
-  const isProduction = process.env.NODE_ENV === 'production';
   const serverBase = isProduction
     ? 'https://hireiq-bd.onrender.com'
     : getServerUrl();
