@@ -71,6 +71,40 @@ export const getJobs = async (req: AuthRequest, res: Response) => {
     statusCode: 200,
     success: true,
     message: 'Jobs retrieved successfully',
+data: jobs,
+    meta: {
+      total,
+      page: Number(page),
+      limit: Number(limit),
+      totalPages: Math.ceil(total / Number(limit)),
+    },
+  });
+};
+
+export const getJobsByCompany = async (req: AuthRequest, res: Response) => {
+  const { companyId } = req.params;
+  const { page = 1, limit = 10 } = req.query as Record<string, string>;
+
+  const skip = (Number(page) - 1) * Number(limit);
+
+  const [jobs, total] = await Promise.all([
+    prisma.job.findMany({
+      where: { companyId, status: 'OPEN' },
+      skip,
+      take: Number(limit),
+      orderBy: { createdAt: 'desc' },
+      include: {
+        employer: { select: { id: true, name: true, avatar: true } },
+        _count: { select: { applications: true } },
+      },
+    }),
+    prisma.job.count({ where: { companyId, status: 'OPEN' } }),
+  ]);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Jobs retrieved successfully',
     data: jobs,
     meta: {
       total,

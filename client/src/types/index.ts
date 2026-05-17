@@ -25,9 +25,16 @@ export interface Company {
   industry?: string;
   size?: string;
   location?: string;
+  district?: string;
   foundedYear?: number;
   employerId: string;
   createdAt: string;
+  _count?: { jobs: number };
+  jobs?: Array<{
+    id: string;
+    title: string;
+    _count?: { applications: number };
+  }>;
 }
 
 export type JobType = 'FULL_TIME' | 'PART_TIME' | 'REMOTE' | 'CONTRACT' | 'INTERNSHIP';

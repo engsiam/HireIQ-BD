@@ -86,7 +86,13 @@ function CompanyCard({ company, index }: { company: Company; index: number }) {
             {company.size && (
               <span className="flex items-center gap-1">
                 <Users className="w-4 h-4" />
-                {company.size} employees
+                {company.size}
+              </span>
+            )}
+            {company._count?.jobs !== undefined && company._count.jobs > 0 && (
+              <span className="flex items-center gap-1 text-[#EB4C4C] font-medium">
+                <Briefcase className="w-4 h-4" />
+                {company._count.jobs} open job{company._count.jobs > 1 ? 's' : ''}
               </span>
             )}
           </div>

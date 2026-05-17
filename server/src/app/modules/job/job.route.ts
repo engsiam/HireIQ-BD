@@ -10,6 +10,7 @@ import {
   deleteJob,
   incrementJobViews,
   getMyJobs,
+  getJobsByCompany,
 } from './job.controller';
 import { createJobValidation, updateJobValidation } from './job.validation';
 
@@ -90,6 +91,8 @@ router.get('/', catchAsync(getJobs));
  *         description: My jobs list
  */
 router.get('/my', authGuard('EMPLOYER', 'ADMIN'), catchAsync(getMyJobs));
+
+router.get('/company/:companyId', catchAsync(getJobsByCompany));
 
 /**
  * @swagger

@@ -53,6 +53,7 @@ model User {
   reviews          Review[]
   savedJobs        String[]
   blogs            Blog[]
+  companies        Company[]
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
 }
@@ -78,6 +79,8 @@ model Job {
   companyName      String
   companyLogo      String?
   companyWebsite   String?
+  companyId        String?       @db.ObjectId
+  company          Company?      @relation(fields: [companyId], references: [id])
   employerId       String        @db.ObjectId
   employer         User          @relation(fields: [employerId], references: [id])
   applications     Application[]
@@ -140,4 +143,24 @@ model Contact {
   repliedAt DateTime?
   isRead    Boolean   @default(false)
   createdAt DateTime  @default(now())
+}
+
+model Company {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  logo         String?
+  website      String?
+  description  String?
+  industry     String?
+  size         String?
+  location     String?
+  district     String?
+  foundedYear  Int?
+  employerId   String   @db.ObjectId
+  employer     User     @relation(fields: [employerId], references: [id])
+  jobs         Job[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([employerId])
 }

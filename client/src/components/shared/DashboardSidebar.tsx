@@ -75,12 +75,15 @@ export default function DashboardSidebar({ role = 'JOBSEEKER', onLogout }: { rol
 
   /* ── Logo block ── */
   const LogoBlock = ({ size = 'md' }: { size?: 'sm' | 'md' }) => (
-    <Link href="/" className="flex items-center gap-2.5 group">
-      <div className="flex flex-col leading-none">
-        <span className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold tracking-tighter text-foreground`}>
+    <Link href="/" className="flex items-center gap-2 group">
+      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#EB4C4C] to-[#FF7070] flex items-center justify-center flex-shrink-0">
+        <span className="text-white font-black text-sm sm:text-base">H</span>
+      </div>
+      <div className="flex flex-col leading-none overflow-hidden">
+        <span className="font-bold tracking-tighter text-foreground truncate max-w-[120px] sm:max-w-none">
           Hire<span className="text-[#EB4C4C]">IQ</span> BD
         </span>
-        <span className="text-[10px] font-medium text-muted-foreground">AI-Powered Jobs</span>
+        <span className="text-[9px] sm:text-[10px] font-medium text-muted-foreground hidden sm:block">AI-Powered Jobs</span>
       </div>
     </Link>
   );
